@@ -39,7 +39,7 @@ const Register: FC = () => {
     <div className={classes.Container}>
       <div className={classes.Header}>
         <img src={companyLogo} alt="Company logo" />
-        <h2>Sign in to your account</h2>
+        <h2>Create your account</h2>
         <p>Seat reservation system</p>
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
