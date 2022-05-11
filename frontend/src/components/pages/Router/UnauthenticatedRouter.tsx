@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { routes } from '../../../routes';
 import Home from '../Home/Home';
 import PageNotFound from '../PageNotFound/PageNotFound';
 
-export const UnauthenticatedRouter = () => {
+export const UnauthenticatedRouter: FC = () => {
   return (
     <Routes>
       <Route path={routes.HOME} element={<Home />} />
