@@ -5,6 +5,7 @@ import Button from '../../ui/Button/Button';
 import { Link } from 'react-router-dom';
 import Input from '../../ui/Input/Input';
 import { useForm } from 'react-hook-form';
+import { routes } from '../../../routes';
 
 interface LoginFormData {
   email: string;
@@ -33,6 +34,7 @@ const Login: FC = () => {
       <div className={classes.Header}>
         <img src={companyLogo} alt="Company logo" />
         <h2>Sign in to your account</h2>
+        <p>Seat reservation system</p>
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Input
@@ -50,7 +52,7 @@ const Login: FC = () => {
         />
         <div className={classes.Actions}>
           <div>
-            <Link to={''}>Create new account</Link>
+            <Link to={routes.REGISTER}>Create new account</Link>
           </div>
           <div>
             <Link to={''}>Forgot your password?</Link>

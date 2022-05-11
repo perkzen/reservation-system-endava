@@ -6,8 +6,13 @@
     img {
       @apply mx-auto h-12 w-auto;
     }
+
     h2 {
       @apply mt-6 text-center text-3xl font-extrabold text-gray-900;
+    }
+
+    p {
+      @apply mx-auto text-accent text-center;
     }
   }
 
@@ -20,7 +25,7 @@
     div {
       @apply text-sm;
 
-      a{
+      a {
         @apply font-medium text-textLight;
       }
     }
