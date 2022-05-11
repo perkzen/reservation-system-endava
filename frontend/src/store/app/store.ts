@@ -1,11 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
-import officeReducer from '../features/officeSlice';
+import globalReducer from '../features/globalSlice';
 
 const sagaMiddleware = createSagaMiddleware();
 export const store = configureStore({
   reducer: {
-    office: officeReducer,
+    global: globalReducer,
   },
   middleware: (defaultMiddleware) => [
     ...defaultMiddleware({ thunk: false, serializableCheck: false }),
