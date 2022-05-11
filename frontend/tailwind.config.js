@@ -6,8 +6,9 @@ module.exports = {
         primary: '#31363B',
         secondary: '#EEEEEE',
         accent: '#DE411B',
+        textLight: '#808080',
       },
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/forms')],
 };

@@ -1,5 +1,5 @@
 export enum routes {
-  LOGIN = '/login',
-  HOME = '/',
+  LOGIN = '/',
+  HOME = '/home',
   PAGE_NOT_FOUND = '/404',
 }
