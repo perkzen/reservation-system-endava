@@ -66,12 +66,14 @@ const Register: FC = () => {
         <Input
           {...register('password')}
           placeholder={t('password')}
+          type={'password'}
           className={'mt-1'}
           errors={errors.password}
         />
         <Input
           {...register('confirmPassword')}
           placeholder={t('confirm_password')}
+          type={'password'}
           className={'mt-1'}
           errors={errors.confirmPassword}
         />

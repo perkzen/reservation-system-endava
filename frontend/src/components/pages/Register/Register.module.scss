@@ -1,5 +1,5 @@
 .Container {
-  @apply min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8;
+  @apply min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8 mt-12;
 
   .Header {
     @apply sm:mx-auto sm:w-full sm:max-w-md;
@@ -12,11 +12,17 @@
     }
 
     p {
-      @apply mx-auto text-accent text-center;
+      @apply mx-auto text-accent text-center text-sm;
     }
   }
 
   form {
     @apply space-y-6 mt-2 sm:mx-auto sm:w-full sm:max-w-md bg-white py-8 px-4  sm:rounded-lg sm:px-10;
+    input {
+      @apply focus:border-graySecondary;
+    }
+    button {
+      @apply hover:bg-graySecondary;
+    }
   }
 }

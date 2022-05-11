@@ -7,6 +7,7 @@ module.exports = {
         secondary: '#EEEEEE',
         accent: '#DE411B',
         textLight: '#808080',
+        graySecondary: '#36454F',
       },
     },
   },
