@@ -1,0 +1,13 @@
+{
+  "seat_reservation_system": "Seat reservation system",
+  "sign_in_your_account": "Sign in to your account",
+  "email": "Email",
+  "firstname": "Firstname",
+  "surname": "Surname",
+  "password": "Password",
+  "confirm_password": "Confirm password",
+  "create_account": "Create new account",
+  "forgot_password": "Forgot your password?",
+  "sign_up": "Sign up",
+  "sign_in": "Sign in"
+}

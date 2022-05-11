@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import Input from '../../ui/Input/Input';
 import { useForm } from 'react-hook-form';
 import { routes } from '../../../routes';
+import { useTranslation } from 'react-i18next';
 
 interface LoginFormData {
   email: string;
@@ -18,6 +19,7 @@ const defaultValues: LoginFormData = {
 };
 
 const Login: FC = () => {
+  const { t } = useTranslation();
   const { register, formState, handleSubmit } = useForm<LoginFormData>({
     defaultValues,
     mode: 'onSubmit',
@@ -33,32 +35,32 @@ const Login: FC = () => {
     <div className={classes.Container}>
       <div className={classes.Header}>
         <img src={companyLogo} alt="Company logo" />
-        <h2>Sign in to your account</h2>
-        <p>Seat reservation system</p>
+        <h2>{t('sign_in_your_account')}</h2>
+        <p>{t('seat_reservation_system')}</p>
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Input
           {...register('email')}
-          placeholder={'Email'}
+          placeholder={t('email')}
           className={'mt-1'}
           errors={errors.email}
         />
         <Input
           {...register('password')}
-          placeholder={'Password'}
+          placeholder={t('password')}
           type={'password'}
           className={'mt-1'}
           errors={errors.password}
         />
         <div className={classes.Actions}>
           <div>
-            <Link to={routes.REGISTER}>Create new account</Link>
+            <Link to={routes.REGISTER}>{t('create_account')}</Link>
           </div>
           <div>
-            <Link to={''}>Forgot your password?</Link>
+            <Link to={''}>{t('forgot_password')}</Link>
           </div>
         </div>
-        <Button>Sign in</Button>
+        <Button>{t('sign_in')}</Button>
       </form>
     </div>
   );

@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import companyLogo from '../../../assets/endava-logo.png';
 import Input from '../../ui/Input/Input';
 import Button from '../../ui/Button/Button';
+import { useTranslation } from 'react-i18next';
 
 interface RegisterFormData {
   firstname: string;
@@ -24,6 +25,7 @@ const defaultValues: RegisterFormData = {
 };
 
 const Register: FC = () => {
+  const { t } = useTranslation();
   const { register, formState, handleSubmit } = useForm<RegisterFormData>({
     defaultValues,
     mode: 'onSubmit',
@@ -39,41 +41,41 @@ const Register: FC = () => {
     <div className={classes.Container}>
       <div className={classes.Header}>
         <img src={companyLogo} alt="Company logo" />
-        <h2>Create your account</h2>
-        <p>Seat reservation system</p>
+        <h2>{t('create_account')}</h2>
+        <p>{t('seat_reservation_system')}</p>
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Input
           {...register('firstname')}
-          placeholder={'Firstname'}
+          placeholder={t('firstname')}
           className={'mt-1'}
           errors={errors.firstname}
         />
         <Input
           {...register('surname')}
-          placeholder={'Surname'}
+          placeholder={t('surname')}
           className={'mt-1'}
           errors={errors.surname}
         />
         <Input
           {...register('email')}
-          placeholder={'Email'}
+          placeholder={t('email')}
           className={'mt-1'}
           errors={errors.email}
         />
         <Input
           {...register('password')}
-          placeholder={'Password'}
+          placeholder={t('password')}
           className={'mt-1'}
           errors={errors.password}
         />
         <Input
           {...register('confirmPassword')}
-          placeholder={'Confirm password'}
+          placeholder={t('confirm_password')}
           className={'mt-1'}
           errors={errors.confirmPassword}
         />
-        <Button>Sign up</Button>
+        <Button>{t('sign_up')}</Button>
       </form>
     </div>
   );
