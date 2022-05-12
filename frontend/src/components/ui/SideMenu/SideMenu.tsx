@@ -1,26 +1,8 @@
 import React, { FC, Fragment, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import {
-  CalendarIcon,
-  ChartBarIcon,
-  FolderIcon,
-  HomeIcon,
-  InboxIcon,
-  MenuAlt2Icon,
-  UsersIcon,
-  XIcon,
-} from '@heroicons/react/outline';
-import { classNames } from '../../../utils/classNames';
+import { MenuAlt2Icon, XIcon } from '@heroicons/react/outline';
 import Logo from './Logo/Logo';
-
-const navigation = [
-  { name: 'Dashboard', href: '#', icon: HomeIcon, current: true },
-  { name: 'Team', href: '#', icon: UsersIcon, current: false },
-  { name: 'Projects', href: '#', icon: FolderIcon, current: false },
-  { name: 'Calendar', href: '#', icon: CalendarIcon, current: false },
-  { name: 'Documents', href: '#', icon: InboxIcon, current: false },
-  { name: 'Reports', href: '#', icon: ChartBarIcon, current: false },
-];
+import Navigation from './Navigation/Navigation';
 
 const SideMenu: FC = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -83,31 +65,7 @@ const SideMenu: FC = () => {
                     <Logo />
                   </div>
                   <div className="mt-5 flex-1 h-0 overflow-y-auto">
-                    <nav className="px-2 space-y-1">
-                      {navigation.map((item) => (
-                        <a
-                          key={item.name}
-                          href={item.href}
-                          className={classNames(
-                            item.current
-                              ? 'bg-gray-900 text-white'
-                              : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                            'group flex items-center px-2 py-2 text-base font-medium rounded-md'
-                          )}
-                        >
-                          <item.icon
-                            className={classNames(
-                              item.current
-                                ? 'text-gray-300'
-                                : 'text-gray-400 group-hover:text-gray-300',
-                              'mr-4 flex-shrink-0 h-6 w-6'
-                            )}
-                            aria-hidden="true"
-                          />
-                          {item.name}
-                        </a>
-                      ))}
-                    </nav>
+                    <Navigation />
                   </div>
                 </Dialog.Panel>
               </Transition.Child>
@@ -126,31 +84,7 @@ const SideMenu: FC = () => {
               <Logo />
             </div>
             <div className="flex-1 flex flex-col overflow-y-auto">
-              <nav className="flex-1 px-2 py-4 space-y-1">
-                {navigation.map((item) => (
-                  <a
-                    key={item.name}
-                    href={item.href}
-                    className={classNames(
-                      item.current
-                        ? 'bg-gray-900 text-white'
-                        : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                      'group flex items-center px-2 py-2 text-sm font-medium rounded-md'
-                    )}
-                  >
-                    <item.icon
-                      className={classNames(
-                        item.current
-                          ? 'text-gray-300'
-                          : 'text-gray-400 group-hover:text-gray-300',
-                        'mr-3 flex-shrink-0 h-6 w-6'
-                      )}
-                      aria-hidden="true"
-                    />
-                    {item.name}
-                  </a>
-                ))}
-              </nav>
+              <Navigation />
             </div>
           </div>
         </div>
