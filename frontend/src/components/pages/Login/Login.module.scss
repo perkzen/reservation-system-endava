@@ -6,6 +6,7 @@
     img {
       @apply mx-auto h-12 w-auto;
     }
+
     h2 {
       @apply mt-6 text-center text-3xl font-extrabold text-gray-900;
     }
@@ -20,9 +21,17 @@
     input {
       @apply focus:border-graySecondary;
     }
+
     button {
       @apply hover:bg-graySecondary;
     }
+  }
+
+  .ErrorContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
   }
 
   .Actions {
