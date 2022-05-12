@@ -1,0 +1,30 @@
+.Container {
+  @apply flex-shrink-0 flex bg-gray-700 p-4 flex flex-col;
+
+  button {
+    @apply w-full;
+  }
+
+  .Link {
+    @apply flex-shrink-0 w-full block;
+  }
+
+  .Flex {
+    @apply flex items-center;
+    div {
+      @apply ml-3;
+
+      p:first-child {
+        @apply text-sm font-medium text-white;
+      }
+
+      p:nth-child(2) {
+        @apply text-xs font-medium text-gray-300 group-hover:text-gray-200;
+      }
+    }
+  }
+
+  img {
+    @apply inline-block h-9 w-9 rounded-full;
+  }
+}
