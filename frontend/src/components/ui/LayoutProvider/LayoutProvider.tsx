@@ -9,7 +9,7 @@ interface LayoutProps {
 const LayoutProvider: FC<LayoutProps> = ({ children }) => {
   return (
     <div className={classes.Container}>
-      <SideMenu />
+      {/*<SideMenu />*/}
       <main>{children}</main>
     </div>
   );
