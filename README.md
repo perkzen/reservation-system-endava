@@ -36,7 +36,7 @@ cd frontend
 npm dev
 
 cd backbend
-npm dev
+npm run start
 ```
 If everything works correctly you should get these two outputs in your terminal windows.
 For frontend:
