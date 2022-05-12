@@ -1,9 +1,8 @@
 import React, { FC } from 'react';
 import classes from './ErrorMessage.module.scss';
-import { Errors } from '../../../constants/errorConstants';
 
 interface ErrorMessageProps {
-  error?: Errors;
+  error: string;
 }
 
 const ErrorMessage: FC<ErrorMessageProps> = ({ error }) => {

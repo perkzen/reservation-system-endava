@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useState } from 'react';
 import classes from './Register.module.scss';
 import { useForm } from 'react-hook-form';
 import companyLogo from '../../../assets/endava-logo.png';
@@ -6,8 +6,11 @@ import Input from '../../ui/Input/Input';
 import Button from '../../ui/Button/Button';
 import { useTranslation } from 'react-i18next';
 import ErrorMessage from '../../ui/ErrorMessage/ErrorMessage';
-import { Errors } from '../../../constants/errorConstants';
+import { Errors, FirebaseErrors } from '../../../constants/errorConstants';
 import { requiredField } from '../../../constants/requiredField';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../../../firebase-config';
+import firebase from 'firebase/compat';
 
 interface RegisterFormData {
   email: string;
@@ -22,7 +25,7 @@ const defaultValues: RegisterFormData = {
 };
 
 const Register: FC = () => {
-  const [error, setError] = useState<Errors>();
+  const [error, setError] = useState('');
   const { t } = useTranslation();
   const { register, formState, handleSubmit } = useForm<RegisterFormData>({
     defaultValues,
@@ -31,20 +34,35 @@ const Register: FC = () => {
 
   const { errors } = formState;
 
-  useEffect(() => {
-    return () => {
-      setError(undefined);
-    };
-  });
+  const onSubmit = async (data: RegisterFormData) => {
+    setError('');
 
-  const onSubmit = (data: RegisterFormData) => {
     if (data.password !== data.confirmPassword) {
       setError(Errors.PASSWORDS_DONT_MATCH);
       return;
     }
 
-    setError(undefined);
-    console.log(data);
+    try {
+      await createUserWithEmailAndPassword(auth, data.email, data.password);
+    } catch (e) {
+      const error = e as firebase.auth.Error;
+
+      if (error.message === FirebaseErrors.SHORT_PASSWORD) {
+        setError(Errors.SHORT_PASSWORD);
+        return;
+      }
+      if (error.message === FirebaseErrors.EMAIL_TAKE) {
+        setError(Errors.EMAIL_TAKE);
+        return;
+      }
+
+      if (error.message === FirebaseErrors.INVALID_MAIL) {
+        setError(Errors.INVALID_EMAIL);
+        return;
+      }
+
+      setError(Errors.UNKNOWN_ERROR);
+    }
   };
 
   return (
