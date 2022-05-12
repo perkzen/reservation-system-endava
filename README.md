@@ -35,7 +35,7 @@ To start the application you need to run the frontend and backend server with th
 cd frontend
 npm dev
 
-cd backbend
+cd backend
 npm run start
 ```
 If everything works correctly you should get these two outputs in your terminal windows.
