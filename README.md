@@ -28,7 +28,7 @@ REACT_APP_FIREBASE_MEASUREMENT_ID=*
 ```
 After that create a .env file in the backend folder, it should look something like this.
 ```
- DATABASE_URI=mongodb://admin:admin@localhost:27017
+ DATABASE_URI=mongodb://<username>:<password>@localhost:27017
 ```
 To start the application you need to run the frontend and backend server with the following commands.
 ```
@@ -38,17 +38,7 @@ npm dev
 cd backend
 npm run start
 ```
-If everything works correctly you should get these two outputs in your terminal windows.
-For frontend:
-```
-ready - started server on 0.0.0.0:3000, url: http://localhost:3000
-event - compiled client and server successfully in 553 ms (307 modules)
-```
-For backend:
-```
-Server is running on port 8000
-MongoDB database connection established successfully
-```
+
 ## Project details
 NodeJS version: 17.7.2 <br/>
 ReactJS version: 18.1.0 <br/>
