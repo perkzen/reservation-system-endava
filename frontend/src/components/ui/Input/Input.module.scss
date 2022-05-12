@@ -1,3 +1,16 @@
 .Container {
-  @apply appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm;
+
+  input {
+    @apply appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm;
+
+  }
+
+  small {
+    @apply mt-2 text-accent;
+  }
+
+  .InputError {
+    @apply block w-full pr-10 border-accent text-accent placeholder-accent focus:outline-none focus:ring-accent focus:border-accent sm:text-sm rounded-md;
+    @apply outline outline-1 outline-accent;
+  }
 }

@@ -1,30 +1,31 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import classes from './Register.module.scss';
 import { useForm } from 'react-hook-form';
 import companyLogo from '../../../assets/endava-logo.png';
 import Input from '../../ui/Input/Input';
 import Button from '../../ui/Button/Button';
 import { useTranslation } from 'react-i18next';
+import ErrorMessage from '../../ui/ErrorMessage/ErrorMessage';
+import { Errors, FirebaseErrors } from '../../../constants/errorConstants';
+import { requiredField } from '../../../constants/requiredField';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../../../firebase-config';
+import firebase from 'firebase/compat';
 
 interface RegisterFormData {
-  firstname: string;
-  surname: string;
   email: string;
   password: string;
   confirmPassword: string;
-  office: string;
 }
 
 const defaultValues: RegisterFormData = {
-  firstname: '',
-  surname: '',
   email: '',
   password: '',
   confirmPassword: '',
-  office: '',
 };
 
 const Register: FC = () => {
+  const [error, setError] = useState('');
   const { t } = useTranslation();
   const { register, formState, handleSubmit } = useForm<RegisterFormData>({
     defaultValues,
@@ -33,8 +34,35 @@ const Register: FC = () => {
 
   const { errors } = formState;
 
-  const onSubmit = (data: RegisterFormData) => {
-    console.log(data);
+  const onSubmit = async (data: RegisterFormData) => {
+    setError('');
+
+    if (data.password !== data.confirmPassword) {
+      setError(Errors.PASSWORDS_DONT_MATCH);
+      return;
+    }
+
+    try {
+      await createUserWithEmailAndPassword(auth, data.email, data.password);
+    } catch (e) {
+      const error = e as firebase.auth.Error;
+
+      if (error.message === FirebaseErrors.SHORT_PASSWORD) {
+        setError(Errors.SHORT_PASSWORD);
+        return;
+      }
+      if (error.message === FirebaseErrors.EMAIL_TAKE) {
+        setError(Errors.EMAIL_TAKE);
+        return;
+      }
+
+      if (error.message === FirebaseErrors.INVALID_MAIL) {
+        setError(Errors.INVALID_EMAIL);
+        return;
+      }
+
+      setError(Errors.UNKNOWN_ERROR);
+    }
   };
 
   return (
@@ -45,37 +73,28 @@ const Register: FC = () => {
         <p>{t('seat_reservation_system')}</p>
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
+        <div className={classes.ErrorContainer}>
+          <ErrorMessage error={error} />
+        </div>
         <Input
-          {...register('firstname')}
-          placeholder={t('firstname')}
-          className={'mt-1'}
-          errors={errors.firstname}
-        />
-        <Input
-          {...register('surname')}
-          placeholder={t('surname')}
-          className={'mt-1'}
-          errors={errors.surname}
-        />
-        <Input
-          {...register('email')}
+          {...register('email', requiredField)}
           placeholder={t('email')}
           className={'mt-1'}
-          errors={errors.email}
+          error={errors.email}
         />
         <Input
-          {...register('password')}
+          {...register('password', requiredField)}
           placeholder={t('password')}
           type={'password'}
           className={'mt-1'}
-          errors={errors.password}
+          error={errors.password}
         />
         <Input
-          {...register('confirmPassword')}
+          {...register('confirmPassword', requiredField)}
           placeholder={t('confirm_password')}
           type={'password'}
           className={'mt-1'}
-          errors={errors.confirmPassword}
+          error={errors.confirmPassword}
         />
         <Button>{t('sign_up')}</Button>
       </form>
