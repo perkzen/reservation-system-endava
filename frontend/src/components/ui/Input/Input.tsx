@@ -4,18 +4,21 @@ import classes from './Input.module.scss';
 import { classNames } from '../../../utils/classNames';
 
 interface InputProps extends HTMLProps<HTMLInputElement> {
-  errors?: FieldError;
+  error?: FieldError;
   className?: string;
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ errors, className = '', ...props }, ref) => {
+  ({ error, className = '', ...props }, ref) => {
     return (
-      <input
-        {...props}
-        ref={ref}
-        className={classNames(className, classes.Container)}
-      />
+      <div className={classes.Container}>
+        <input
+          {...props}
+          ref={ref}
+          className={classNames(className, error ? classes.InputError : '')}
+        />
+        {error && <small>{error.message}</small>}
+      </div>
     );
   }
 );

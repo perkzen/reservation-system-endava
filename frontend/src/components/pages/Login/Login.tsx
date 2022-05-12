@@ -43,14 +43,14 @@ const Login: FC = () => {
           {...register('email')}
           placeholder={t('email')}
           className={'mt-1'}
-          errors={errors.email}
+          error={errors.email}
         />
         <Input
           {...register('password')}
           placeholder={t('password')}
           type={'password'}
           className={'mt-1'}
-          errors={errors.password}
+          error={errors.password}
         />
         <div className={classes.Actions}>
           <div>
