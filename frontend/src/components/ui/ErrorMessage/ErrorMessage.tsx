@@ -1,12 +1,13 @@
 import React, { FC } from 'react';
 import classes from './ErrorMessage.module.scss';
+import { Errors } from '../../../constants/errorConstants';
 
 interface ErrorMessageProps {
-  message: string;
+  error?: Errors;
 }
 
-const ErrorMessage: FC<ErrorMessageProps> = ({ message }) => {
-  return <div className={classes.Container}>{message}</div>;
+const ErrorMessage: FC<ErrorMessageProps> = ({ error }) => {
+  return <div className={classes.Container}>{error}</div>;
 };
 
 export default ErrorMessage;
