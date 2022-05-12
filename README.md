@@ -18,13 +18,13 @@ After that create a .env file in the frontend folder, it should look something l
 ```
 REACT_APP_BE_BASE_URL=http://localhost:8000/api/
 REACT_APP_API_VERSION=v1
-REACT_APP_FIREBASE_API_KEY=*
+REACT_APP_FIREBASE_API_KEY=<api-key>
 REACT_APP_FIREBASE_AUTH_DOMAIN=reservation-system-endava.firebaseapp.com
 REACT_APP_FIREBASE_PROJECT_ID=reservation-system-endava
 REACT_APP_FIREBASE_STORAGE_BUCKET=reservation-system-endava.appspot.com
-REACT_APP_FIREBASE_MESSAGING_SENDER_ID=*
-REACT_APP_FIREBASE_APP_ID=*
-REACT_APP_FIREBASE_MEASUREMENT_ID=*
+REACT_APP_FIREBASE_MESSAGING_SENDER_ID=<messaging-sender-id>
+REACT_APP_FIREBASE_APP_ID=<firebase-app-id>
+REACT_APP_FIREBASE_MEASUREMENT_ID=<measurement-id>
 ```
 After that create a .env file in the backend folder, it should look something like this.
 ```
