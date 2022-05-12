@@ -51,7 +51,6 @@ NestJS version: 8.0.0 <br/>
 - react-router
 - tailwindcss
 - typescript
-- classnames
 - react-hook-form
 - uuid
 - axios
