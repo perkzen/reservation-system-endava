@@ -1,0 +1,54 @@
+.Table {
+  margin: 1px;
+  width: 50px;
+  height: 100px;
+  position: relative;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+
+  div {
+    position: absolute;
+    width: 25px;
+    height: 40px;
+    left: 50px;
+    top: 30px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0 3px 3px 0;
+  }
+}
+
+.Left {
+  transform: rotate(180deg);
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px -1.95px 2.6px;
+  div {
+    box-shadow: rgba(0, 0, 0, 0.15) 3px -2px 3px 0px;
+  }
+}
+
+.Top {
+  transform: rotate(270deg);
+}
+
+.Bottom {
+  transform: rotate(90deg);
+}
+
+.Reserved {
+  background-color: #31363B;
+  div {
+    background-color: #232628;
+  }
+}
+
+.Reserved::after {
+  content: "X";
+  position: absolute;
+  color: #DE411B;
+  top: 35px;
+  left: 20px;
+}
+
+.Free {
+  background-color: #D1D5DB;
+  div {
+    background-color: #B9BDC1;
+  }
+}
