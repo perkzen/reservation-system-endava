@@ -40,7 +40,7 @@ const SideMenu: FC = () => {
                 leaveFrom="translate-x-0"
                 leaveTo="-translate-x-full"
               >
-                <Dialog.Panel className="relative flex-1 flex flex-col max-w-xs w-full pt-5 pb-4 bg-gray-800">
+                <Dialog.Panel className="relative flex-1 flex flex-col max-w-xs w-full pt-5 bg-primary">
                   <Transition.Child
                     as={Fragment}
                     enter="ease-in-out duration-300"
@@ -84,7 +84,7 @@ const SideMenu: FC = () => {
         <div className="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0">
           {/* Sidebar component, swap this element with another sidebar if you like */}
           <div className="flex-1 flex flex-col min-h-0 bg-primary">
-            <div className="flex items-center h-24 flex-shrink-0 px-4 bg-grayMenu">
+            <div className="flex items-center h-24 flex-shrink-0 px-4">
               <Logo />
             </div>
             <div className="flex-1 flex flex-col overflow-y-auto">
