@@ -1,0 +1,7 @@
+.Container {
+  @apply relative;
+
+  p {
+    @apply mt-3 p-3 text-xl sm:text-2xl font-semibold;
+  }
+}
