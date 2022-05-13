@@ -1,29 +1,28 @@
+.NavLinkContainer {
+  @apply flex-1 px-2 py-4 space-y-1;
 
-  .NavLinkContainer {
-    @apply flex-1 px-2 py-4 space-y-1;
-
-    .Link {
-      @apply flex items-center px-2 py-2 text-sm font-medium rounded-md;
-    }
-
-    .Active {
-      @apply bg-gray-900 text-white;
-    }
-
-    .NotActive {
-      @apply text-gray-300 hover:bg-gray-700 hover:text-white;
-    }
-
-    .TextActive {
-      @apply text-gray-300;
-    }
-
-    .TextNotActive {
-      @apply text-gray-400 group-hover:text-gray-300;
-    }
-
-    .Text {
-      @apply mr-3 h-6 w-6 flex-shrink-0;
-    }
+  .Link {
+    @apply flex items-center px-2 py-2 text-sm font-medium rounded-md;
   }
+
+  .Active {
+    @apply bg-gray-100 text-white bg-grayMenu;
+  }
+
+  .NotActive {
+    @apply text-gray-300 hover:bg-primary hover:text-white;
+  }
+
+  .TextActive {
+    @apply text-gray-300;
+  }
+
+  .TextNotActive {
+    @apply text-gray-400 group-hover:text-gray-300;
+  }
+
+  .Text {
+    @apply mr-3 h-6 w-6 flex-shrink-0;
+  }
+}
 

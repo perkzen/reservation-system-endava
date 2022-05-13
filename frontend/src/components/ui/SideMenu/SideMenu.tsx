@@ -85,7 +85,7 @@ const SideMenu: FC = () => {
           {/* Sidebar component, swap this element with another sidebar if you like */}
           <div className="flex-1 flex flex-col min-h-0 bg-primary">
             <div className="flex items-center h-24 flex-shrink-0 px-4">
-              <Logo />
+              <Logo className="w-3/4 m-auto" />
             </div>
             <div className="flex-1 flex flex-col overflow-y-auto">
               <Navigation />

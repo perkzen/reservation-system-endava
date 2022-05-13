@@ -10,7 +10,7 @@ interface LogoProps {
 const Logo: FC<LogoProps> = ({ className }) => {
   return (
     <Link to={routes.HOME} className={className}>
-      <img src={companyLogo} alt="Company Logo" />
+      <img src={companyLogo} alt="Company Logo" className="w-full h-auto" />
     </Link>
   );
 };
