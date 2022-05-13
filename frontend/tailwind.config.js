@@ -8,6 +8,7 @@ module.exports = {
         accent: '#DE411B',
         textLight: '#808080',
         graySecondary: '#36454F',
+        grayMenu: '#363E43',
       },
     },
   },

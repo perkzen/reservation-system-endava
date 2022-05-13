@@ -83,8 +83,8 @@ const SideMenu: FC = () => {
         {/* Static sidebar for desktop */}
         <div className="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0">
           {/* Sidebar component, swap this element with another sidebar if you like */}
-          <div className="flex-1 flex flex-col min-h-0 bg-gray-800">
-            <div className="flex items-center h-24 flex-shrink-0 px-4 bg-gray-900">
+          <div className="flex-1 flex flex-col min-h-0 bg-primary">
+            <div className="flex items-center h-24 flex-shrink-0 px-4 bg-grayMenu">
               <Logo />
             </div>
             <div className="flex-1 flex flex-col overflow-y-auto">
