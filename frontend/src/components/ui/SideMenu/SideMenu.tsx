@@ -4,9 +4,11 @@ import { MenuAlt2Icon, XIcon } from '@heroicons/react/outline';
 import Logo from './Logo/Logo';
 import Navigation from './Navigation/Navigation';
 import Profile from './Profile/Profile';
+import OfficeName from '../OfficeName/OfficeName';
 
 const SideMenu: FC = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  //selected item in menu aka. office must be displayed in OfficeName component
   return (
     <>
       <div>
@@ -101,6 +103,7 @@ const SideMenu: FC = () => {
               <span className="sr-only">Open sidebar</span>
               <MenuAlt2Icon className="h-6 w-6" aria-hidden="true" />
             </button>
+            <OfficeName officeName={'Office1'} />
           </div>
         </div>
       </div>
