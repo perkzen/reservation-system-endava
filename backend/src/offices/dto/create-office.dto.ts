@@ -5,6 +5,7 @@ import {
   IsPositive,
   IsString,
   MinLength,
+  ValidateNested,
 } from 'class-validator';
 import { WorkspaceDto } from './workspace.dto';
 import { Type } from 'class-transformer';
@@ -26,6 +27,7 @@ export class CreateOfficeDto {
   rows: number;
 
   @ApiProperty({ required: true })
+  @ValidateNested({ each: true })
   @IsArray()
   @Type(() => WorkspaceDto)
   workspaces: WorkspaceDto[];
