@@ -1,4 +1,4 @@
-import { User } from "../store/models/Auth";
+import { User } from '../store/models/User';
 
 const user_prefix = 'user';
 

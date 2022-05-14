@@ -1,13 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 import globalReducer from '../features/globalSlice';
-import authReducer from '../features/authSlice';
+import userReducer from '../features/userSlice';
 
 const sagaMiddleware = createSagaMiddleware();
 export const store = configureStore({
   reducer: {
     global: globalReducer,
-    auth: authReducer,
+    user: userReducer,
   },
   middleware: (defaultMiddleware) => [
     ...defaultMiddleware({ thunk: false, serializableCheck: false }),

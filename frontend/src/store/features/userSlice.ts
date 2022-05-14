@@ -1,4 +1,4 @@
-import { User } from '../models/Auth';
+import { User } from '../models/User';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface AuthState {
@@ -9,18 +9,18 @@ const initialState: AuthState = {
   user: null,
 };
 
-const authSlice = createSlice({
-  name: 'auth',
+const userSlice = createSlice({
+  name: 'user',
   initialState,
   reducers: {
-    login: (state, action: PayloadAction<User>) => {
+    setUser: (state, action: PayloadAction<User>) => {
       state.user = action.payload;
     },
-    logout: (state) => {
+    removeUser: (state) => {
       state.user = null;
     },
   },
 });
 
-export const { login, logout } = authSlice.actions;
-export default authSlice.reducer;
+export const { setUser, removeUser } = userSlice.actions;
+export default userSlice.reducer;
