@@ -4,7 +4,7 @@ export enum Errors {
   SHORT_PASSWORD = 'Password should be at least 6 characters long!',
   EMAIL_TAKE = 'Email is already taken!',
   INVALID_EMAIL = 'Invalid email!',
-  'WRONG_CREDENTIALS' = 'User with this email or password does not exist!',
+  WRONG_CREDENTIALS = 'User with this email or password does not exist!',
 }
 
 export enum FirebaseErrors {

@@ -17,7 +17,7 @@ export class UsersController {
   @ApiOkResponse({ description: 'Add details about user' })
   @ApiPreconditionFailedResponse({ description: 'User already exits' })
   @Post()
-  async userDetails(@Body() user: CreateUserDto) {
+  async createDetails(@Body() user: CreateUserDto) {
     return await this.usersService.createUserDetails(user);
   }
 
