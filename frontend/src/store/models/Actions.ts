@@ -1,12 +1,3 @@
-interface Action {
-  id?: string;
+export interface LoadingAction {
   actionType: string;
-}
-
-export interface LoadingAction extends Action {
-  loading: boolean;
-}
-
-export interface ErrorAction extends Action {
-  error: string;
 }
