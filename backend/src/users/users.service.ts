@@ -1,14 +1,15 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { UsersRepository } from './users.repository';
-import { UserDetailsDto } from './dto/userDetails.dto';
+import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './schemas/user.schema';
 import { Errors } from '../utils/constants/errors';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UsersService {
   constructor(private readonly userRepository: UsersRepository) {}
 
-  async createUserDetails(user: UserDetailsDto) {
+  async createUserDetails(user: CreateUserDto) {
     const found = this.userRepository.findOne({ userId: user.userId });
 
     if (found) {
@@ -31,9 +32,9 @@ export class UsersService {
     return found;
   }
 
-  async updateUserDetails(user: UserDetailsDto) {
+  async updateUserDetails(user: UpdateUserDto, userId: string) {
     const found = await this.userRepository.findOneAndUpdate(
-      { userId: user.userId },
+      { userId: userId },
       user,
     );
 
