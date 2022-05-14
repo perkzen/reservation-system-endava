@@ -1,16 +1,24 @@
 import React, { FC } from 'react';
-import { routes } from '../../../routes';
+import { layoutRoutes, routes } from '../../../routes';
 import { Route, Routes } from 'react-router-dom';
-import Home from '../Home/Home';
 import LayoutProvider from '../../ui/LayoutProvider/LayoutProvider';
+import PageNotFound from '../PageNotFound/PageNotFound';
+import { v4 } from 'uuid';
 
 const AuthenticatedRouter: FC = () => {
   return (
-    <LayoutProvider>
+    <>
       <Routes>
-        <Route path={routes.HOME} element={<Home />} />
+        {layoutRoutes.map((route) => (
+          <Route
+            key={v4()}
+            path={route.path}
+            element={<LayoutProvider>{route.element}</LayoutProvider>}
+          />
+        ))}
+        <Route path={routes.PAGE_NOT_FOUND} element={<PageNotFound />} />
       </Routes>
-    </LayoutProvider>
+    </>
   );
 };
 
