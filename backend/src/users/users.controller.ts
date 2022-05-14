@@ -7,6 +7,7 @@ import {
 } from '@nestjs/swagger';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @ApiTags('User')
 @Controller('users')
@@ -31,7 +32,7 @@ export class UsersController {
   @ApiNotFoundResponse({ description: 'User not found' })
   @Put(':userId')
   async updateDetails(
-    @Body() user: CreateUserDto,
+    @Body() user: UpdateUserDto,
     @Param('userId') userId: string,
   ) {
     return await this.usersService.updateUserDetails(user, userId);
