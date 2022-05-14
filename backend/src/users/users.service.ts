@@ -10,7 +10,7 @@ export class UsersService {
   constructor(private readonly userRepository: UsersRepository) {}
 
   async createUserDetails(user: CreateUserDto) {
-    const found = this.userRepository.findOne({ uid: user.uid });
+    const found = await this.userRepository.findOne({ uid: user.uid });
 
     if (found) {
       throw new HttpException(
