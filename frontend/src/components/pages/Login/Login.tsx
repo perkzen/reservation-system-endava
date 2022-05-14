@@ -11,9 +11,9 @@ import ErrorMessage from '../../ui/ErrorMessage/ErrorMessage';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../../firebase-config';
 import { useAppDispatch } from '../../../store/app/hooks';
-import { login } from '../../../store/features/authSlice';
+import { setUser } from '../../../store/features/userSlice';
 import firebase from 'firebase/compat';
-import { User } from '../../../store/models/Auth';
+import { User } from '../../../store/models/User';
 import { Errors, FirebaseErrors } from '../../../constants/errorConstants';
 
 interface LoginFormData {
@@ -46,7 +46,7 @@ const Login: FC = () => {
         data.password
       );
       const user = res.user as unknown as User;
-      dispatch(login(user));
+      dispatch(setUser(user));
     } catch (e) {
       const error = e as firebase.auth.Error;
 
