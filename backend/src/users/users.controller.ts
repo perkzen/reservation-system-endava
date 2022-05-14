@@ -6,7 +6,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { UsersService } from './users.service';
-import { UserDetailsDto } from './dto/userDetails.dto';
+import { CreateUserDto } from './dto/create-user.dto';
 
 @ApiTags('User')
 @Controller('users')
@@ -16,7 +16,7 @@ export class UsersController {
   @ApiOkResponse({ description: 'Add details about user' })
   @ApiPreconditionFailedResponse({ description: 'User already exits' })
   @Post()
-  async userDetails(@Body() user: UserDetailsDto) {
+  async userDetails(@Body() user: CreateUserDto) {
     return await this.usersService.createUserDetails(user);
   }
 
@@ -29,8 +29,11 @@ export class UsersController {
 
   @ApiOkResponse({ description: 'Updates user details ' })
   @ApiNotFoundResponse({ description: 'User not found' })
-  @Put()
-  async updateDetails(@Body() user: UserDetailsDto) {
-    return await this.usersService.updateUserDetails(user);
+  @Put(':userId')
+  async updateDetails(
+    @Body() user: CreateUserDto,
+    @Param('userId') userId: string,
+  ) {
+    return await this.usersService.updateUserDetails(user, userId);
   }
 }
