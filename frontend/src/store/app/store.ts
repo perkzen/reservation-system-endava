@@ -16,7 +16,7 @@ export const store = configureStore({
   ],
 });
 
-watchUser();
+sagaMiddleware.run(watchUser);
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

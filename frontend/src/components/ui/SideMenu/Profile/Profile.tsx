@@ -18,7 +18,7 @@ const Profile = () => {
   };
 
   return (
-    <div className={classes.Container}>
+    <div className={classes.Container} onClick={() => navigate(routes.PROFILE)}>
       <Link to={''} className={classes.Link}>
         <div className={classes.Flex}>
           <img src={user?.photoURL} alt="Profile" />

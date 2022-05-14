@@ -22,7 +22,7 @@ const userSlice = createSlice({
       state.user = null;
       state.details = null;
     },
-    fetchUserDetails: (state, action: PayloadAction<UserDetails>) => {
+    fetchUserDetailsSuccess: (state, action: PayloadAction<UserDetails>) => {
       state.details = action.payload;
     },
   },

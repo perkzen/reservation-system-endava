@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsString } from 'class-validator';
+import { IsString } from 'class-validator';
 
 export class CreateUserDto {
   @ApiProperty({ required: true })
@@ -18,7 +18,6 @@ export class CreateUserDto {
   @IsString()
   location: string;
 
-  @ApiProperty({ required: true })
-  @IsBoolean()
+  @ApiProperty({ required: false })
   admin: boolean;
 }

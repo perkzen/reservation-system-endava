@@ -11,3 +11,7 @@ export interface UserDetails {
   surname: string;
   location: string;
 }
+
+export interface SaveDetails extends UserDetails {
+  method: 'POST' | 'PUT';
+}

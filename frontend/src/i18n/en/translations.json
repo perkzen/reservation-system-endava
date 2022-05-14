@@ -4,6 +4,7 @@
   "email": "Email",
   "firstname": "Firstname",
   "surname": "Surname",
+  "location": "Location",
   "password": "Password",
   "confirm_password": "Confirm password",
   "create_account": "Create new account",
@@ -14,5 +15,7 @@
   "please_check_url": "Please check the URL in the address bar and try again.",
   "go_back_home": "Go back home",
   "logout": "Logout",
-  "required_field": "This field is required!"
+  "required_field": "This field is required!",
+  "profile_page": "Profile page",
+  "save": "Save"
 }
