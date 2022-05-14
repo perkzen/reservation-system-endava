@@ -3,7 +3,7 @@ import classes from './OfficeRoom.module.scss';
 import Workspace from '../Workspace/Workspace';
 import { applyGridSize } from '../../../utils/applyGridSize';
 import { Office } from '../../../store/models/Office';
-import { placeDesk } from '../../../utils/placeDesk';
+import { positionDesk } from '../../../utils/placeDesk';
 import { v4 } from 'uuid';
 
 interface OfficeProps {
@@ -17,19 +17,16 @@ const OfficeRoom: FC<OfficeProps> = ({ office }) => {
         className={classes.Office}
         style={applyGridSize(office.cols, office.rows)}
       >
-        {office.workspaces.map((table) => {
-          if (placeDesk(office.cols * office.rows, table.position)) {
-            return (
-              <Workspace
-                key={v4()}
-                reserved={table.reserved}
-                orientation={table.orientation}
-              />
-            );
-          } else {
-            return <div key={v4()} />;
-          }
-        })}
+        {office.workspaces.map((table) =>
+          positionDesk(office.cols * office.rows, table.position) ? (
+            <Workspace
+              reserved={table.reserved}
+              orientation={table.orientation}
+            />
+          ) : (
+            <div key={v4()} />
+          )
+        )}
       </div>
     </>
   );
