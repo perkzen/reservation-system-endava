@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import classes from '../OfficeName/OfficeName.module.scss';
+import classes from './OfficeName.module.scss';
 
 interface OfficeNameProps {
   officeName: String;
