@@ -3,7 +3,6 @@ export interface User {
   photoURL?: string;
   uid: string;
   accessToken: string;
-  admin: boolean;
 }
 
 export interface UserDetails {
