@@ -1,0 +1,32 @@
+import { ApiProperty } from '@nestjs/swagger';
+import {
+  IsArray,
+  IsNumber,
+  IsPositive,
+  IsString,
+  MinLength,
+} from 'class-validator';
+import { WorkspaceDto } from './workspace.dto';
+import { Type } from 'class-transformer';
+
+export class CreateOfficeDto {
+  @ApiProperty({ required: true })
+  @IsString()
+  @MinLength(3)
+  name: string;
+
+  @ApiProperty({ required: true })
+  @IsString()
+  @IsPositive()
+  cols: number;
+
+  @ApiProperty({ required: true })
+  @IsNumber()
+  @IsPositive()
+  rows: number;
+
+  @ApiProperty({ required: true })
+  @IsArray()
+  @Type(() => WorkspaceDto)
+  workspaces: WorkspaceDto[];
+}
