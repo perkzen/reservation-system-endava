@@ -3,7 +3,7 @@ import classes from './OfficeRoom.module.scss';
 import Workspace from '../Workspace/Workspace';
 import { applyGridSize } from '../../../utils/applyGridSize';
 import { Office } from '../../../store/models/Office';
-import { positionDesk } from '../../../utils/placeDesk';
+import { positionDesk } from '../../../utils/postionDesk';
 import { v4 } from 'uuid';
 
 interface OfficeProps {
