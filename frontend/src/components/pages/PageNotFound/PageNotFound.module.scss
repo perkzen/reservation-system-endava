@@ -1,0 +1,37 @@
+.Container {
+  @apply bg-primary h-screen px-4 py-16 sm:px-6 sm:py-24 md:grid md:place-items-center lg:px-8;
+  .Wrapper {
+    @apply max-w-max mx-auto;
+
+    main {
+      @apply sm:flex;
+
+      .ErrorCode {
+        @apply text-4xl font-extrabold text-accent sm:text-5xl lg:mt-3 md:mt-2;
+      }
+
+      .TextContainer {
+        @apply sm:ml-6;
+
+        h1 {
+          @apply text-4xl font-extrabold text-white tracking-tight sm:text-5xl;
+        }
+
+        .InfoText {
+          @apply mt-3 text-base text-gray-500;
+        }
+
+        .Divider {
+          @apply sm:border-l sm:border-gray-200 sm:pl-6;
+        }
+
+        .LinkContainer {
+          @apply mt-3 flex space-x-3 sm:border-l sm:border-transparent sm:pl-6;
+          .LinkPrimary {
+            @apply inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-accent hover:bg-accent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent;
+          }
+        }
+      }
+    }
+  }
+}

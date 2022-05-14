@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import classes from './Login.module.scss';
 import companyLogo from '../../../assets/endava-logo.png';
 import Button from '../../ui/Button/Button';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Input from '../../ui/Input/Input';
 import { useForm } from 'react-hook-form';
 import { routes } from '../../../routes';
@@ -28,6 +28,7 @@ const defaultValues: LoginFormData = {
 
 const Login: FC = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const [error, setError] = useState('');
   const { t } = useTranslation();
   const { register, formState, handleSubmit } = useForm<LoginFormData>({
@@ -47,6 +48,7 @@ const Login: FC = () => {
       );
       const user = res.user as unknown as User;
       dispatch(setUser(user));
+      navigate(routes.HOME);
     } catch (e) {
       const error = e as firebase.auth.Error;
 
