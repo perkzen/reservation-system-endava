@@ -5,3 +5,10 @@ export interface User {
   accessToken: string;
   admin: boolean;
 }
+
+export interface UserDetails {
+  uid?: string;
+  firstname: string;
+  surname: string;
+  location: string;
+}

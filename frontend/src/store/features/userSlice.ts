@@ -1,12 +1,14 @@
-import { User } from '../models/User';
+import { User, UserDetails } from '../models/User';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface AuthState {
   user: User | null;
+  details: UserDetails | null;
 }
 
 const initialState: AuthState = {
   user: null,
+  details: null,
 };
 
 const userSlice = createSlice({
@@ -18,6 +20,10 @@ const userSlice = createSlice({
     },
     removeUser: (state) => {
       state.user = null;
+      state.details = null;
+    },
+    fetchUserDetails: (state, action: PayloadAction<UserDetails>) => {
+      state.details = action.payload;
     },
   },
 });

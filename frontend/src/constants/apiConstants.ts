@@ -1,3 +1,3 @@
-export enum apiRoutes {
-  LOGIN = '/login',
+export enum ApiRoutes {
+  USERS = '/users',
 }
