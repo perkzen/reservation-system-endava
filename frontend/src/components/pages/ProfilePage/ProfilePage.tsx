@@ -17,7 +17,7 @@ interface UserDetailsFormData {
   location: string;
 }
 
-const defaultState: UserDetailsFormData = {
+const defaultValues: UserDetailsFormData = {
   firstname: '',
   surname: '',
   location: '',
@@ -30,7 +30,10 @@ const ProfilePage: FC = () => {
   const [method, setMethod] = useState<'POST' | 'PUT'>('POST');
 
   const { register, reset, formState, handleSubmit } =
-    useForm<UserDetailsFormData>();
+    useForm<UserDetailsFormData>({
+      defaultValues,
+      reValidateMode: 'onSubmit',
+    });
 
   const { errors } = formState;
 
@@ -56,21 +59,31 @@ const ProfilePage: FC = () => {
   return (
     <div className={classes.Container}>
       <h1>{t('profile_page')}</h1>
+      <img
+        src={'https://avatars.dicebear.com/api/initials/domen.svg'}
+        className={'rounded-full'}
+        width={100}
+        height={100}
+        alt={'Profile'}
+      />
       <form onSubmit={handleSubmit(onSubmit)}>
         <Input
           {...register('firstname', requiredField)}
           placeholder={t('firstname')}
           error={errors.firstname}
+          className={classes.Input}
         />
         <Input
           {...register('surname', requiredField)}
           placeholder={t('surname')}
           error={errors.surname}
+          className={classes.Input}
         />
         <Input
           {...register('location', requiredField)}
           placeholder={t('location')}
           error={errors.location}
+          className={classes.Input}
         />
         <Button>{t('save')}</Button>
       </form>

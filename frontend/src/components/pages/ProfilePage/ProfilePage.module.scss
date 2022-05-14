@@ -9,16 +9,16 @@
   form {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     gap: 1rem;
-    width: 100%;
+    width: 30%;
 
-
-    input {
-      width: 30%;
+    .Input {
+      width: 100%;
     }
 
     button {
-      width: 30%;
+      width: 100%;
     }
   }
 
