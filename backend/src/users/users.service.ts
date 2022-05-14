@@ -9,7 +9,7 @@ export class UsersService {
   constructor(private readonly userRepository: UsersRepository) {}
 
   async createUserDetails(user: UserDetailsDto) {
-    const found = this.userRepository.findOne({ id: user.id });
+    const found = this.userRepository.findOne({ userId: user.userId });
 
     if (found) {
       throw new HttpException(
@@ -22,22 +22,23 @@ export class UsersService {
   }
 
   async getUserDetails(id: string): Promise<User> {
-    const found = this.userRepository.findOne({ id: id });
+    const found = this.userRepository.findOne({ userId: id });
 
     if (!found) {
       throw new HttpException(Errors.USER_NOT_FOUND, HttpStatus.NOT_FOUND);
     }
 
-    return await this.userRepository.findOne({ id: id });
+    return found;
   }
 
   async updateUserDetails(user: UserDetailsDto) {
-    const found = this.userRepository.findOne({ id: user.id });
+    const found = await this.userRepository.findOneAndUpdate(
+      { userId: user.userId },
+      user,
+    );
 
     if (!found) {
       throw new HttpException(Errors.USER_NOT_FOUND, HttpStatus.NOT_FOUND);
     }
-
-    await this.userRepository.findOneAndUpdate({ id: user.id }, user);
   }
 }

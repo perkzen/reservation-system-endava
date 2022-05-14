@@ -4,7 +4,7 @@ import { IsBoolean, IsString } from 'class-validator';
 export class UserDetailsDto {
   @ApiProperty({ required: true })
   @IsString()
-  id: string;
+  userId: string;
 
   @ApiProperty({ required: true })
   @IsString()
