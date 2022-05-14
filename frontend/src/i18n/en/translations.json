@@ -9,5 +9,10 @@
   "create_account": "Create new account",
   "forgot_password": "Forgot your password?",
   "sign_up": "Sign up",
-  "sign_in": "Sign in"
+  "sign_in": "Sign in",
+  "page_not_found": "Page not found",
+  "please_check_url": "Please check the URL in the address bar and try again.",
+  "go_back_home": "Go back home",
+  "logout": "Logout",
+  "required_field": "This field is required!"
 }

@@ -15,6 +15,7 @@ import { setUser } from '../../../store/features/userSlice';
 import firebase from 'firebase/compat';
 import { User } from '../../../store/models/User';
 import { Errors, FirebaseErrors } from '../../../constants/errorConstants';
+import { requiredField } from '../../../constants/requiredField';
 
 interface LoginFormData {
   email: string;
@@ -78,13 +79,13 @@ const Login: FC = () => {
           <ErrorMessage error={error} />
         </div>
         <Input
-          {...register('email')}
+          {...register('email', requiredField)}
           placeholder={t('email')}
           className={'mt-1'}
           error={errors.email}
         />
         <Input
-          {...register('password')}
+          {...register('password', requiredField)}
           placeholder={t('password')}
           type={'password'}
           className={'mt-1'}
