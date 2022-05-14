@@ -1,15 +1,15 @@
+import { DeskOrientation } from '../../utils/deskOrientation';
+
 export interface Office {
   name: string;
-  col: number;
-  row: number;
+  cols: number;
+  rows: number;
   workspaces: Workspace[];
 }
 
-export type Orientation = 'left' | 'top' | 'bottom' | 'right';
-
 export interface Workspace {
-  name: string;
-  orientation: Orientation;
-  x: number;
-  y: number;
+  id: string;
+  orientation: DeskOrientation;
+  position: number;
+  reserved: boolean;
 }

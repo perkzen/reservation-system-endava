@@ -1,30 +1,35 @@
 import React, { FC } from 'react';
 import classes from './OfficeRoom.module.scss';
 import Workspace from '../Workspace/Workspace';
+import { applyGridSize } from '../../../utils/applyGridSize';
+import { Office } from '../../../store/models/Office';
+import { placeDesk } from '../../../utils/placeDesk';
+import { v4 } from 'uuid';
 
 interface OfficeProps {
-  column: number;
-  row: number;
+  office: Office;
 }
 
-const applyGridSize = (col: number, row: number): object => {
-  return {
-    gridTemplateColumns: `repeat(${col}, 1fr)`,
-    gridTemplateRows: `repeat(${row}, 1fr)`,
-  };
-};
-
-const OfficeRoom: FC<OfficeProps> = ({ column, row }) => {
+const OfficeRoom: FC<OfficeProps> = ({ office }) => {
   return (
     <>
-      <div className={classes.Office} style={applyGridSize(column, row)}>
-        <Workspace free={true} orientation={'left'} />
-        <Workspace free={true} orientation={'right'} />
-        <div></div>
-        <Workspace free={true} orientation={'left'} />
-        <Workspace free={true} orientation={'right'} />
-        <Workspace free={true} orientation={'left'} />
-        <Workspace free={false} orientation={'right'} />
+      <div
+        className={classes.Office}
+        style={applyGridSize(office.cols, office.rows)}
+      >
+        {office.workspaces.map((table) => {
+          if (placeDesk(office.cols * office.rows, table.position)) {
+            return (
+              <Workspace
+                key={v4()}
+                reserved={table.reserved}
+                orientation={table.orientation}
+              />
+            );
+          } else {
+            return <div key={v4()} />;
+          }
+        })}
       </div>
     </>
   );
