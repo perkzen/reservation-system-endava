@@ -1,10 +1,10 @@
 import React, { FC, ReactNode } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../store/app/hooks';
-import { ModalType } from '../../../store/models/Modal';
 import { createPortal } from 'react-dom';
 import classes from './ModalProvider.module.scss';
 import { classNames } from '../../../utils/classNames';
 import { removeModal } from '../../../store/features/globalSlice';
+import Modal from '../SuccessModal/Modal';
 
 interface ModalProviderProps {
   children: ReactNode;
@@ -16,11 +16,8 @@ const ModalProvider: FC<ModalProviderProps> = ({ children }) => {
   const open = !!modal;
 
   const showModalType = () => {
-    switch (modal?.type) {
-      case ModalType.SUCCESS:
-        return <div>success modal</div>;
-      case ModalType.DELETE:
-        return <div>delete modal</div>;
+    if (modal?.type) {
+      return <Modal modalData={modal} />;
     }
   };
 

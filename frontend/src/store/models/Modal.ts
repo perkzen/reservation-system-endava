@@ -6,6 +6,12 @@ export enum ModalType {
 
 export interface Modal {
   type: ModalType;
-  onClick: () => void;
+  title: string;
+  action1: string;
+  action2: string;
+  subtitle?: string;
+  body?: string;
   onBackdropClose?: () => void;
+  primaryAction?: () => void;
+  secondaryAction?: () => void;
 }
