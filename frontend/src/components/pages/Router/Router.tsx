@@ -4,8 +4,7 @@ import { UnauthenticatedRouter } from './UnauthenticatedRouter';
 import { useAppSelector } from '../../../store/app/hooks';
 
 export const Router: FC = () => {
-  const { user } = useAppSelector((state) => state.user);
-  const isAuthenticated = !!user;
+  const { isAuth } = useAppSelector((state) => state.user);
 
-  return isAuthenticated ? <AuthenticatedRouter /> : <UnauthenticatedRouter />;
+  return isAuth ? <AuthenticatedRouter /> : <UnauthenticatedRouter />;
 };
