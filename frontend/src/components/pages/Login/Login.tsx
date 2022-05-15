@@ -53,12 +53,11 @@ const Login: FC = () => {
     } catch (e) {
       const error = e as firebase.auth.Error;
 
-      if (error.message === FirebaseErrors.WRONG_PASSWORD) {
-        setError(Errors.WRONG_CREDENTIALS);
-        return;
-      }
-
-      if (error.message === FirebaseErrors.WRONG_EMAIL) {
+      if (
+        error.message === FirebaseErrors.WRONG_PASSWORD ||
+        FirebaseErrors.USER_NOT_FOUND ||
+        FirebaseErrors.WRONG_EMAIL
+      ) {
         setError(Errors.WRONG_CREDENTIALS);
         return;
       }

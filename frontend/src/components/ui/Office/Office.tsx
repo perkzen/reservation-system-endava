@@ -1,16 +1,16 @@
 import React, { FC } from 'react';
-import classes from './OfficeRoom.module.scss';
+import classes from './Office.module.scss';
 import Workspace from '../Workspace/Workspace';
 import { grid, gridToArray } from '../../../utils/grid';
-import { Office } from '../../../store/models/Office';
+import { Office as OfficeModel } from '../../../store/models/Office';
 import { findWorkspace, positionDesk } from '../../../utils/workspace';
 import { v4 } from 'uuid';
 
 interface OfficeProps {
-  office: Office;
+  office: OfficeModel;
 }
 
-const OfficeRoom: FC<OfficeProps> = ({ office }) => {
+const Office: FC<OfficeProps> = ({ office }) => {
   return (
     <div className={classes.Container} style={grid(office.cols, office.rows)}>
       {gridToArray(office.cols, office.rows).map((pos) =>
@@ -27,4 +27,4 @@ const OfficeRoom: FC<OfficeProps> = ({ office }) => {
   );
 };
 
-export default OfficeRoom;
+export default Office;

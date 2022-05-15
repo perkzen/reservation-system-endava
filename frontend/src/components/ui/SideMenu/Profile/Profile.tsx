@@ -1,24 +1,28 @@
 import React from 'react';
 import classes from './Profile.module.scss';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAppSelector } from '../../../../store/app/hooks';
+import { useAppDispatch, useAppSelector } from '../../../../store/app/hooks';
 import { signOut } from 'firebase/auth';
 import { auth } from '../../../../firebase-config';
 import { useTranslation } from 'react-i18next';
+import { removeUser } from '../../../../store/features/userSlice';
 import { routes } from '../../../../routes';
 
 const Profile = () => {
   const { user } = useAppSelector((state) => state.user);
   const { t } = useTranslation();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const logout = async () => {
-    await signOut(auth);
-    navigate(routes.LOGIN);
+  const logout = () => {
+    signOut(auth).then(() => {
+      dispatch(removeUser());
+      navigate(routes.LOGIN);
+    });
   };
 
   return (
-    <div className={classes.Container} onClick={() => navigate(routes.PROFILE)}>
+    <div className={classes.Container}>
       <Link to={''} className={classes.Link}>
         <div className={classes.Flex}>
           <img src={user?.photoURL} alt="Profile" />

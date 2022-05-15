@@ -3,9 +3,9 @@ import Home from './components/pages/Home/Home';
 import ProfilePage from './components/pages/ProfilePage/ProfilePage';
 
 export enum routes {
-  LOGIN = '/',
+  LOGIN = '/sign-in',
   REGISTER = '/sign-up',
-  HOME = '/home',
+  HOME = '/',
   PAGE_NOT_FOUND = '*',
   PROFILE = '/profile',
 }
@@ -29,4 +29,5 @@ export const navigation: NavigationItem[] = [
   { path: routes.HOME, name: 'Home' },
   { path: '', name: 'Maribor' },
   { path: '', name: 'Ljubljana' },
+  { path: routes.PROFILE, name: 'Profile' },
 ];

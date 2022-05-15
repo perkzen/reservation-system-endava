@@ -3,9 +3,12 @@ import classes from './PageNotFound.module.scss';
 import { Link } from 'react-router-dom';
 import { routes } from '../../../routes';
 import { useTranslation } from 'react-i18next';
+import { useAppSelector } from '../../../store/app/hooks';
 
 const PageNotFound: FC = () => {
   const { t } = useTranslation();
+  const { user } = useAppSelector((state) => state.user);
+  const isAuthenticated = !!user;
 
   return (
     <div className={classes.Container}>
@@ -18,7 +21,10 @@ const PageNotFound: FC = () => {
               <p className={classes.InfoText}>{t('please_check_url')}</p>
             </div>
             <div className={classes.LinkContainer}>
-              <Link to={routes.HOME} className={classes.LinkPrimary}>
+              <Link
+                to={isAuthenticated ? routes.HOME : routes.LOGIN}
+                className={classes.LinkPrimary}
+              >
                 {t('go_back_home')}
               </Link>
             </div>
