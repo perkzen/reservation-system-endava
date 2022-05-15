@@ -13,4 +13,5 @@ export enum FirebaseErrors {
   INVALID_MAIL = 'Firebase: Error (auth/invalid-email).',
   WRONG_PASSWORD = 'Firebase: Error (auth/wrong-password).',
   WRONG_EMAIL = 'Firebase: Error (auth/invalid-email).',
+  USER_NOT_FOUND = 'Firebase: Error (auth/user-not-found).',
 }

@@ -1,5 +1,5 @@
 import { Office } from '../../../store/models/Office';
-import { DeskOrientation } from '../../../utils/deskOrientation';
+import { Orientation } from '../../../utils/workspace';
 
 export const dummyOffice: Office = {
   name: 'Endava',
@@ -8,25 +8,25 @@ export const dummyOffice: Office = {
   workspaces: [
     {
       id: '1',
-      orientation: DeskOrientation.TOP,
+      orientation: Orientation.TOP,
       position: 0,
       reserved: false,
     },
     {
       id: '2',
-      orientation: DeskOrientation.TOP,
+      orientation: Orientation.TOP,
       position: 1,
       reserved: true,
     },
     {
       id: '3',
-      orientation: DeskOrientation.BOTTOM,
+      orientation: Orientation.BOTTOM,
       position: 5,
       reserved: false,
     },
     {
       id: '3',
-      orientation: DeskOrientation.BOTTOM,
+      orientation: Orientation.BOTTOM,
       position: 6,
       reserved: true,
     },

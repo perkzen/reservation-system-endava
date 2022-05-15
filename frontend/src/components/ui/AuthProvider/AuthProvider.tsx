@@ -1,11 +1,9 @@
-import React, { FC, ReactNode, useEffect } from 'react';
+import React, { FC, ReactNode, useEffect, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../../../firebase-config';
-import { useAppDispatch, useAppSelector } from '../../../store/app/hooks';
 import { setUser } from '../../../store/features/userSlice';
+import { useAppDispatch } from '../../../store/app/hooks';
 import { User } from '../../../store/models/User';
-import { useNavigate } from 'react-router-dom';
-import { routes } from '../../../routes';
 
 interface AuthProviderProps {
   children: ReactNode;
@@ -13,20 +11,23 @@ interface AuthProviderProps {
 
 const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-  const { user } = useAppSelector((state) => state.user);
-  const isAuthenticated = !!user;
-
-  onAuthStateChanged(auth, (loggedUser) => {
-    const user = loggedUser as unknown as User;
-    dispatch(setUser(user));
-  });
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (isAuthenticated) navigate(routes.HOME);
-  }, [isAuthenticated, navigate]);
+    const unsubscribe = onAuthStateChanged(auth, (loggedUser) => {
+      const user = loggedUser as unknown as User;
+      if (user?.accessToken !== undefined) {
+        console.log(user);
+        dispatch(setUser(user));
+      }
+      setLoading(false);
+    });
+    return () => {
+      unsubscribe();
+    };
+  }, [dispatch]);
 
-  return <>{children}</>;
+  return !loading ? <>{children}</> : <>...loading</>;
 };
 
 export default AuthProvider;
