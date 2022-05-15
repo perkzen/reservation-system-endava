@@ -1,8 +1,18 @@
 import { takeLatest } from 'redux-saga/effects';
 import { fetchUserDetails, saveUserDetails } from '../actions/userActions';
 import { fetchUserDetailsSaga, saveUserDetailsSaga } from './userSaga';
-import { saveOfficeSaga } from './officeSaga';
-import { saveOffice } from '../actions/officeActions';
+import {
+  deleteOfficeSaga,
+  fetchOfficeSaga,
+  fetchOfficesSaga,
+  saveOfficeSaga,
+} from './officeSaga';
+import {
+  deleteOffice,
+  fetchOffice,
+  fetchOffices,
+  saveOffice,
+} from '../actions/officeActions';
 
 export function* watchUser(): Generator {
   yield takeLatest(saveUserDetails.type, saveUserDetailsSaga);
@@ -11,4 +21,7 @@ export function* watchUser(): Generator {
 
 export function* watchOffice(): Generator {
   yield takeLatest(saveOffice.type, saveOfficeSaga);
+  yield takeLatest(deleteOffice.type, deleteOfficeSaga);
+  yield takeLatest(fetchOffices.type, fetchOfficesSaga);
+  yield takeLatest(fetchOffice.type, fetchOfficeSaga);
 }
