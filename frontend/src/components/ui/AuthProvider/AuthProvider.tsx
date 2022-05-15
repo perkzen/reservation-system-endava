@@ -14,7 +14,7 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (loggedUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (loggedUser) => {
       const user = loggedUser as unknown as User;
       if (user?.accessToken !== undefined) {
         dispatch(setUser(user));
