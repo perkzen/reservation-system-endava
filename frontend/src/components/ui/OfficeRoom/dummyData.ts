@@ -8,21 +8,27 @@ export const dummyOffice: Office = {
   workspaces: [
     {
       id: '1',
-      orientation: DeskOrientation.LEFT,
-      position: 5,
+      orientation: DeskOrientation.TOP,
+      position: 0,
       reserved: false,
     },
     {
       id: '2',
       orientation: DeskOrientation.TOP,
-      position: 10,
+      position: 1,
       reserved: true,
     },
     {
       id: '3',
-      orientation: DeskOrientation.LEFT,
-      position: 15,
+      orientation: DeskOrientation.BOTTOM,
+      position: 5,
       reserved: false,
+    },
+    {
+      id: '3',
+      orientation: DeskOrientation.BOTTOM,
+      position: 6,
+      reserved: true,
     },
   ],
 };
