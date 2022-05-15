@@ -4,7 +4,7 @@ import { createPortal } from 'react-dom';
 import classes from './ModalProvider.module.scss';
 import { classNames } from '../../../utils/classNames';
 import { removeModal } from '../../../store/features/globalSlice';
-import Modal from '../SuccessModal/Modal';
+import Modal from '../Modals/Modal';
 
 interface ModalProviderProps {
   children: ReactNode;

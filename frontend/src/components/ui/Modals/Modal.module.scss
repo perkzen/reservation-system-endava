@@ -37,7 +37,7 @@
     @apply hover:bg-graySecondary;
   }
 
-  button:first-child {
-    @apply mr-5;
+  button:nth-child(2) {
+    @apply ml-5;
   }
 }
