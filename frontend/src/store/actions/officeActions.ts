@@ -5,6 +5,6 @@ const OFFICE_SLICE = 'office';
 
 export const saveOffice = createAction<Office>(`${OFFICE_SLICE}/saveOffice`);
 
-export const saveOfficeSuccess = createAction(
-  `${OFFICE_SLICE}/saveOfficeSuccess`
+export const deleteOffice = createAction<string>(
+  `${OFFICE_SLICE}/deleteOffice`
 );
