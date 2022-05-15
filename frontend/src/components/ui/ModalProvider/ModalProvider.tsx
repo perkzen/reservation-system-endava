@@ -4,7 +4,7 @@ import { createPortal } from 'react-dom';
 import classes from './ModalProvider.module.scss';
 import { classNames } from '../../../utils/classNames';
 import { removeModal } from '../../../store/features/globalSlice';
-import Modal from '../Modals/Modal';
+import Modal from '../Modal/Modal';
 
 interface ModalProviderProps {
   children: ReactNode;
@@ -14,12 +14,6 @@ const ModalProvider: FC<ModalProviderProps> = ({ children }) => {
   const dispatch = useAppDispatch();
   const { modal } = useAppSelector((state) => state.global);
   const open = !!modal;
-
-  const showModalType = () => {
-    if (modal?.type) {
-      return <Modal modalData={modal} />;
-    }
-  };
 
   return (
     <>
@@ -37,7 +31,9 @@ const ModalProvider: FC<ModalProviderProps> = ({ children }) => {
                 : undefined
             }
           >
-            <div className={classes.Container}>{showModalType()}</div>
+            <div className={classes.Container}>
+              <Modal modal={modal} />
+            </div>
           </div>,
           document.body
         )}
