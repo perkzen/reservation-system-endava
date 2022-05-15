@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
-import OfficeRoom from '../../ui/OfficeRoom/OfficeRoom';
-import { dummyOffice } from '../../ui/OfficeRoom/dummyData';
+import Office from '../../ui/Office/Office';
+import { dummyOffice } from '../../ui/Office/dummyData';
 
 const Home: FC = () => {
   return (
     <div>
-      <OfficeRoom office={dummyOffice} />
+      <Office office={dummyOffice} />
     </div>
   );
 };

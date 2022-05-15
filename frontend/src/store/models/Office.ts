@@ -1,4 +1,4 @@
-import { DeskOrientation } from '../../utils/deskOrientation';
+import { Orientation } from '../../utils/workspace';
 
 export interface Office {
   _id?: string;
@@ -10,7 +10,7 @@ export interface Office {
 
 export interface Workspace {
   id: string;
-  orientation: DeskOrientation;
+  orientation: Orientation;
   position: number;
   reserved: boolean;
 }
