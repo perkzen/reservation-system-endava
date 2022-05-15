@@ -1,0 +1,82 @@
+import { AxiosError, AxiosResponse } from 'axios';
+import { put } from 'redux-saga/effects';
+import {
+  deleteOffice,
+  fetchOffice,
+  fetchOffices,
+  fetchOfficesSuccess,
+  fetchOfficeSuccess,
+  saveOffice,
+} from '../actions/officeActions';
+import { startLoading, stopLoading } from '../features/globalSlice';
+import instance from '../../axios';
+import { ApiRoutes } from '../../constants/apiConstants';
+import { Office } from '../models/Office';
+
+export function* saveOfficeSaga(
+  action: ReturnType<typeof saveOffice>
+): Generator {
+  try {
+    yield put(startLoading({ actionType: action.type }));
+    yield instance({
+      method: action.payload._id ? 'PATCH' : 'POST',
+      url: action.payload._id
+        ? `${ApiRoutes.OFFICES}/${action.payload._id}`
+        : ApiRoutes.OFFICES,
+      data: action.payload,
+    });
+  } catch (e) {
+    const error = e as AxiosError;
+    // @ts-ignore
+    const message = error.response?.data?.message;
+    console.log(message);
+  } finally {
+    yield put(stopLoading({ actionType: action.type }));
+  }
+}
+
+export function* deleteOfficeSaga(
+  action: ReturnType<typeof deleteOffice>
+): Generator {
+  try {
+    yield put(startLoading({ actionType: action.type }));
+    yield instance.delete(`${ApiRoutes.OFFICES}/${action.payload}`);
+  } catch (e) {
+    const error = e as AxiosError;
+    // @ts-ignore
+    const message = error.response?.data?.message;
+    console.log(message);
+  } finally {
+    yield put(stopLoading({ actionType: action.type }));
+  }
+}
+
+export function* fetchOfficesSaga(
+  action: ReturnType<typeof fetchOffices>
+): Generator {
+  try {
+    yield put(startLoading({ actionType: action.type }));
+    const { data } = (yield instance.get(ApiRoutes.OFFICES)) as AxiosResponse<
+      Office[]
+    >;
+    yield put(fetchOfficesSuccess(data));
+  } catch (e) {
+  } finally {
+    yield put(stopLoading({ actionType: action.type }));
+  }
+}
+
+export function* fetchOfficeSaga(
+  action: ReturnType<typeof fetchOffice>
+): Generator {
+  try {
+    yield put(startLoading({ actionType: action.type }));
+    const { data } = (yield instance.get(
+      `${ApiRoutes.OFFICES}/${action.payload}`
+    )) as AxiosResponse<Office>;
+    yield put(fetchOfficeSuccess(data));
+  } catch (e) {
+  } finally {
+    yield put(stopLoading({ actionType: action.type }));
+  }
+}
