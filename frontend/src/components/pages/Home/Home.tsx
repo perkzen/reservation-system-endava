@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
-import OfficeRoom from '../../ui/Office/OfficeRoom';
-import { dummyOffice } from '../../ui/Office/dummyData';
+import OfficeRoom from '../../ui/OfficeRoom/OfficeRoom';
+import { dummyOffice } from '../../ui/OfficeRoom/dummyData';
 
 const Home: FC = () => {
   return (
