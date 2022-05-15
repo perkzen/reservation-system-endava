@@ -1,9 +1,17 @@
-import { AxiosError } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 import { put } from 'redux-saga/effects';
-import { deleteOffice, saveOffice } from '../actions/officeActions';
+import {
+  deleteOffice,
+  fetchOffice,
+  fetchOffices,
+  fetchOfficesSuccess,
+  fetchOfficeSuccess,
+  saveOffice,
+} from '../actions/officeActions';
 import { startLoading, stopLoading } from '../features/globalSlice';
 import instance from '../../axios';
 import { ApiRoutes } from '../../constants/apiConstants';
+import { Office } from '../models/Office';
 
 export function* saveOfficeSaga(
   action: ReturnType<typeof saveOffice>
@@ -38,6 +46,36 @@ export function* deleteOfficeSaga(
     // @ts-ignore
     const message = error.response?.data?.message;
     console.log(message);
+  } finally {
+    yield put(stopLoading({ actionType: action.type }));
+  }
+}
+
+export function* fetchOfficesSaga(
+  action: ReturnType<typeof fetchOffices>
+): Generator {
+  try {
+    yield put(startLoading({ actionType: action.type }));
+    const { data } = (yield instance.get(ApiRoutes.OFFICES)) as AxiosResponse<
+      Office[]
+    >;
+    yield put(fetchOfficesSuccess(data));
+  } catch (e) {
+  } finally {
+    yield put(stopLoading({ actionType: action.type }));
+  }
+}
+
+export function* fetchOfficeSaga(
+  action: ReturnType<typeof fetchOffice>
+): Generator {
+  try {
+    yield put(startLoading({ actionType: action.type }));
+    const { data } = (yield instance.get(
+      `${ApiRoutes.OFFICES}/${action.payload}`
+    )) as AxiosResponse<Office>;
+    yield put(fetchOfficeSuccess(data));
+  } catch (e) {
   } finally {
     yield put(stopLoading({ actionType: action.type }));
   }
