@@ -17,7 +17,7 @@ const Workspace: FC<WorkspaceProps> = ({ orientation, reserved }) => {
   return (
     <img
       className={classNames(deskOrientation(orientation), classes.Table)}
-      src={reserved ? WorkspaceFreeSvg : WorkspaceReservedSvg}
+      src={reserved ? WorkspaceReservedSvg : WorkspaceFreeSvg}
       alt="workspace"
     />
   );
