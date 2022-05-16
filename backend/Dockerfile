@@ -12,7 +12,7 @@ RUN npm run build
 
 ENV PORT=8000
 
-ENV DATABASE_URI=mongodb+srv://admin:admin@cluster0.g1ftw.mongodb.net/reservation-system
+ENV DATABASE_URI=<database-uri>
 
 EXPOSE 8000
 
