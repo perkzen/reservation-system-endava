@@ -1,9 +1,8 @@
 import React, { FC, ReactNode, useEffect, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../../../firebase-config';
-import { setUser } from '../../../store/features/userSlice';
+import { setAccessToken, setUser } from '../../../store/features/userSlice';
 import { useAppDispatch } from '../../../store/app/hooks';
-import { User } from '../../../store/models/User';
 
 interface AuthProviderProps {
   children: ReactNode;
@@ -15,10 +14,12 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (loggedUser) => {
-      const user = loggedUser as unknown as User;
-      if (user?.accessToken !== undefined) {
-        dispatch(setUser(user));
+      if (loggedUser !== null) {
+        const accessToken = await loggedUser.getIdToken(true);
+        dispatch(setUser(loggedUser));
+        dispatch(setAccessToken(accessToken));
       }
+
       setLoading(false);
     });
     return () => {

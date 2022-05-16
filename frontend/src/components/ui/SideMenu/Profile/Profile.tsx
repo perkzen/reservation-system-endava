@@ -25,7 +25,7 @@ const Profile = () => {
     <div className={classes.Container}>
       <Link to={''} className={classes.Link}>
         <div className={classes.Flex}>
-          <img src={user?.photoURL} alt="Profile" />
+          <img src={user?.photoURL ? user.photoURL : ''} alt="Profile" />
           <div>
             <p>{user?.email}</p>
             <p onClick={logout}>{t('logout')}</p>
