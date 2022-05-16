@@ -1,0 +1,31 @@
+FROM node:17-alpine
+
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+ENV REACT_APP_BE_BASE_URL=http://localhost:<port>/api/
+
+ENV REACT_APP_API_VERSION=<version>
+
+ENV REACT_APP_FIREBASE_API_KEY=<api-key>
+
+ENV REACT_APP_FIREBASE_AUTH_DOMAIN=<auth-domain>
+
+ENV REACT_APP_FIREBASE_PROJECT_ID=<project-id>
+
+ENV REACT_APP_FIREBASE_STORAGE_BUCKET=<store-bucket>
+
+ENV REACT_APP_FIREBASE_MESSAGING_SENDER_ID=<sender-id>
+
+ENV REACT_APP_FIREBASE_APP_ID=<app-id>
+
+ENV REACT_APP_FIREBASE_MEASUREMENT_ID=<mesurement-id>
+
+EXPOSE 3000
+
+CMD ["npm", "start"]
