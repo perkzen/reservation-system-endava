@@ -11,7 +11,7 @@ import ErrorMessage from '../../ui/ErrorMessage/ErrorMessage';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../../firebase-config';
 import { useAppDispatch } from '../../../store/app/hooks';
-import { setUser } from '../../../store/features/userSlice';
+import { setAccessToken, setUser } from '../../../store/features/userSlice';
 import firebase from 'firebase/compat';
 import { User } from '../../../store/models/User';
 import { Errors, FirebaseErrors } from '../../../constants/errorConstants';
@@ -48,7 +48,9 @@ const Login: FC = () => {
         data.password
       );
       const user = res.user as unknown as User;
+      const accessToken = await res.user.getIdToken(true);
       dispatch(setUser(user));
+      dispatch(setAccessToken(accessToken));
       navigate(routes.HOME);
     } catch (e) {
       const error = e as firebase.auth.Error;

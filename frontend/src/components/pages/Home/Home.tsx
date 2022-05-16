@@ -1,16 +1,55 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import Office from '../../ui/Office/Office';
 import { dummyOffice } from '../../ui/Office/dummyData';
 import 'rc-slider/assets/index.css';
 import TimeSlider from '../../ui/TimeSlider/TimeSlider';
 import classes from '../../ui/TimeSlider/TimeSlider.module.scss';
+import classesHome from './Home.module.scss';
+import DateCard from '../../ui/DateCard/DateCard';
+import eachDayOfInterval from 'date-fns/eachDayOfInterval';
+import addBusinessDays from 'date-fns/addBusinessDays';
+import { format } from 'date-fns';
+import isToday from 'date-fns/isToday';
 
 const Home: FC = () => {
-  const [from, setFrom] = useState(7);
-  const [to, setTo] = useState(15);
+  const [from, setFrom] = useState<number>(7);
+  const [to, setTo] = useState<number>(15);
+  const [dates, setDates] = useState<Date[]>([]);
+
+  useEffect(() => {
+    const currentDate = new Date();
+    const dates = [];
+    const result = eachDayOfInterval({
+      start: currentDate,
+      end: addBusinessDays(currentDate, 4),
+    });
+    for (const date of result) {
+      if (
+        format(date, 'EEEE') !== 'Saturday' &&
+        format(date, 'EEEE') !== 'Sunday'
+      ) {
+        dates.push(date);
+      }
+    }
+
+    setDates(dates);
+  }, []);
 
   return (
     <div>
+      <div className={classesHome.Cointainer}>
+        {dates.map((date: Date, index: number) => {
+          return (
+            <DateCard
+              key={index}
+              day={format(date, 'EEEE')}
+              date={format(date, 'dd.MM.yyyy')}
+              selected={isToday(date)}
+            />
+          );
+        })}
+      </div>
+
       <TimeSlider
         className={classes.Slider}
         dotStyle={{ borderColor: '#31363B' }}
