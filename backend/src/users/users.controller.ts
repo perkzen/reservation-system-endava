@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Get, Patch, Post, UseGuards } from '@nestjs/common';
 import {
   ApiNotFoundResponse,
   ApiOkResponse,
@@ -7,6 +7,8 @@ import {
 } from '@nestjs/swagger';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
+import { AuthGuard } from '../guards/auth.guard';
+import { User } from '../decorators/user.decorator';
 import { UpdateUserDto } from './dto/update-user.dto';
 
 @ApiTags('User')
@@ -16,6 +18,7 @@ export class UsersController {
 
   @ApiOkResponse({ description: 'Add details about user' })
   @ApiPreconditionFailedResponse({ description: 'User already exits' })
+  @UseGuards(AuthGuard)
   @Post()
   async createDetails(@Body() user: CreateUserDto) {
     return await this.usersService.createUserDetails(user);
@@ -23,17 +26,19 @@ export class UsersController {
 
   @ApiOkResponse({ description: 'Retrieves user details ' })
   @ApiNotFoundResponse({ description: 'User not found' })
-  @Get(':userId')
-  async getDetails(@Param('userId') userId: string) {
+  @UseGuards(AuthGuard)
+  @Get()
+  async getDetails(@User('uid') userId: string) {
     return await this.usersService.getUserDetails(userId);
   }
 
   @ApiOkResponse({ description: 'Updates user details ' })
   @ApiNotFoundResponse({ description: 'User not found' })
-  @Put(':userId')
+  @UseGuards(AuthGuard)
+  @Patch()
   async updateDetails(
     @Body() user: UpdateUserDto,
-    @Param('userId') userId: string,
+    @User('uid') userId: string,
   ) {
     return await this.usersService.updateUserDetails(user, userId);
   }
