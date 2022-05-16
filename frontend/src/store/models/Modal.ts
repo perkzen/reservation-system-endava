@@ -1,11 +1,16 @@
 export enum ModalType {
   SUCCESS = 'SUCCESS',
-  ERROR = 'ERROR',
+  WARNING = 'WARNING',
   DELETE = 'DELETE',
 }
 
 export interface Modal {
   type: ModalType;
-  onClick: () => void;
+  title: string;
+  primaryActionText: string;
+  secondaryButtonText: string;
+  body?: string;
   onBackdropClose?: () => void;
+  primaryAction?: () => void;
+  secondaryAction?: () => void;
 }
