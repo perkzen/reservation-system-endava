@@ -6,11 +6,18 @@ interface ButtonProps {
   children: ReactNode;
   onClick?: () => void;
   className?: string;
+  disabled?: boolean;
 }
 
-const Button: FC<ButtonProps> = ({ children, onClick, className = '' }) => {
+const Button: FC<ButtonProps> = ({
+  children,
+  onClick,
+  className = '',
+  disabled,
+}) => {
   return (
     <button
+      disabled={disabled}
       className={classNames(className, classes.Container)}
       onClick={onClick}
       type={'submit'}
