@@ -5,12 +5,14 @@ export interface AuthState {
   user: User | null;
   details: UserDetails | null;
   isAuth: boolean;
+  accessToken: string;
 }
 
 const initialState: AuthState = {
   user: null,
   details: null,
   isAuth: false,
+  accessToken: '',
 };
 
 const userSlice = createSlice({
@@ -25,6 +27,10 @@ const userSlice = createSlice({
       state.user = null;
       state.details = null;
       state.isAuth = false;
+      state.accessToken = '';
+    },
+    setAccessToken: (state, action: PayloadAction<string>) => {
+      state.accessToken = action.payload;
     },
     fetchUserDetailsSuccess: (state, action: PayloadAction<UserDetails>) => {
       state.details = action.payload;
@@ -32,5 +38,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { setUser, removeUser } = userSlice.actions;
+export const { setUser, removeUser, setAccessToken } = userSlice.actions;
 export default userSlice.reducer;
