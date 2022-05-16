@@ -10,6 +10,7 @@ import {
   saveUserDetails,
 } from '../../../store/actions/userActions';
 import { requiredField } from '../../../constants/requiredField';
+import { classNames } from '../../../utils/classNames';
 
 interface UserDetailsFormData {
   firstname: string;
@@ -85,7 +86,9 @@ const ProfilePage: FC = () => {
           error={errors.location}
           className={classes.Input}
         />
-        <Button>{t('save')}</Button>
+        <Button disabled={true} className={classNames(classes.Container)}>
+          {t('save')}
+        </Button>
       </form>
     </div>
   );
