@@ -21,7 +21,10 @@ export const workspaceOrientation = (orientation: Orientation): string => {
   }
 };
 
-export const positionDesk = (position: number, array: Workspace[]): boolean => {
+export const positionWorkspace = (
+  position: number,
+  array: Workspace[]
+): boolean => {
   for (let desk of array) {
     if (position === desk.position) return true;
   }
