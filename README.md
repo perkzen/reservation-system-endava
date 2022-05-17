@@ -33,7 +33,7 @@ After that create a .env file in the backend folder, it should look something li
 To start the application you need to run the frontend and backend server with the following commands.
 ```
 cd frontend
-npm dev
+npm start
 
 cd backend
 npm run start
