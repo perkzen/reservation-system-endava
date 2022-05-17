@@ -59,7 +59,7 @@ const ProfilePage: FC = () => {
     if (details) {
       setDisabled(true);
     }
-  });
+  }, []);
 
   const onSubmit = (data: UserDetailsFormData) => {
     dispatch(saveUserDetails({ ...data, uid: user?.uid, method }));
@@ -68,7 +68,7 @@ const ProfilePage: FC = () => {
   return (
     <div className={classes.Container}>
       <img
-        src={'https://avatars.dicebear.com/api/initials/domen.svg'}
+        src={`https://avatars.dicebear.com/api/initials/${details?.firstname}.svg`}
         className={'rounded-full'}
         width={100}
         height={100}
