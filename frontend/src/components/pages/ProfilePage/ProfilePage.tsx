@@ -67,13 +67,13 @@ const ProfilePage: FC = () => {
         alt={'Profile'}
       />
 
-      {details?.firstname && details?.surname && details?.location ? (
+      {details ? (
         <>
           <p>
-            {details?.firstname} {details?.surname}
+            {details.firstname} {details.surname}
           </p>
           <p>{user?.email}</p>
-          <p>{details?.location}</p>
+          <p>{details.location}</p>
         </>
       ) : (
         <>
