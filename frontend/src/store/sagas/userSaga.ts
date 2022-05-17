@@ -14,15 +14,11 @@ import { startLoading, stopLoading } from '../features/globalSlice';
 export function* saveUserDetailsSaga(
   action: ReturnType<typeof saveUserDetails>
 ): Generator {
-  const url =
-    action.payload.method === 'POST'
-      ? ApiRoutes.USERS
-      : `${ApiRoutes.USERS}/${action.payload.uid}`;
   try {
     yield put(startLoading({ actionType: action.type }));
     yield instance({
       method: action.payload.method,
-      url,
+      url: ApiRoutes.USERS,
       data: action.payload,
     });
     yield put(saveUserDetailsSuccess());
@@ -42,7 +38,7 @@ export function* fetchUserDetailsSaga(
   try {
     yield put(startLoading({ actionType: action.type }));
     const { data } = (yield instance.get(
-      `${ApiRoutes.USERS}/${action.payload}`
+      ApiRoutes.USERS
     )) as AxiosResponse<UserDetails>;
     yield put(fetchUserDetailsSuccess(data));
   } catch (e) {

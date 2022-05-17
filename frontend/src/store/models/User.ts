@@ -12,5 +12,5 @@ export interface UserDetails {
 }
 
 export interface SaveDetails extends UserDetails {
-  method: 'POST' | 'PUT';
+  method: 'POST' | 'PATCH';
 }
