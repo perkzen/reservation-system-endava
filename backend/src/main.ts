@@ -11,6 +11,10 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('Reservation system api')
     .setVersion('1.0')
+    .addApiKey(
+      { type: 'apiKey', in: 'header', name: 'Authorization' },
+      'Authorization',
+    )
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
