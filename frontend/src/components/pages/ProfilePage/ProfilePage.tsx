@@ -53,8 +53,6 @@ const ProfilePage: FC = () => {
     }
   }, [details, reset]);
 
-  useEffect(() => {});
-
   const onSubmit = (data: UserDetailsFormData) => {
     dispatch(saveUserDetails({ ...data, uid: user?.uid, method }));
   };
