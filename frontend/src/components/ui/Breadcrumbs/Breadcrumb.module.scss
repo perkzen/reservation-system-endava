@@ -1,0 +1,14 @@
+.Container {
+  @apply flex px-4;
+  ol {
+    @apply flex items-center space-x-4;
+
+    .Link {
+      @apply text-gray-400 hover:text-gray-500;
+
+      svg {
+        @apply flex-shrink-0 h-5 w-5;
+      }
+    }
+  }
+}
