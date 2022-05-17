@@ -53,13 +53,14 @@ const ProfilePage: FC = () => {
     }
   }, [details, reset]);
 
+  useEffect(() => {});
+
   const onSubmit = (data: UserDetailsFormData) => {
     dispatch(saveUserDetails({ ...data, uid: user?.uid, method }));
   };
 
   return (
     <div className={classes.Container}>
-      <h1>{t('profile_page')}</h1>
       <img
         src={'https://avatars.dicebear.com/api/initials/domen.svg'}
         className={'rounded-full'}
@@ -67,29 +68,42 @@ const ProfilePage: FC = () => {
         height={100}
         alt={'Profile'}
       />
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Input
-          {...register('firstname', requiredField)}
-          placeholder={t('firstname')}
-          error={errors.firstname}
-          className={classes.Input}
-        />
-        <Input
-          {...register('surname', requiredField)}
-          placeholder={t('surname')}
-          error={errors.surname}
-          className={classes.Input}
-        />
-        <Input
-          {...register('location', requiredField)}
-          placeholder={t('location')}
-          error={errors.location}
-          className={classes.Input}
-        />
-        <Button disabled={true} className={classNames(classes.Container)}>
-          {t('save')}
-        </Button>
-      </form>
+
+      {details?.firstname && details?.surname && details?.location ? (
+        <>
+          <p>
+            {details?.firstname} {details?.surname}
+          </p>
+          <p>{user?.email}</p>
+          <p>{details?.location}</p>
+        </>
+      ) : (
+        <>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <Input
+              {...register('firstname', requiredField)}
+              placeholder={t('firstname')}
+              error={errors.firstname}
+              className={classes.Input}
+            />
+            <Input
+              {...register('surname', requiredField)}
+              placeholder={t('surname')}
+              error={errors.surname}
+              className={classes.Input}
+            />
+            <Input
+              {...register('location', requiredField)}
+              placeholder={t('location')}
+              error={errors.location}
+              className={classes.Input}
+            />
+            <Button disabled={false} className={classNames(classes.Container)}>
+              {t('save')}
+            </Button>
+          </form>
+        </>
+      )}
     </div>
   );
 };

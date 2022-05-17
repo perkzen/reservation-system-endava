@@ -1,26 +1,35 @@
 .Container {
+  margin-top: 1%;
   display: flex;
+  gap: 0.5rem;
   flex-direction: column;
-  gap: 1rem;
   justify-content: center;
   align-items: center;
+  font-size: 0.9rem;
 
+  p {
+    @apply text-textLight;
+  }
 
   form {
+    margin-top: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 1rem;
-    width: 30%;
+    width: 20%;
+    min-width: 12.5rem;
 
     .Input {
-      width: 100%;
+      max-width: 100%;
+    }
+
+    input {
+      @apply focus:border-graySecondary;
     }
 
     button {
       width: 100%;
     }
   }
-
-
 }
