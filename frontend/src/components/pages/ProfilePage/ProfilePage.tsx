@@ -10,9 +10,6 @@ import {
   saveUserDetails,
 } from '../../../store/actions/userActions';
 import { requiredField } from '../../../constants/requiredField';
-import { classNames } from '../../../utils/classNames';
-import { addModal } from '../../../store/features/globalSlice';
-import { ModalType } from '../../../store/models/Modal';
 
 interface UserDetailsFormData {
   firstname: string;
@@ -31,8 +28,6 @@ const ProfilePage: FC = () => {
   const { details, user } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const [method, setMethod] = useState<'POST' | 'PATCH'>('POST');
-  //if you want to disable user data editing
-  const [disabled, setDisabled] = useState<boolean>(false);
 
   const { register, reset, formState, handleSubmit } =
     useForm<UserDetailsFormData>({
@@ -40,13 +35,10 @@ const ProfilePage: FC = () => {
       reValidateMode: 'onSubmit',
     });
 
-  const { errors } = formState;
+  const { errors, isDirty } = formState;
 
   useEffect(() => {
     if (user) dispatch(fetchUserDetails());
-    dispatch(
-      addModal({ type: ModalType.RESERVATION, title: 'Confirm reservation' })
-    );
   }, [dispatch, user]);
 
   useEffect(() => {
@@ -59,12 +51,6 @@ const ProfilePage: FC = () => {
       });
     }
   }, [details, reset]);
-
-  useEffect(() => {
-    if (details) {
-      setDisabled(true);
-    }
-  }, []);
 
   const onSubmit = (data: UserDetailsFormData) => {
     dispatch(saveUserDetails({ ...data, uid: user?.uid, method }));
@@ -81,30 +67,34 @@ const ProfilePage: FC = () => {
       />
 
       <form onSubmit={handleSubmit(onSubmit)}>
-        <label htmlFor="firstname">{t('firstname')}</label>
-        <Input
-          {...register('firstname', requiredField)}
-          error={errors.firstname}
-          className={classes.Input}
-          name="firstname"
-        />
-        <label htmlFor="surname">{t('surname')}</label>
-        <Input
-          {...register('surname', requiredField)}
-          error={errors.surname}
-          className={classes.Input}
-          name="surname"
-        />
-        <label htmlFor="location">{t('location')}</label>
-        <Input
-          {...register('location', requiredField)}
-          error={errors.location}
-          className={classes.Input}
-          name="location"
-        />
-        <Button disabled={false} className={classNames(classes.Container)}>
-          {t('save')}
-        </Button>
+        <div>
+          <label htmlFor="firstname">{t('firstname')}</label>
+          <Input
+            {...register('firstname', requiredField)}
+            error={errors.firstname}
+            className={classes.Input}
+            name="firstname"
+          />
+        </div>
+        <div>
+          <label htmlFor="surname">{t('surname')}</label>
+          <Input
+            {...register('surname', requiredField)}
+            error={errors.surname}
+            className={classes.Input}
+            name="surname"
+          />
+        </div>
+        <div>
+          <label htmlFor="location">{t('location')}</label>
+          <Input
+            {...register('location', requiredField)}
+            error={errors.location}
+            className={classes.Input}
+            name="location"
+          />
+        </div>
+        <Button disabled={!isDirty}>{t('save')}</Button>
       </form>
     </div>
   );
