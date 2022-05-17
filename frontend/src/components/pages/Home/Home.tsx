@@ -3,9 +3,10 @@ import Office from '../../ui/Office/Office';
 import { dummyOffice } from '../../ui/Office/dummyData';
 import 'rc-slider/assets/index.css';
 import TimeSlider from '../../ui/TimeSlider/TimeSlider';
-import classesHome from './Home.module.scss';
+import classes from './Home.module.scss';
 import DateCard from '../../ui/DateCard/DateCard';
 import { format, addBusinessDays, eachDayOfInterval, isToday } from 'date-fns';
+import { workingHours } from '../../../constants/timeConstants';
 
 const Home: FC = () => {
   const [from, setFrom] = useState<number>(8);
@@ -39,8 +40,8 @@ const Home: FC = () => {
   }, []);
 
   return (
-    <div>
-      <div className={classesHome.Container}>
+    <div className={classes.Container}>
+      <div className={classes.DateContainer}>
         {dates.map((date: Date, index: number) => {
           return (
             <DateCard
@@ -56,18 +57,7 @@ const Home: FC = () => {
       <TimeSlider
         min={8}
         max={17}
-        marks={{
-          8: '8 am',
-          9: '9 am',
-          10: '10 am',
-          11: '11 am',
-          12: '12 am',
-          13: '1 pm',
-          14: '2 pm',
-          15: '3 pm',
-          16: '4 pm',
-          17: '5 pm',
-        }}
+        marks={workingHours}
         defaultValue={[8, 17]}
         tipFormatter={(value) => `${value}`}
         tipProps={{}}
