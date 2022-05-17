@@ -78,32 +78,32 @@ const ProfilePage: FC = () => {
           <p>{details?.location}</p>
         </>
       ) : (
-        <>form goes here</>
+        <>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <Input
+              {...register('firstname', requiredField)}
+              placeholder={t('firstname')}
+              error={errors.firstname}
+              className={classes.Input}
+            />
+            <Input
+              {...register('surname', requiredField)}
+              placeholder={t('surname')}
+              error={errors.surname}
+              className={classes.Input}
+            />
+            <Input
+              {...register('location', requiredField)}
+              placeholder={t('location')}
+              error={errors.location}
+              className={classes.Input}
+            />
+            <Button disabled={false} className={classNames(classes.Container)}>
+              {t('save')}
+            </Button>
+          </form>
+        </>
       )}
-
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Input
-          {...register('firstname', requiredField)}
-          placeholder={t('firstname')}
-          error={errors.firstname}
-          className={classes.Input}
-        />
-        <Input
-          {...register('surname', requiredField)}
-          placeholder={t('surname')}
-          error={errors.surname}
-          className={classes.Input}
-        />
-        <Input
-          {...register('location', requiredField)}
-          placeholder={t('location')}
-          error={errors.location}
-          className={classes.Input}
-        />
-        <Button disabled={false} className={classNames(classes.Container)}>
-          {t('save')}
-        </Button>
-      </form>
     </div>
   );
 };
