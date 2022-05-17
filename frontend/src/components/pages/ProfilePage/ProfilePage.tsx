@@ -76,9 +76,7 @@ const ProfilePage: FC = () => {
       />
 
       <form onSubmit={handleSubmit(onSubmit)}>
-        {details?.firstname ? (
-          <label htmlFor="firstname">{t('firstname')}</label>
-        ) : null}
+        <label htmlFor="firstname">{t('firstname')}</label>
         <Input
           {...register('firstname', requiredField)}
           error={errors.firstname}
