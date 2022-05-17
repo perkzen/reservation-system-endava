@@ -29,6 +29,8 @@ const ProfilePage: FC = () => {
   const { details, user } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const [method, setMethod] = useState<'POST' | 'PATCH'>('POST');
+  //if you want to disable user data editing
+  const [disabled, setDisabled] = useState<boolean>(false);
 
   const { register, reset, formState, handleSubmit } =
     useForm<UserDetailsFormData>({
@@ -53,6 +55,12 @@ const ProfilePage: FC = () => {
     }
   }, [details, reset]);
 
+  useEffect(() => {
+    if (details) {
+      setDisabled(true);
+    }
+  });
+
   const onSubmit = (data: UserDetailsFormData) => {
     dispatch(saveUserDetails({ ...data, uid: user?.uid, method }));
   };
@@ -67,41 +75,34 @@ const ProfilePage: FC = () => {
         alt={'Profile'}
       />
 
-      {details ? (
-        <>
-          <p>
-            {details.firstname} {details.surname}
-          </p>
-          <p>{user?.email}</p>
-          <p>{details.location}</p>
-        </>
-      ) : (
-        <>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <Input
-              {...register('firstname', requiredField)}
-              placeholder={t('firstname')}
-              error={errors.firstname}
-              className={classes.Input}
-            />
-            <Input
-              {...register('surname', requiredField)}
-              placeholder={t('surname')}
-              error={errors.surname}
-              className={classes.Input}
-            />
-            <Input
-              {...register('location', requiredField)}
-              placeholder={t('location')}
-              error={errors.location}
-              className={classes.Input}
-            />
-            <Button disabled={false} className={classNames(classes.Container)}>
-              {t('save')}
-            </Button>
-          </form>
-        </>
-      )}
+      <form onSubmit={handleSubmit(onSubmit)}>
+        {details?.firstname ? (
+          <label htmlFor="firstname">{t('firstname')}</label>
+        ) : null}
+        <Input
+          {...register('firstname', requiredField)}
+          error={errors.firstname}
+          className={classes.Input}
+          name="firstname"
+        />
+        <label htmlFor="surname">{t('surname')}</label>
+        <Input
+          {...register('surname', requiredField)}
+          error={errors.surname}
+          className={classes.Input}
+          name="surname"
+        />
+        <label htmlFor="location">{t('location')}</label>
+        <Input
+          {...register('location', requiredField)}
+          error={errors.location}
+          className={classes.Input}
+          name="location"
+        />
+        <Button disabled={false} className={classNames(classes.Container)}>
+          {t('save')}
+        </Button>
+      </form>
     </div>
   );
 };
