@@ -39,7 +39,7 @@ const ProfilePage: FC = () => {
   const { errors } = formState;
 
   useEffect(() => {
-    if (user) dispatch(fetchUserDetails(user.uid));
+    if (user) dispatch(fetchUserDetails());
   }, [dispatch, user]);
 
   useEffect(() => {

@@ -11,9 +11,7 @@ export const saveUserDetailsSuccess = createAction(
   `${USER_SLICE}/saveUserDetailsSuccess`
 );
 
-export const fetchUserDetails = createAction<string>(
-  `${USER_SLICE}/fetchUserDetails`
-);
+export const fetchUserDetails = createAction(`${USER_SLICE}/fetchUserDetails`);
 
 export const fetchUserDetailsSuccess = createAction<UserDetails>(
   `${USER_SLICE}/fetchUserDetailsSuccess`
