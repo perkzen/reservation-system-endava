@@ -1,0 +1,62 @@
+.Container {
+  @apply relative my-6 mx-auto max-w-3xl z-10;
+  width: fit-content;
+
+  .Content {
+    @apply bg-white border-0 rounded-lg shadow-lg relative flex flex-col w-full  outline-none focus:outline-none p-2;
+
+
+    .Body {
+      @apply text-sm text-gray-700 relative py-2 px-6 flex-auto m-auto
+    }
+
+    .Header {
+      display: flex;
+      flex-direction: row;
+
+      .Title {
+        @apply relative py-2  m-auto font-bold;
+      }
+
+    }
+
+    .Icon {
+      @apply mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100;
+      svg {
+        @apply h-6 w-6 text-green-500;
+      }
+    }
+
+    .Body {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      @apply text-black;
+
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+
+        button {
+          @apply bg-green-500;
+        }
+      }
+    }
+
+    .ButtonContainer {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      @apply mt-5;
+
+      button {
+        @apply hover:bg-graySecondary;
+      }
+
+      button:nth-child(2) {
+        @apply ml-5;
+      }
+    }
+  }
+}
