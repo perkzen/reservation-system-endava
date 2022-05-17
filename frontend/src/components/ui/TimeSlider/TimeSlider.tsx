@@ -1,15 +1,16 @@
-import * as React from 'react';
+import React, { ReactElement, ReactNode, useEffect, useRef } from 'react';
 import 'rc-tooltip/assets/bootstrap.css';
 import Slider from 'rc-slider';
 import type { SliderProps } from 'rc-slider';
 import raf from 'rc-util/lib/raf';
 import Tooltip from 'rc-tooltip';
+import classes from './TimeSlider.module.scss';
 
 const HandleTooltip = (props: {
   value: number;
-  children: React.ReactElement;
+  children: ReactElement;
   visible: boolean;
-  tipFormatter?: (value: number) => React.ReactNode;
+  tipFormatter?: (value: number) => ReactNode;
 }) => {
   const {
     value,
@@ -19,8 +20,8 @@ const HandleTooltip = (props: {
     ...restProps
   } = props;
 
-  const tooltipRef = React.useRef<any>();
-  const rafRef = React.useRef<number | null>(null);
+  const tooltipRef = useRef<any>();
+  const rafRef = useRef<number | null>(null);
 
   function cancelKeepAlign() {
     raf.cancel(rafRef.current!);
@@ -32,7 +33,7 @@ const HandleTooltip = (props: {
     });
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (visible) {
       keepAlign();
     } else {
@@ -53,14 +54,6 @@ const HandleTooltip = (props: {
     >
       {children}
     </Tooltip>
-  );
-};
-
-export const handleRender: SliderProps['handleRender'] = (node, props) => {
-  return (
-    <HandleTooltip value={props.value} visible={props.dragging}>
-      {node}
-    </HandleTooltip>
   );
 };
 
@@ -85,7 +78,19 @@ const TimeSlider = ({
     );
   };
 
-  return <Slider {...props} handleRender={tipHandleRender} />;
+  return (
+    <Slider
+      {...props}
+      className={classes.Slider}
+      dotStyle={{ borderColor: '#31363B' }}
+      activeDotStyle={{ borderColor: '#31363B' }}
+      trackStyle={{ backgroundColor: '#31363B' }}
+      handleStyle={{ backgroundColor: '#DE411B' }}
+      handleRender={tipHandleRender}
+      range
+      pushable
+    />
+  );
 };
 
 export default TimeSlider;

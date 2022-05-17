@@ -3,18 +3,21 @@ import Office from '../../ui/Office/Office';
 import { dummyOffice } from '../../ui/Office/dummyData';
 import 'rc-slider/assets/index.css';
 import TimeSlider from '../../ui/TimeSlider/TimeSlider';
-import classes from '../../ui/TimeSlider/TimeSlider.module.scss';
 import classesHome from './Home.module.scss';
 import DateCard from '../../ui/DateCard/DateCard';
-import eachDayOfInterval from 'date-fns/eachDayOfInterval';
-import addBusinessDays from 'date-fns/addBusinessDays';
-import { format } from 'date-fns';
-import isToday from 'date-fns/isToday';
+import { format, addBusinessDays, eachDayOfInterval, isToday } from 'date-fns';
 
 const Home: FC = () => {
-  const [from, setFrom] = useState<number>(7);
-  const [to, setTo] = useState<number>(15);
+  const [from, setFrom] = useState<number>(8);
+  const [to, setTo] = useState<number>(17);
   const [dates, setDates] = useState<Date[]>([]);
+
+  const handleChange = (value: number | number[]) => {
+    if (value instanceof Array) {
+      setFrom(value[0]);
+      setTo(value[1]);
+    }
+  };
 
   useEffect(() => {
     const currentDate = new Date();
@@ -37,7 +40,7 @@ const Home: FC = () => {
 
   return (
     <div>
-      <div className={classesHome.Cointainer}>
+      <div className={classesHome.Container}>
         {dates.map((date: Date, index: number) => {
           return (
             <DateCard
@@ -51,35 +54,24 @@ const Home: FC = () => {
       </div>
 
       <TimeSlider
-        className={classes.Slider}
-        dotStyle={{ borderColor: '#31363B' }}
-        activeDotStyle={{ borderColor: '#31363B' }}
-        trackStyle={{ backgroundColor: '#31363B' }}
-        handleStyle={{ backgroundColor: '#DE411B' }}
-        range
-        pushable
-        min={7}
-        max={15}
+        min={8}
+        max={17}
         marks={{
-          7: '7am',
-          8: '8am',
-          9: '9am',
-          10: '10am',
-          11: '11am',
-          12: '12am',
-          13: '1pm',
-          14: '2pm',
-          15: '3pm',
+          8: '8 am',
+          9: '9 am',
+          10: '10 am',
+          11: '11 am',
+          12: '12 am',
+          13: '1 pm',
+          14: '2 pm',
+          15: '3 pm',
+          16: '4 pm',
+          17: '5 pm',
         }}
-        defaultValue={[7, 15]}
+        defaultValue={[8, 17]}
         tipFormatter={(value) => `${value}`}
         tipProps={{}}
-        onChange={(value) => {
-          if (value instanceof Array) {
-            setFrom(value[0]);
-            setTo(value[1]);
-          }
-        }}
+        onChange={handleChange}
       />
       <Office office={dummyOffice} />
     </div>
@@ -87,5 +79,3 @@ const Home: FC = () => {
 };
 
 export default Home;
-
-//<Slider range min={0} max={20} defaultValue={3} handleRender={handleRender} />
