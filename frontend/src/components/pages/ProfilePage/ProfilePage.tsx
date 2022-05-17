@@ -11,6 +11,8 @@ import {
 } from '../../../store/actions/userActions';
 import { requiredField } from '../../../constants/requiredField';
 import { classNames } from '../../../utils/classNames';
+import { addModal } from '../../../store/features/globalSlice';
+import { ModalType } from '../../../store/models/Modal';
 
 interface UserDetailsFormData {
   firstname: string;
@@ -40,6 +42,9 @@ const ProfilePage: FC = () => {
 
   useEffect(() => {
     if (user) dispatch(fetchUserDetails());
+    dispatch(
+      addModal({ type: ModalType.RESERVATION, title: 'Confirm reservation' })
+    );
   }, [dispatch, user]);
 
   useEffect(() => {

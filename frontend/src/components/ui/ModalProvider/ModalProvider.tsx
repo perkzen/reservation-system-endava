@@ -4,7 +4,9 @@ import { createPortal } from 'react-dom';
 import classes from './ModalProvider.module.scss';
 import { classNames } from '../../../utils/classNames';
 import { removeModal } from '../../../store/features/globalSlice';
-import Modal from '../Modal/Modal';
+import DeleteModal from '../DeleteModal/DeleteModal';
+import { ModalType } from '../../../store/models/Modal';
+import ReservationModal from '../ReservationModal/ReservationModal';
 
 interface ModalProviderProps {
   children: ReactNode;
@@ -14,6 +16,15 @@ const ModalProvider: FC<ModalProviderProps> = ({ children }) => {
   const dispatch = useAppDispatch();
   const { modal } = useAppSelector((state) => state.global);
   const open = !!modal;
+
+  const showModal = () => {
+    switch (modal?.type) {
+      case ModalType.DELETE:
+        return <DeleteModal modal={modal} />;
+      case ModalType.RESERVATION:
+        return <ReservationModal modal={modal} />;
+    }
+  };
 
   return (
     <>
@@ -31,9 +42,7 @@ const ModalProvider: FC<ModalProviderProps> = ({ children }) => {
                 : undefined
             }
           >
-            <div className={classes.Container}>
-              <Modal modal={modal} />
-            </div>
+            <div className={classes.Container}>{showModal()}</div>
           </div>,
           document.body
         )}
