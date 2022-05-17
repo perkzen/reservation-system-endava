@@ -13,7 +13,7 @@ import { auth } from '../../../firebase-config';
 import { useAppDispatch } from '../../../store/app/hooks';
 import { setAccessToken, setUser } from '../../../store/features/userSlice';
 import firebase from 'firebase/compat';
-import { User } from '../../../store/models/User';
+import { FirebaseUser, User } from '../../../store/models/User';
 import { Errors, FirebaseErrors } from '../../../constants/errorConstants';
 import { requiredField } from '../../../constants/requiredField';
 
@@ -47,7 +47,7 @@ const Login: FC = () => {
         data.email,
         data.password
       );
-      const user = res.user as unknown as User;
+      const user = res.user as FirebaseUser;
       const accessToken = await res.user.getIdToken(true);
       dispatch(setUser(user));
       dispatch(setAccessToken(accessToken));

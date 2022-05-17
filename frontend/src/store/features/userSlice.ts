@@ -1,8 +1,8 @@
-import { User, UserDetails } from '../models/User';
+import { FirebaseUser, UserDetails } from '../models/User';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface AuthState {
-  user: User | null;
+  user: FirebaseUser | null;
   details: UserDetails | null;
   isAuth: boolean;
   accessToken: string;
@@ -19,7 +19,7 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setUser: (state, action: PayloadAction<User>) => {
+    setUser: (state, action: PayloadAction<FirebaseUser>) => {
       state.user = action.payload;
       state.isAuth = true;
     },
