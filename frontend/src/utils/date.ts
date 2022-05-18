@@ -1,6 +1,6 @@
 import { addBusinessDays, eachDayOfInterval, format } from 'date-fns';
 
-export const avaiableDates = (): Date[] => {
+export const generateDates = (): Date[] => {
   const currentDate = new Date();
   const dates = [];
   const result = eachDayOfInterval({

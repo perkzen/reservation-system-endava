@@ -7,12 +7,12 @@ import classes from './Home.module.scss';
 import DateCard from '../../ui/DateCard/DateCard';
 import { format, isToday } from 'date-fns';
 import { workingHours } from '../../../constants/timeConstants';
-import { avaiableDates } from '../../../utils/date';
+import { generateDates } from '../../../utils/date';
 
 const Home: FC = () => {
   const [from, setFrom] = useState<number>(8);
   const [to, setTo] = useState<number>(17);
-  const [dates, setDates] = useState<Date[]>(avaiableDates);
+  const [dates] = useState<Date[]>(generateDates());
 
   const handleChange = (value: number | number[]) => {
     if (value instanceof Array) {
