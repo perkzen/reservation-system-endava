@@ -3,7 +3,7 @@ import { Roles } from '../../utils/constants/roles';
 
 @Schema()
 export class User {
-  @Prop()
+  @Prop({ type: String, unique: true })
   uid: string;
 
   @Prop()
