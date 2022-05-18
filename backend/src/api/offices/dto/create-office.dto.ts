@@ -17,7 +17,7 @@ export class CreateOfficeDto {
   name: string;
 
   @ApiProperty({ required: true })
-  @IsString()
+  @IsNumber()
   @IsPositive()
   cols: number;
 

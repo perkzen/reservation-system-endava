@@ -1,25 +1,35 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
+  Controller,
   Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  UseGuards,
 } from '@nestjs/common';
 import { OfficesService } from './offices.service';
 import { CreateOfficeDto } from './dto/create-office.dto';
 import { UpdateOfficeDto } from './dto/update-office.dto';
-import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOkResponse, ApiSecurity, ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '../../guards/auth.guard';
+import { Office } from './schemas/office.schema';
+import { Roles } from '../../decorators/role.decorator';
+import { Role } from '../../utils/role';
+import { RoleGuard } from '../../guards/role.guard';
 
 @ApiTags('Office')
 @Controller('offices')
+@ApiSecurity('Authorization')
+@UseGuards(AuthGuard)
 export class OfficesController {
   constructor(private readonly officesService: OfficesService) {}
 
   @ApiOkResponse({ description: 'Creates new office' })
+  @Roles(Role.ADMIN)
+  @UseGuards(RoleGuard)
   @Post()
-  create(@Body() createOfficeDto: CreateOfficeDto) {
+  create(@Body() createOfficeDto: CreateOfficeDto): Promise<Office> {
     return this.officesService.create(createOfficeDto);
   }
 
@@ -36,6 +46,8 @@ export class OfficesController {
   }
 
   @ApiOkResponse({ description: 'Updates office information' })
+  @Roles(Role.ADMIN)
+  @UseGuards(RoleGuard)
   @Patch(':id')
   async update(
     @Param('id') id: string,
@@ -45,6 +57,8 @@ export class OfficesController {
   }
 
   @ApiOkResponse({ description: 'Deletes office' })
+  @Roles(Role.ADMIN)
+  @UseGuards(RoleGuard)
   @Delete(':id')
   async remove(@Param('id') id: string) {
     return this.officesService.remove(id);
