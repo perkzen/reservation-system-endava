@@ -10,6 +10,7 @@ import instance from '../../axios';
 import { ApiRoutes } from '../../constants/apiConstants';
 import { Role, UserDetails } from '../models/User';
 import { startLoading, stopLoading } from '../features/globalSlice';
+import { toast } from 'react-toastify';
 
 export function* saveUserDetailsSaga(
   action: ReturnType<typeof saveUserDetails>
@@ -30,7 +31,7 @@ export function* saveUserDetailsSaga(
     const error = e as AxiosError;
     // @ts-ignore
     const message = error.response?.data?.message;
-    console.log(message);
+    toast.error(message);
   } finally {
     stopLoading({ actionType: action.type });
   }
@@ -49,7 +50,7 @@ export function* fetchUserDetailsSaga(
     const error = e as AxiosError;
     // @ts-ignore
     const message = error.response?.data?.message;
-    console.log(message);
+    toast.error(message);
   } finally {
     yield put(stopLoading({ actionType: action.type }));
   }
