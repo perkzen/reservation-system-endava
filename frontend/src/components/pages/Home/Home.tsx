@@ -1,17 +1,18 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { FC, useState } from 'react';
 import Office from '../../ui/Office/Office';
 import { dummyOffice } from '../../ui/Office/dummyData';
 import 'rc-slider/assets/index.css';
 import TimeSlider from '../../ui/TimeSlider/TimeSlider';
 import classes from './Home.module.scss';
 import DateCard from '../../ui/DateCard/DateCard';
-import { format, addBusinessDays, eachDayOfInterval, isToday } from 'date-fns';
+import { format, isToday } from 'date-fns';
 import { workingHours } from '../../../constants/timeConstants';
+import { avaiableDates } from '../../../utils/date';
 
 const Home: FC = () => {
   const [from, setFrom] = useState<number>(8);
   const [to, setTo] = useState<number>(17);
-  const [dates, setDates] = useState<Date[]>([]);
+  const [dates, setDates] = useState<Date[]>(avaiableDates);
 
   const handleChange = (value: number | number[]) => {
     if (value instanceof Array) {
@@ -19,25 +20,6 @@ const Home: FC = () => {
       setTo(value[1]);
     }
   };
-
-  useEffect(() => {
-    const currentDate = new Date();
-    const dates = [];
-    const result = eachDayOfInterval({
-      start: currentDate,
-      end: addBusinessDays(currentDate, 4),
-    });
-    for (const date of result) {
-      if (
-        format(date, 'EEEE') !== 'Saturday' &&
-        format(date, 'EEEE') !== 'Sunday'
-      ) {
-        dates.push(date);
-      }
-    }
-
-    setDates(dates);
-  }, []);
 
   return (
     <div className={classes.Container}>
