@@ -11,9 +11,17 @@ import { Errors } from '../utils/errors';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  private app = firebase.initializeApp({
-    credential: firebase.credential.cert(firebaseServiceAccount),
-  });
+  private app: firebase.app.App;
+
+  constructor() {
+    if (!firebase.apps.length) {
+      this.app = firebase.initializeApp({
+        credential: firebase.credential.cert(firebaseServiceAccount),
+      });
+    } else {
+      this.app = firebase.app();
+    }
+  }
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();

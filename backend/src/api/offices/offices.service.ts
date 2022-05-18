@@ -3,13 +3,14 @@ import { CreateOfficeDto } from './dto/create-office.dto';
 import { UpdateOfficeDto } from './dto/update-office.dto';
 import { OfficeRepository } from './repository/office.repository';
 import { Errors } from '../../utils/errors';
+import { Office } from './schemas/office.schema';
 
 @Injectable()
 export class OfficesService {
   constructor(private readonly officeRepository: OfficeRepository) {}
 
-  async create(createOfficeDto: CreateOfficeDto) {
-    await this.officeRepository.create(createOfficeDto);
+  async create(createOfficeDto: CreateOfficeDto): Promise<Office> {
+    return await this.officeRepository.create(createOfficeDto);
   }
 
   async findAll() {
