@@ -9,7 +9,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 export class UsersService {
   constructor(private readonly userRepository: UsersRepository) {}
 
-  async createUserDetails(user: CreateUserDto) {
+  async createUserDetails(user: CreateUserDto): Promise<User> {
     const found = await this.userRepository.findOne({ uid: user.uid });
 
     if (found) {
@@ -19,11 +19,11 @@ export class UsersService {
       );
     }
 
-    await this.userRepository.create(user);
+    return await this.userRepository.create(user);
   }
 
   async getUserDetails(id: string): Promise<User> {
-    const found = this.userRepository.findOne({ uid: id });
+    const found = await this.userRepository.findOne({ uid: id });
 
     if (!found) {
       throw new HttpException(Errors.USER_NOT_FOUND, HttpStatus.NOT_FOUND);
@@ -41,5 +41,7 @@ export class UsersService {
     if (!found) {
       throw new HttpException(Errors.USER_NOT_FOUND, HttpStatus.NOT_FOUND);
     }
+
+    return found;
   }
 }
