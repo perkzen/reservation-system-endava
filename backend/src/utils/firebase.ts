@@ -1,4 +1,4 @@
-import * as serviceAccount from '../../../firebase-service-account.json';
+import * as serviceAccount from '../../firebase-service-account.json';
 
 const firebaseServiceAccount = {
   type: serviceAccount.type,

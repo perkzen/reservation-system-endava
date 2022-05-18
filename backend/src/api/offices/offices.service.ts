@@ -2,7 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateOfficeDto } from './dto/create-office.dto';
 import { UpdateOfficeDto } from './dto/update-office.dto';
 import { OfficeRepository } from './repository/office.repository';
-import { Errors } from '../utils/constants/errors';
+import { Errors } from '../../utils/errors';
 
 @Injectable()
 export class OfficesService {
