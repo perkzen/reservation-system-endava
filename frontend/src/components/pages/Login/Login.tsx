@@ -13,7 +13,7 @@ import { auth } from '../../../firebase-config';
 import { useAppDispatch } from '../../../store/app/hooks';
 import { setAccessToken, setUser } from '../../../store/features/userSlice';
 import firebase from 'firebase/compat';
-import { FirebaseUser, User } from '../../../store/models/User';
+import { FirebaseUser } from '../../../store/models/User';
 import { Errors, FirebaseErrors } from '../../../constants/errorConstants';
 import { requiredField } from '../../../constants/requiredField';
 
