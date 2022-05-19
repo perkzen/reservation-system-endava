@@ -4,6 +4,7 @@ import { Orientation } from '../../../utils/workspace';
 export const dummyOffice: Office = {
   name: 'Endava',
   cols: 5,
+  location: 'Maribor',
   rows: 5,
   workspaces: [
     {
