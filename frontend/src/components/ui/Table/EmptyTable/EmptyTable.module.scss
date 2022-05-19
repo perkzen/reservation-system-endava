@@ -1,0 +1,19 @@
+.Container {
+  width: 100%;
+  .Icon {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    svg{
+      @apply bg-secondary p-2 rounded-full;
+    }
+
+  }
+
+  .Title {
+    margin-top: 1rem;
+    text-align: center;
+  }
+
+}
