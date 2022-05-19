@@ -18,6 +18,7 @@ export class Office {
     id: string;
     orientation: string;
     position: number;
+    reserved: boolean;
   }[];
 }
 

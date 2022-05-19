@@ -3,6 +3,7 @@ import { CreateReservationDto } from './dto/create-reservation.dto';
 import { Reservation } from './Schemas/reservation.schema';
 import { ReservationRepository } from './repository/reservation.repository';
 import { Errors } from '../../utils/errors';
+import { ReservationQuery } from '../../utils/interfaces';
 
 @Injectable()
 export class ReservationsService {
@@ -55,6 +56,24 @@ export class ReservationsService {
     const currentDate = Date.now();
 
     return reservations.filter((reservation) => reservation.to >= currentDate);
+  }
+
+  async findOfficeReservationsByDate(
+    officeId: string,
+    { from, to }: ReservationQuery,
+  ): Promise<Reservation[]> {
+    // all reservations
+    const all = await this.reservationRepository.find({
+      officeId: officeId,
+    });
+
+    const currentDate = Date.now();
+    // all active
+    const active = all.filter((reservation) => reservation.to >= currentDate);
+    // return all on [from,to] interval
+    return active.filter(
+      (reservation) => reservation.to > from || reservation.from < to,
+    );
   }
 
   async remove(id: string, userId: string) {

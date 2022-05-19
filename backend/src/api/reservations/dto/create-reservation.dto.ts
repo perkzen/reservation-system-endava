@@ -4,6 +4,10 @@ import { IsNumber, IsOptional, IsPositive, IsString } from 'class-validator';
 export class CreateReservationDto {
   @ApiProperty({ required: true })
   @IsString()
+  officeId: string;
+
+  @ApiProperty({ required: true })
+  @IsString()
   workspaceId: string;
 
   @ApiProperty({ required: true })
