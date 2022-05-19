@@ -34,8 +34,8 @@ export class ReservationsService {
     // check if workspace is available
     const available = reservations.filter((reservation) => {
       return !(
-        (data.from < reservation.from && data.to < reservation.from) ||
-        (data.from > reservation.to && data.to > reservation.to)
+        (data.from <= reservation.from && data.to <= reservation.from) ||
+        (data.from >= reservation.to && data.to >= reservation.to)
       );
     });
 
