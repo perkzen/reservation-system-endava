@@ -9,13 +9,13 @@ import {
 } from '@nestjs/common';
 import { ReservationsService } from './reservations.service';
 import { CreateReservationDto } from './dto/create-reservation.dto';
-import { ApiOkResponse, ApiSecurity, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '../../guards/auth.guard';
 import { User } from '../../decorators/user.decorator';
 import { Reservation } from './Schemas/reservation.schema';
 
 @ApiTags('Reservations')
-@ApiSecurity('Authorization')
+@ApiBearerAuth()
 @UseGuards(AuthGuard)
 @Controller('reservations')
 export class ReservationsController {

@@ -1,18 +1,9 @@
+import { Body, Controller, Get, Patch, Post, UseGuards } from '@nestjs/common';
 import {
-  Body,
-  Controller,
-  Get,
-  HttpStatus,
-  Patch,
-  Post,
-  UseGuards,
-} from '@nestjs/common';
-import {
+  ApiBearerAuth,
   ApiNotFoundResponse,
   ApiOkResponse,
   ApiPreconditionFailedResponse,
-  ApiResponse,
-  ApiSecurity,
   ApiTags,
 } from '@nestjs/swagger';
 import { UsersService } from './users.service';
@@ -22,11 +13,7 @@ import { User } from '../../decorators/user.decorator';
 import { UpdateUserDto } from './dto/update-user.dto';
 
 @ApiTags('User')
-@ApiResponse({
-  status: HttpStatus.UNAUTHORIZED,
-  description: 'Unauthorized access.',
-})
-@ApiSecurity('Authorization')
+@ApiBearerAuth()
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
