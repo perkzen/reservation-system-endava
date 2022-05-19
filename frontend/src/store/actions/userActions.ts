@@ -1,7 +1,7 @@
 import { createAction } from '@reduxjs/toolkit';
 import { SaveDetails, UserDetails } from '../models/User';
 
-const USER_SLICE = 'user';
+export const USER_SLICE = 'user';
 
 export const saveUserDetails = createAction<SaveDetails>(
   `${USER_SLICE}/saveUserDetails`
