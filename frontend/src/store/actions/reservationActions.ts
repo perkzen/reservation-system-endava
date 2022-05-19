@@ -1,9 +1,9 @@
 import { createAction } from '@reduxjs/toolkit';
-import { Reservation } from '../models/Reservation';
+import { CreateReservation, Reservation } from '../models/Reservation';
 
 export const RESERVATION_SLICE = 'reservation';
 
-export const createReservation = createAction<Reservation>(
+export const createReservation = createAction<CreateReservation>(
   `${RESERVATION_SLICE}/createReservation`
 );
 
