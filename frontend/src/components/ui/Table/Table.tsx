@@ -30,7 +30,7 @@ const Table = <T,>({
           <h1>{title}</h1>
         </div>
         <div>
-          {buttonAction && (
+          {buttonLabel && (
             <button type="button" onClick={buttonAction}>
               {buttonLabel}
             </button>
@@ -44,14 +44,15 @@ const Table = <T,>({
               <table>
                 <thead>
                   <tr>
+                    <th scope="col" className={'sr-only'} colSpan={1}>
+                      <span>index</span>
+                    </th>
                     {headers.map((header) => (
                       <th key={v4()}>
                         <span>{header.label}</span>
                       </th>
                     ))}
-                    <th scope="col">
-                      <span>Edit</span>
-                    </th>
+                    <th scope="col" className="sr-only" colSpan={1} />
                   </tr>
                 </thead>
                 <tbody>
@@ -65,14 +66,16 @@ const Table = <T,>({
                               {dataItem[header.accessor] as unknown as string}
                             </td>
                           ))}
-                          <td colSpan={headers.length + 1}>
+                          <td colSpan={1}>
                             <button>Cancel</button>
                           </td>
                         </tr>
                       ))}
                     </>
                   ) : (
-                    <div>empty table</div>
+                    <tr>
+                      <td>empty table</td>
+                    </tr>
                   )}
                 </tbody>
               </table>

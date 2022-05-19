@@ -4,8 +4,8 @@ interface ReservationModel {
   workspaceId: string;
   userId: string;
   comment: string;
-  from: string;
-  to: string;
+  from: number;
+  to: number;
 }
 
 export interface CreateReservation extends ReservationModel {
@@ -16,11 +16,10 @@ export interface Reservation extends ReservationModel {
   office: Office;
 }
 
-// office is officeId
 export interface ReservationTable {
-  office: Office;
+  office: string;
   workspaceId: string;
   comment: string;
-  from: number;
-  to: number;
+  from: string;
+  to: string;
 }

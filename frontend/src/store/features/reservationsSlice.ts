@@ -15,7 +15,7 @@ export const reservationSlice = createSlice({
   name: RESERVATION_SLICE,
   initialState,
   reducers: {
-    fetchReservations: (state, action: PayloadAction<Reservation[]>) => {
+    fetchReservationSuccess: (state, action: PayloadAction<Reservation[]>) => {
       state.reservations = action.payload;
     },
   },
