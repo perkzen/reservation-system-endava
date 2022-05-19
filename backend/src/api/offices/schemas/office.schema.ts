@@ -8,6 +8,9 @@ export class Office {
   name: string;
 
   @Prop()
+  location: string;
+
+  @Prop()
   cols: number;
 
   @Prop()
