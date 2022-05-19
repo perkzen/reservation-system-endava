@@ -12,6 +12,7 @@ import { startLoading, stopLoading } from '../features/globalSlice';
 import instance from '../../axios';
 import { ApiRoutes } from '../../constants/apiConstants';
 import { Office } from '../models/Office';
+import { toast } from 'react-toastify';
 
 export function* saveOfficeSaga(
   action: ReturnType<typeof saveOffice>
@@ -29,7 +30,7 @@ export function* saveOfficeSaga(
     const error = e as AxiosError;
     // @ts-ignore
     const message = error.response?.data?.message;
-    console.log(message);
+    toast.error(message);
   } finally {
     yield put(stopLoading({ actionType: action.type }));
   }
@@ -45,7 +46,7 @@ export function* deleteOfficeSaga(
     const error = e as AxiosError;
     // @ts-ignore
     const message = error.response?.data?.message;
-    console.log(message);
+    toast.error(message);
   } finally {
     yield put(stopLoading({ actionType: action.type }));
   }
@@ -61,6 +62,10 @@ export function* fetchOfficesSaga(
     >;
     yield put(fetchOfficesSuccess(data));
   } catch (e) {
+    const error = e as AxiosError;
+    // @ts-ignore
+    const message = error.response?.data?.message;
+    toast.error(message);
   } finally {
     yield put(stopLoading({ actionType: action.type }));
   }
@@ -76,6 +81,10 @@ export function* fetchOfficeSaga(
     )) as AxiosResponse<Office>;
     yield put(fetchOfficeSuccess(data));
   } catch (e) {
+    const error = e as AxiosError;
+    // @ts-ignore
+    const message = error.response?.data?.message;
+    toast.error(message);
   } finally {
     yield put(stopLoading({ actionType: action.type }));
   }

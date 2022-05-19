@@ -17,5 +17,7 @@
   "logout": "Logout",
   "required_field": "This field is required!",
   "profile_page": "Profile page",
-  "save": "Save"
+  "save": "Save",
+  "available": "Available",
+  "unavailable": "Occupied"
 }

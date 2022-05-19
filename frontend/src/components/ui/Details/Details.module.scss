@@ -1,0 +1,18 @@
+.Container {
+  svg {
+    @apply w-5 text-primary m-1 inline cursor-pointer;
+  }
+
+  .Info {
+    @apply w-12 pt-3 inline;
+  }
+
+  .Available {
+    @apply bg-secondary mr-1.5 inline text-xs p-1 rounded;
+
+  }
+
+  .Unavailable {
+    @apply bg-primary inline text-xs text-accent p-1 rounded;
+  }
+}
