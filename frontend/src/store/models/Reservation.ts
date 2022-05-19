@@ -1,5 +1,6 @@
-export interface Reservation {
-  officeId: string;
+import { Office } from './Office';
+
+interface ReservationModel {
   workspaceId: string;
   userId: string;
   comment: string;
@@ -7,8 +8,17 @@ export interface Reservation {
   to: string;
 }
 
-export interface ReservationTable {
+export interface CreateReservation extends ReservationModel {
   office: string;
+}
+
+export interface Reservation extends ReservationModel {
+  office: Office;
+}
+
+// office is officeId
+export interface ReservationTable {
+  office: Office;
   workspaceId: string;
   comment: string;
   from: number;
