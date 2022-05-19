@@ -11,7 +11,7 @@ import {
 import { OfficesService } from './offices.service';
 import { CreateOfficeDto } from './dto/create-office.dto';
 import { UpdateOfficeDto } from './dto/update-office.dto';
-import { ApiOkResponse, ApiSecurity, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '../../guards/auth.guard';
 import { Office } from './schemas/office.schema';
 import { Roles } from '../../decorators/role.decorator';
@@ -20,7 +20,7 @@ import { RoleGuard } from '../../guards/role.guard';
 
 @ApiTags('Office')
 @Controller('offices')
-@ApiSecurity('Authorization')
+@ApiBearerAuth()
 @UseGuards(AuthGuard)
 export class OfficesController {
   constructor(private readonly officesService: OfficesService) {}

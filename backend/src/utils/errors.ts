@@ -5,4 +5,6 @@ export enum Errors {
   ACCESS_DENIED = 'Access denied',
   TOKEN_MISSING = 'Access token missing',
   AUTHORIZATION_HEADERS_MISSING = 'Authorization headers missing',
+  WORKSPACE_TAKEN = 'This workspace is already taken for this date and time',
+  RESERVATION_LIMIT = 'You can only have 3 active reservations',
 }
