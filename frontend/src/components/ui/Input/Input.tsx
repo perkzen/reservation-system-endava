@@ -15,13 +15,11 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       <div className={classes.Container}>
         <input
           {...props}
-          type="text"
           placeholder={' '}
           ref={ref}
-          name={'name'}
           className={classNames(className, error ? classes.InputError : '')}
         />
-        <label htmlFor={'name'}>{label}</label>
+        <label>{label}</label>
         {error && <small>{error.message}</small>}
       </div>
     );
