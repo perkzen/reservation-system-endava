@@ -65,35 +65,28 @@ const ProfilePage: FC = () => {
         height={100}
         alt={'Profile'}
       />
-
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          <label htmlFor="firstname">{t('firstname')}</label>
-          <Input
-            {...register('firstname', requiredField)}
-            error={errors.firstname}
-            className={classes.Input}
-            name="firstname"
-          />
-        </div>
-        <div>
-          <label htmlFor="surname">{t('surname')}</label>
-          <Input
-            {...register('surname', requiredField)}
-            error={errors.surname}
-            className={classes.Input}
-            name="surname"
-          />
-        </div>
-        <div>
-          <label htmlFor="location">{t('location')}</label>
-          <Input
-            {...register('location', requiredField)}
-            error={errors.location}
-            className={classes.Input}
-            name="location"
-          />
-        </div>
+        <Input
+          {...register('firstname', requiredField)}
+          error={errors.firstname}
+          className={classes.Input}
+          name="firstname"
+          label={t('firstname')}
+        />
+        <Input
+          {...register('surname', requiredField)}
+          error={errors.surname}
+          className={classes.Input}
+          name="surname"
+          label={t('surname')}
+        />
+        <Input
+          {...register('location', requiredField)}
+          error={errors.location}
+          className={classes.Input}
+          name="location"
+          label={t('location')}
+        />
         <Button disabled={!isDirty}>{t('save')}</Button>
       </form>
     </div>
