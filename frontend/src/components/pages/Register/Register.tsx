@@ -25,6 +25,7 @@ const defaultValues: RegisterFormData = {
 };
 
 const Register: FC = () => {
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const { t } = useTranslation();
   const { register, formState, handleSubmit } = useForm<RegisterFormData>({
@@ -35,8 +36,8 @@ const Register: FC = () => {
   const { errors } = formState;
 
   const onSubmit = async (data: RegisterFormData) => {
+    setLoading(true);
     setError('');
-
     if (data.password !== data.confirmPassword) {
       setError(Errors.PASSWORDS_DONT_MATCH);
       return;
@@ -62,6 +63,8 @@ const Register: FC = () => {
       }
 
       setError(Errors.UNKNOWN_ERROR);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -96,7 +99,7 @@ const Register: FC = () => {
           className={'mt-1'}
           error={errors.confirmPassword}
         />
-        <Button>{t('sign_up')}</Button>
+        <Button loading={loading}>{t('sign_up')}</Button>
       </form>
     </div>
   );
