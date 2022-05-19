@@ -6,3 +6,11 @@ export interface Reservation {
   from: string;
   to: string;
 }
+
+export interface ReservationTable {
+  office: string;
+  workspaceId: string;
+  comment: string;
+  from: number;
+  to: number;
+}
