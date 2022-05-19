@@ -2,9 +2,9 @@ import React, { FC, Fragment, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { MenuAlt2Icon, XIcon } from '@heroicons/react/outline';
 import Logo from './Logo/Logo';
-import Navigation from './Navigation/Navigation';
 import Profile from './Profile/Profile';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
+import NavItems from './Navigation/NavItems';
 
 const SideMenu: FC = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -68,7 +68,7 @@ const SideMenu: FC = () => {
                     <Logo />
                   </div>
                   <div className="mt-5 flex-1 h-0 overflow-y-auto">
-                    <Navigation />
+                    <NavItems />
                   </div>
                   <Profile />
                 </Dialog.Panel>
@@ -88,7 +88,7 @@ const SideMenu: FC = () => {
               <Logo className="w-3/4 m-auto" />
             </div>
             <div className="flex-1 flex flex-col overflow-y-auto">
-              <Navigation />
+              <NavItems />
             </div>
           </div>
           <Profile />

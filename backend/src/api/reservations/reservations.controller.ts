@@ -13,6 +13,7 @@ import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '../../guards/auth.guard';
 import { User } from '../../decorators/user.decorator';
 import { Reservation } from './Schemas/reservation.schema';
+import { SuccessResponse } from '../../utils/interfaces';
 
 @ApiTags('Reservation')
 @ApiBearerAuth()
@@ -23,7 +24,9 @@ export class ReservationsController {
 
   @ApiOkResponse({ description: 'Creates new reservation' })
   @Post()
-  async create(@Body() createReservationDto: CreateReservationDto) {
+  async create(
+    @Body() createReservationDto: CreateReservationDto,
+  ): Promise<SuccessResponse> {
     return await this.reservationsService.create(createReservationDto);
   }
 
@@ -37,7 +40,10 @@ export class ReservationsController {
 
   @ApiOkResponse({ description: 'Cancel reservation ' })
   @Delete(':id')
-  async remove(@Param('id') id: string, @User('uid') userId: string) {
+  async remove(
+    @Param('id') id: string,
+    @User('uid') userId: string,
+  ): Promise<SuccessResponse> {
     return await this.reservationsService.remove(id, userId);
   }
 }

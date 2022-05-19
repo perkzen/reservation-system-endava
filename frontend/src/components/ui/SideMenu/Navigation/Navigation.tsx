@@ -17,9 +17,7 @@ const Navigation: FC = () => {
             item.path === pathname ? classes.Active : classes.NotActive,
             classes.Link
           )}
-        >
-          {item.name}
-        </Link>
+        />
       ))}
     </nav>
   );

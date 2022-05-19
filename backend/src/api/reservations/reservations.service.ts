@@ -3,13 +3,13 @@ import { CreateReservationDto } from './dto/create-reservation.dto';
 import { Reservation } from './Schemas/reservation.schema';
 import { ReservationRepository } from './repository/reservation.repository';
 import { Errors } from '../../utils/errors';
-import { ReservationQuery } from '../../utils/interfaces';
+import { ReservationQuery, SuccessResponse } from '../../utils/interfaces';
 
 @Injectable()
 export class ReservationsService {
   constructor(private readonly reservationRepository: ReservationRepository) {}
 
-  async create(data: CreateReservationDto) {
+  async create(data: CreateReservationDto): Promise<SuccessResponse> {
     // active reservations from user
     const active = await this.findAllByUser(data.userId);
 
@@ -27,7 +27,8 @@ export class ReservationsService {
 
     // this workspace has not been reserved yet
     if (!reservations) {
-      return await this.reservationRepository.create(data);
+      await this.reservationRepository.create(data);
+      return { success: 'Reservation created successfully' };
     }
 
     // check if workspace is available
@@ -45,7 +46,8 @@ export class ReservationsService {
       );
     }
 
-    return await this.reservationRepository.create(data);
+    await this.reservationRepository.create(data);
+    return { success: 'Reservation created successfully' };
   }
 
   async findAllByUser(userId: string): Promise<Reservation[]> {
@@ -76,10 +78,11 @@ export class ReservationsService {
     );
   }
 
-  async remove(id: string, userId: string) {
-    return await this.reservationRepository.deleteOne({
+  async remove(id: string, userId: string): Promise<SuccessResponse> {
+    await this.reservationRepository.deleteOne({
       _id: id,
       userId: userId,
     });
+    return { success: 'Reservation cancelled successfully' };
   }
 }

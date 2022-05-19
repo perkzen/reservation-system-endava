@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Office } from '../models/Office';
 import { removeUser } from './userSlice';
+import { OFFICE_SLICE } from '../actions/officeActions';
 
 interface OfficeState {
   offices: Office[];
@@ -13,7 +14,7 @@ const initialState: OfficeState = {
 };
 
 export const officeSlice = createSlice({
-  name: 'office',
+  name: OFFICE_SLICE,
   initialState,
   reducers: {
     fetchOfficesSuccess: (state, action: PayloadAction<Office[]>) => {
