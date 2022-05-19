@@ -2,17 +2,23 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateReservationDto } from './dto/create-reservation.dto';
 import { Reservation } from './Schemas/reservation.schema';
 import { ReservationRepository } from './repository/reservation.repository';
-import { UsersService } from '../users/users.service';
 import { Errors } from '../../utils/errors';
 
 @Injectable()
 export class ReservationsService {
-  constructor(
-    private readonly reservationRepository: ReservationRepository,
-    private readonly userService: UsersService,
-  ) {}
+  constructor(private readonly reservationRepository: ReservationRepository) {}
 
   async create(data: CreateReservationDto) {
+    // active reservations from user
+    const active = await this.findAllByUser(data.userId);
+
+    if (active.length > 3) {
+      throw new HttpException(
+        Errors.RESERVATION_LIMIT,
+        HttpStatus.PRECONDITION_FAILED,
+      );
+    }
+
     // get all reservations for this workspace
     const reservations = await this.reservationRepository.find({
       workspaceId: data.workspaceId,
@@ -42,26 +48,16 @@ export class ReservationsService {
   }
 
   async findAllByUser(userId: string): Promise<Reservation[]> {
-    const user = await this.userService.getUserDetails(userId);
+    const reservations = await this.reservationRepository.find({
+      userId: userId,
+    });
 
-    if (!user)
-      throw new HttpException(
-        Errors.USER_NOT_FOUND,
-        HttpStatus.PRECONDITION_FAILED,
-      );
+    const currentDate = Date.now();
 
-    return await this.reservationRepository.find({ userId: userId });
+    return reservations.filter((reservation) => reservation.to >= currentDate);
   }
 
   async remove(id: string, userId: string) {
-    const user = await this.userService.getUserDetails(userId);
-
-    if (!user)
-      throw new HttpException(
-        Errors.USER_NOT_FOUND,
-        HttpStatus.PRECONDITION_FAILED,
-      );
-
     return await this.reservationRepository.deleteOne({
       _id: id,
       userId: userId,
