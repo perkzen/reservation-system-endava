@@ -39,6 +39,12 @@ export class OfficesService {
   }
 
   async remove(id: string) {
+    const found = await this.officeRepository.findOne({ _id: id });
+
+    if (!found) {
+      throw new HttpException(Errors.OFFICE_NOT_FOUND, HttpStatus.NOT_FOUND);
+    }
+
     await this.officeRepository.deleteOne({ _id: id });
   }
 }

@@ -1,11 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import {
-  IsDate,
-  IsNumber,
-  IsOptional,
-  IsPositive,
-  IsString,
-} from 'class-validator';
+import { IsNumber, IsOptional, IsPositive, IsString } from 'class-validator';
 
 export class CreateReservationDto {
   @ApiProperty({ required: true })
@@ -22,13 +16,9 @@ export class CreateReservationDto {
   comment: string;
 
   @ApiProperty({ required: true })
-  @IsDate()
-  date: Date;
-
-  @ApiProperty({ required: true })
   @IsNumber()
   @IsPositive()
-  form: number;
+  from: number;
 
   @ApiProperty({ required: true })
   @IsNumber()

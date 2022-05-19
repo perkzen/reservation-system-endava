@@ -14,9 +14,6 @@ export class Reservation {
   comment: string;
 
   @Prop()
-  date: Date;
-
-  @Prop()
   from: number;
 
   @Prop()
