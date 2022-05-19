@@ -18,8 +18,8 @@ export class OfficesService {
     return await this.officeRepository.create(createOfficeDto);
   }
 
-  async findAll() {
-    await this.officeRepository.find({});
+  async findAll(): Promise<Office[]> {
+    return await this.officeRepository.find({});
   }
 
   async findOne(id: string, { from, to }: ReservationQuery): Promise<Office> {
