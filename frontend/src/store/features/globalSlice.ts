@@ -26,10 +26,19 @@ const globalSlice = createSlice({
       state.loading.push(action.payload);
     },
     stopLoading: (state, action: PayloadAction<LoadingAction>) => {
-      state.loading.filter((el) => el.actionType !== action.payload.actionType);
+      state.loading = state.loading.filter((savedAction) =>
+        filterAction(savedAction, action)
+      );
     },
   },
 });
+
+const filterAction = (
+  currAction: LoadingAction,
+  action: PayloadAction<LoadingAction>
+) => {
+  return currAction.actionType !== action.payload?.actionType;
+};
 
 export const { addModal, removeModal, startLoading, stopLoading } =
   globalSlice.actions;

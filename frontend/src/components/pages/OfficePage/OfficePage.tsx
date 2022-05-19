@@ -8,7 +8,6 @@ import { workingHours } from '../../../constants/timeConstants';
 import Details from '../../ui/Details/Details';
 import Office from '../../ui/Office/Office';
 import { dummyOffice } from '../../ui/Office/dummyData';
-import Table from '../../ui/Table/Table';
 
 const OfficePage = () => {
   const [from, setFrom] = useState<number>(8);
@@ -48,7 +47,6 @@ const OfficePage = () => {
       />
       <Details />
       <Office office={dummyOffice} />
-      <Table data={[]} headers={[]} title={''} />
     </div>
   );
 };
