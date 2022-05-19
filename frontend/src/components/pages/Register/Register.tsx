@@ -78,20 +78,20 @@ const Register: FC = () => {
         </div>
         <Input
           {...register('email', requiredField)}
-          placeholder={t('email')}
+          label={t('email')}
           className={'mt-1'}
           error={errors.email}
         />
         <Input
           {...register('password', requiredField)}
-          placeholder={t('password')}
+          label={t('password')}
           type={'password'}
           className={'mt-1'}
           error={errors.password}
         />
         <Input
           {...register('confirmPassword', requiredField)}
-          placeholder={t('confirm_password')}
+          label={t('confirm_password')}
           type={'password'}
           className={'mt-1'}
           error={errors.confirmPassword}

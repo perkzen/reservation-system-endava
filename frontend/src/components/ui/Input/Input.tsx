@@ -6,17 +6,20 @@ import { classNames } from '../../../utils/classNames';
 interface InputProps extends HTMLProps<HTMLInputElement> {
   error?: FieldError;
   className?: string;
+  label: string;
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ error, className = '', ...props }, ref) => {
+  ({ error, className = '', label, ...props }, ref) => {
     return (
       <div className={classes.Container}>
         <input
           {...props}
+          placeholder={' '}
           ref={ref}
           className={classNames(className, error ? classes.InputError : '')}
         />
+        <label>{label}</label>
         {error && <small>{error.message}</small>}
       </div>
     );

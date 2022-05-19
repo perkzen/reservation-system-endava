@@ -23,7 +23,9 @@ export class ReservationRepository {
   async find(
     reservationFilterQuery: FilterQuery<Reservation>,
   ): Promise<Reservation[]> {
-    return this.reservationModel.find(reservationFilterQuery);
+    return this.reservationModel
+      .find(reservationFilterQuery)
+      .populate('office');
   }
 
   async create(office: CreateReservationDto): Promise<Reservation> {

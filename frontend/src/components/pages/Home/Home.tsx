@@ -1,53 +1,45 @@
-import React, { FC, useState } from 'react';
-import Office from '../../ui/Office/Office';
-import { dummyOffice } from '../../ui/Office/dummyData';
+import React, { FC, useEffect } from 'react';
 import 'rc-slider/assets/index.css';
-import TimeSlider from '../../ui/TimeSlider/TimeSlider';
-import classes from './Home.module.scss';
-import DateCard from '../../ui/DateCard/DateCard';
-import { format, isToday } from 'date-fns';
-import { workingHours } from '../../../constants/timeConstants';
-import { generateDates } from '../../../utils/date';
-import Details from '../../ui/Details/Details';
+import Table, { TableHeader } from '../../ui/Table/Table';
+import { ReservationTable } from '../../../store/models/Reservation';
+import { useAppDispatch, useAppSelector } from '../../../store/app/hooks';
+import { fetchReservations } from '../../../store/actions/reservationActions';
+import { format } from 'date-fns';
+
+const headers: TableHeader<ReservationTable>[] = [
+  { accessor: 'office', label: 'Office' },
+  { accessor: 'workspaceId', label: 'Workspace' },
+  { accessor: 'comment', label: 'Comment' },
+  { accessor: 'from', label: 'From' },
+  { accessor: 'to', label: 'To' },
+];
 
 const Home: FC = () => {
-  const [from, setFrom] = useState<number>(8);
-  const [to, setTo] = useState<number>(17);
-  const [dates] = useState<Date[]>(generateDates());
+  const dispatch = useAppDispatch();
+  const { reservations } = useAppSelector((state) => state.reservation);
 
-  const handleChange = (value: number | number[]) => {
-    if (value instanceof Array) {
-      setFrom(value[0]);
-      setTo(value[1]);
-    }
-  };
+  // convert Reservation to ReservationTable
+  const data: ReservationTable[] = reservations.map((reservation) => {
+    return {
+      ...reservation,
+      office: reservation.office.name,
+      from: format(reservation.from, 'PPpp'),
+      to: format(reservation.to, 'PPpp'),
+    };
+  });
+
+  useEffect(() => {
+    dispatch(fetchReservations());
+  }, [dispatch]);
 
   return (
-    <div className={classes.Container}>
-      <div className={classes.DateContainer}>
-        {dates.map((date: Date, index: number) => {
-          return (
-            <DateCard
-              key={index}
-              day={format(date, 'EEEE')}
-              date={format(date, 'dd.MM.yyyy')}
-              selected={isToday(date)}
-            />
-          );
-        })}
-      </div>
-
-      <TimeSlider
-        min={8}
-        max={17}
-        marks={workingHours}
-        defaultValue={[8, 17]}
-        tipFormatter={(value) => `${value}`}
-        tipProps={{}}
-        onChange={handleChange}
+    <div>
+      <Table
+        data={data}
+        headers={headers}
+        title={'Reservations'}
+        buttonLabel={'New reservation'}
       />
-      <Details />
-      <Office office={dummyOffice} />
     </div>
   );
 };

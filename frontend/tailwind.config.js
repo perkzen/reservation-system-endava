@@ -10,6 +10,12 @@ module.exports = {
         graySecondary: '#36444f',
         grayMenu: '#363E43',
       },
+      transformOrigin: {
+        0: '0%',
+      },
+      zIndex: {
+        '-1': '-1',
+      },
     },
   },
   plugins: [require('@tailwindcss/forms')],
