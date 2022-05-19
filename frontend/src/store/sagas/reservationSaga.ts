@@ -41,7 +41,6 @@ export function* fetchReservationsSaga(
       ApiRoutes.RESERVATIONS
     )) as AxiosResponse<Reservation[]>;
     yield put(fetchReservationsSuccess(data));
-    console.log(data);
   } catch (e) {
     const error = e as AxiosError;
     // @ts-ignore
