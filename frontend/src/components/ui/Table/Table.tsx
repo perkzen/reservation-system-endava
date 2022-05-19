@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import classes from './Table.module.scss';
 import { v4 } from 'uuid';
+import Button from '../Button/Button';
+import TableLoading from './TableLoading/TableLoading';
 
 export interface TableHeader<T> {
   label: string;
@@ -14,6 +16,8 @@ interface TableProps<T> {
   className?: string;
   buttonAction?: () => void;
   buttonLabel?: string;
+  isLoading?: boolean;
+  emptyTableComponent: ReactNode;
 }
 
 const Table = <T,>({
@@ -22,6 +26,8 @@ const Table = <T,>({
   title,
   buttonAction,
   buttonLabel,
+  emptyTableComponent,
+  isLoading,
 }: TableProps<T>) => {
   return (
     <div className={classes.Container}>
@@ -30,11 +36,7 @@ const Table = <T,>({
           <h1>{title}</h1>
         </div>
         <div>
-          {buttonLabel && (
-            <button type="button" onClick={buttonAction}>
-              {buttonLabel}
-            </button>
-          )}
+          {buttonLabel && <Button onClick={buttonAction}>{buttonLabel}</Button>}
         </div>
       </div>
       <div className="mt-8 flex flex-col">
@@ -56,26 +58,42 @@ const Table = <T,>({
                   </tr>
                 </thead>
                 <tbody>
-                  {data.length > 0 ? (
+                  {isLoading ? (
+                    <tr>
+                      <td colSpan={headers.length + 1}>
+                        <TableLoading />
+                      </td>
+                    </tr>
+                  ) : (
                     <>
-                      {data.map((dataItem, dataIndex) => (
-                        <tr key={v4()}>
-                          <td>{dataIndex + 1}</td>
-                          {headers.map((header) => (
-                            <td key={v4()}>
-                              {dataItem[header.accessor] as unknown as string}
-                            </td>
+                      {data.length > 0 ? (
+                        <>
+                          {data.map((dataItem, dataIndex) => (
+                            <tr key={v4()}>
+                              <td>{dataIndex + 1}</td>
+                              {headers.map((header) => (
+                                <td key={v4()}>
+                                  {
+                                    dataItem[
+                                      header.accessor
+                                    ] as unknown as string
+                                  }
+                                </td>
+                              ))}
+                              <td colSpan={1}>
+                                <button>Cancel</button>
+                              </td>
+                            </tr>
                           ))}
-                          <td colSpan={1}>
-                            <button>Cancel</button>
+                        </>
+                      ) : (
+                        <tr>
+                          <td colSpan={headers.length + 1}>
+                            {emptyTableComponent}
                           </td>
                         </tr>
-                      ))}
+                      )}
                     </>
-                  ) : (
-                    <tr>
-                      <td>empty table</td>
-                    </tr>
                   )}
                 </tbody>
               </table>
