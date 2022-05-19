@@ -35,6 +35,7 @@
     @apply flex items-center justify-between;
     div {
       @apply text-sm;
+      @apply hover:scale-105 ease-in-out duration-150;
 
       a {
         @apply font-medium text-textLight hover:text-graySecondary;
