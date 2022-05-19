@@ -6,7 +6,7 @@
   }
 
   label {
-    @apply absolute top-3  ml-4  bg-white duration-300 origin-0 text-gray-600;
+    @apply absolute top-3 ml-4 -z-1 bg-white duration-300 origin-0 text-gray-600;
   }
 
   small {
