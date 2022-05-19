@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { OfficesService } from './offices.service';
@@ -17,6 +18,7 @@ import { Office } from './schemas/office.schema';
 import { Roles } from '../../decorators/role.decorator';
 import { Role } from '../../utils/role';
 import { RoleGuard } from '../../guards/role.guard';
+import { ReservationQuery } from '../../utils/interfaces';
 
 @ApiTags('Office')
 @Controller('offices')
@@ -41,8 +43,8 @@ export class OfficesController {
 
   @ApiOkResponse({ description: 'Retrieves information about a office' })
   @Get(':id')
-  async findOne(@Param('id') id: string) {
-    return this.officesService.findOne(id);
+  async findOne(@Param('id') id: string, @Query() query: ReservationQuery) {
+    return this.officesService.findOne(id, query);
   }
 
   @ApiOkResponse({ description: 'Updates office information' })
