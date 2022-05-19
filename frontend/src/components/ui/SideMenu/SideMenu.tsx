@@ -2,7 +2,7 @@ import React, { FC, Fragment, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { MenuAlt2Icon, XIcon } from '@heroicons/react/outline';
 import Logo from './Logo/Logo';
-import Profile from './Profile/Profile';
+import ProfileMenu from './ProfileMenu/ProfileMenu';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 import NavItems from './Navigation/NavItems';
 
@@ -70,7 +70,6 @@ const SideMenu: FC = () => {
                   <div className="mt-5 flex-1 h-0 overflow-y-auto">
                     <NavItems />
                   </div>
-                  <Profile />
                 </Dialog.Panel>
               </Transition.Child>
               <div className="flex-shrink-0 w-14" aria-hidden="true">
@@ -91,7 +90,6 @@ const SideMenu: FC = () => {
               <NavItems />
             </div>
           </div>
-          <Profile />
         </div>
         <div className="md:pl-64 flex flex-col">
           <div className="sticky top-0 z-10 flex-shrink-0 flex h-16 bg-white shadow">
@@ -104,6 +102,7 @@ const SideMenu: FC = () => {
               <MenuAlt2Icon className="h-6 w-6" aria-hidden="true" />
             </button>
             <Breadcrumbs />
+            <ProfileMenu />
           </div>
         </div>
       </div>
