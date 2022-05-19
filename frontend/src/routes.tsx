@@ -26,7 +26,7 @@ interface NavigationItem {
 }
 
 export const navigation: NavigationItem[] = [
-  { path: routes.HOME, name: 'Home' },
+  // { path: routes.HOME, name: 'Home' },
   { path: '', name: 'Maribor' },
   { path: '', name: 'Ljubljana' },
   { path: routes.PROFILE, name: 'Profile' },

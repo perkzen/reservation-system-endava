@@ -5,6 +5,7 @@
   "dependencies": {
     "@headlessui/react": "^1.6.1",
     "@heroicons/react": "^1.0.6",
+    "@minoru/react-dnd-treeview": "^2.0.0",
     "@reduxjs/toolkit": "^1.8.1",
     "@tailwindcss/forms": "^0.5.1",
     "@testing-library/jest-dom": "^5.16.4",
@@ -20,6 +21,7 @@
     "i18next": "^21.8.0",
     "rc-slider": "^10.0.0",
     "react": "^18.1.0",
+    "react-dnd": "^16.0.1",
     "react-dom": "^18.1.0",
     "react-hook-form": "^7.31.0",
     "react-i18next": "^11.16.9",

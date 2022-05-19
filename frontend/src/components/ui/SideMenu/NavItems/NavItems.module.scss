@@ -1,0 +1,7 @@
+.Container {
+  @apply text-white ml-5 mt-2;
+
+  svg {
+    @apply w-5 m-1 inline cursor-pointer;
+  }
+}
