@@ -1,5 +1,5 @@
 .Container {
-  @apply w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm bg-primary text-sm font-medium text-white;
+  @apply w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-lg bg-primary text-sm font-medium text-white;
   @apply hover:bg-neutral-800 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none disabled:cursor-not-allowed;
   @apply hover:scale-105 ease-in-out duration-150;
 }

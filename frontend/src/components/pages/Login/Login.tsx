@@ -28,6 +28,7 @@ const defaultValues: LoginFormData = {
 };
 
 const Login: FC = () => {
+  const [loading, setLoading] = useState(false);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [error, setError] = useState('');
@@ -42,6 +43,7 @@ const Login: FC = () => {
   const onSubmit = async (data: LoginFormData) => {
     setError('');
     try {
+      setLoading(true);
       const res = await signInWithEmailAndPassword(
         auth,
         data.email,
@@ -65,6 +67,8 @@ const Login: FC = () => {
       }
 
       setError(Errors.UNKNOWN_ERROR);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -100,7 +104,7 @@ const Login: FC = () => {
             <Link to={''}>{t('forgot_password')}</Link>
           </div>
         </div>
-        <Button>{t('sign_in')}</Button>
+        <Button loading={loading}>{t('sign_in')}</Button>
       </form>
     </div>
   );
