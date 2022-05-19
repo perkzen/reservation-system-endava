@@ -66,7 +66,7 @@ export class ReservationsService {
   ): Promise<Reservation[]> {
     // all reservations
     const all = await this.reservationRepository.find({
-      officeId: officeId,
+      office: { _id: officeId },
     });
 
     const currentDate = Date.now();

@@ -12,7 +12,12 @@ import {
 import { OfficesService } from './offices.service';
 import { CreateOfficeDto } from './dto/create-office.dto';
 import { UpdateOfficeDto } from './dto/update-office.dto';
-import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOkResponse,
+  ApiQuery,
+  ApiTags,
+} from '@nestjs/swagger';
 import { AuthGuard } from '../../guards/auth.guard';
 import { Office } from './schemas/office.schema';
 import { Roles } from '../../decorators/role.decorator';
@@ -42,6 +47,8 @@ export class OfficesController {
   }
 
   @ApiOkResponse({ description: 'Retrieves information about a office' })
+  @ApiQuery({ name: 'from' })
+  @ApiQuery({ name: 'to' })
   @Get(':id')
   async findOne(@Param('id') id: string, @Query() query: ReservationQuery) {
     return this.officesService.findOne(id, query);

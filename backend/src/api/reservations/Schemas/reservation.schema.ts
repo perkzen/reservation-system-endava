@@ -1,11 +1,13 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Office } from '../../offices/schemas/office.schema';
+import * as mongoose from 'mongoose';
 
 @Schema()
 export class Reservation {
   _id: string;
 
-  @Prop()
-  officeId: string;
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Office' })
+  office: Office;
 
   @Prop()
   workspaceId: string;
