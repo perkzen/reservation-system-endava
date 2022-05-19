@@ -32,7 +32,7 @@ const ReservationModal: FC<ReservationModalProps> = ({ modal: { title } }) => {
           </p>
 
           <form>
-            <Input placeholder={'Comment'} />
+            <Input label={'Comment'} />
             <Button>Confirm</Button>
           </form>
         </div>
