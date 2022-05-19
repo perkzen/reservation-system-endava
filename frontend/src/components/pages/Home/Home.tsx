@@ -8,6 +8,7 @@ import DateCard from '../../ui/DateCard/DateCard';
 import { format, isToday } from 'date-fns';
 import { workingHours } from '../../../constants/timeConstants';
 import { generateDates } from '../../../utils/date';
+import Details from '../../ui/Details/Details';
 
 const Home: FC = () => {
   const [from, setFrom] = useState<number>(8);
@@ -45,6 +46,7 @@ const Home: FC = () => {
         tipProps={{}}
         onChange={handleChange}
       />
+      <Details />
       <Office office={dummyOffice} />
     </div>
   );
