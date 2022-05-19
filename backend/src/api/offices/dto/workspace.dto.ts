@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNumber, IsPositive, IsString } from 'class-validator';
+import { IsBoolean, IsNumber, IsPositive, IsString } from 'class-validator';
 
 export class WorkspaceDto {
   @ApiProperty({ required: true })
@@ -10,6 +10,10 @@ export class WorkspaceDto {
   @IsNumber()
   @IsPositive()
   position: number;
+
+  @ApiProperty({ required: true })
+  @IsBoolean()
+  reserved: boolean;
 
   @ApiProperty({ required: true })
   @IsString()

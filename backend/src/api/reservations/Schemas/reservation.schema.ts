@@ -5,6 +5,9 @@ export class Reservation {
   _id: string;
 
   @Prop()
+  officeId: string;
+
+  @Prop()
   workspaceId: string;
 
   @Prop()
