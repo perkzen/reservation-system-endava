@@ -77,7 +77,7 @@ export function* fetchOfficeSaga(
   try {
     yield put(startLoading({ actionType: action.type }));
     const { data } = (yield instance.get(
-      `${ApiRoutes.OFFICES}/${action.payload}`
+      `${ApiRoutes.OFFICES}/${action.payload._id}?from=${action.payload.from}&to=${action.payload.to}`
     )) as AxiosResponse<Office>;
     yield put(fetchOfficeSuccess(data));
   } catch (e) {
