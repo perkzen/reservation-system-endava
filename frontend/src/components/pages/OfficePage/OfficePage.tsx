@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { generateDates } from '../../../utils/date';
+import { dateToUTC, generateDates } from '../../../utils/date';
 import classes from '../Home/Home.module.scss';
 import DateCard from '../../ui/DateCard/DateCard';
 import { format } from 'date-fns';
@@ -20,15 +20,19 @@ const OfficePage = () => {
   const [from, setFrom] = useState<number>(8);
   const [to, setTo] = useState<number>(17);
   const [dates] = useState<Date[]>(generateDates());
-  const [selectedDay, setSelectedDay] = useState<string>(
-    format(new Date(), 'dd.MM.yyyy')
-  );
+  const [selectedDay, setSelectedDay] = useState<Date>(new Date());
 
   const dispatch = useAppDispatch();
   const { currentOffice } = useAppSelector((state) => state.office);
 
   useEffect(() => {
-    dispatch(fetchOffice({ _id: '62873f5aa4f4785f032ad232', from: 4, to: 10 }));
+    dispatch(
+      fetchOffice({
+        _id: '62873f5aa4f4785f032ad232',
+        from: dateToUTC(selectedDay, from),
+        to: dateToUTC(selectedDay, to),
+      })
+    );
   }, [dispatch]);
 
   const handleChange = (value: number | number[]) => {
@@ -47,8 +51,10 @@ const OfficePage = () => {
               key={index}
               day={format(date, 'EEEE')}
               date={format(date, 'dd.MM.yyyy')}
-              selected={format(date, 'dd.MM.yyyy') === selectedDay}
-              onClick={() => setSelectedDay(format(date, 'dd.MM.yyyy'))}
+              selected={
+                format(date, 'dd.MM.yyyy') === format(selectedDay, 'dd.MM.yyyy')
+              }
+              onClick={() => setSelectedDay(date)}
             />
           );
         })}
