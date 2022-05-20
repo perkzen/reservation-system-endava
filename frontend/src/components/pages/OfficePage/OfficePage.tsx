@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { generateDates } from '../../../utils/date';
 import classes from '../Home/Home.module.scss';
 import DateCard from '../../ui/DateCard/DateCard';
-import { format, isToday } from 'date-fns';
+import { format } from 'date-fns';
 import TimeSlider from '../../ui/TimeSlider/TimeSlider';
 import { workingHours } from '../../../constants/timeConstants';
 import Details from '../../ui/Details/Details';
@@ -19,6 +19,9 @@ const OfficePage = () => {
   const [from, setFrom] = useState<number>(8);
   const [to, setTo] = useState<number>(17);
   const [dates] = useState<Date[]>(generateDates());
+  const [selectedDay, setSelectedDay] = useState<string>(
+    format(new Date(), 'dd.MM.yyyy')
+  );
 
   const handleChange = (value: number | number[]) => {
     if (value instanceof Array) {
@@ -36,7 +39,8 @@ const OfficePage = () => {
               key={index}
               day={format(date, 'EEEE')}
               date={format(date, 'dd.MM.yyyy')}
-              selected={isToday(date)}
+              selected={format(date, 'dd.MM.yyyy') === selectedDay}
+              onClick={() => setSelectedDay(format(date, 'dd.MM.yyyy'))}
             />
           );
         })}
