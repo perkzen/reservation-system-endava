@@ -1,19 +1,14 @@
-import { addBusinessDays, eachDayOfInterval, format } from 'date-fns';
+import { addBusinessDays, eachDayOfInterval } from 'date-fns';
 
 export const generateDates = (): Date[] => {
   const currentDate = new Date();
   const dates = [];
   const result = eachDayOfInterval({
     start: currentDate,
-    end: addBusinessDays(currentDate, 7),
+    end: addBusinessDays(currentDate, 13),
   });
   for (const date of result) {
-    if (
-      format(date, 'EEEE') !== 'Saturday' &&
-      format(date, 'EEEE') !== 'Sunday'
-    ) {
-      dates.push(date);
-    }
+    dates.push(date);
   }
 
   return dates;

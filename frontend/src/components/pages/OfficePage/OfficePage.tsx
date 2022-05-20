@@ -9,6 +9,12 @@ import Details from '../../ui/Details/Details';
 import Office from '../../ui/Office/Office';
 import { dummyOffice } from '../../ui/Office/dummyData';
 
+// @ts-ignore
+import Slider from 'react-slick';
+import { sliderSettings } from '../../../utils/slider';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+
 const OfficePage = () => {
   const [from, setFrom] = useState<number>(8);
   const [to, setTo] = useState<number>(17);
@@ -23,7 +29,7 @@ const OfficePage = () => {
 
   return (
     <div className={classes.Container}>
-      <div className={classes.DateContainer}>
+      <Slider {...sliderSettings}>
         {dates.map((date: Date, index: number) => {
           return (
             <DateCard
@@ -34,7 +40,7 @@ const OfficePage = () => {
             />
           );
         })}
-      </div>
+      </Slider>
 
       <TimeSlider
         min={8}
