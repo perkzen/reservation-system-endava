@@ -4,7 +4,7 @@ import { MenuAlt2Icon, XIcon } from '@heroicons/react/outline';
 import Logo from './Logo/Logo';
 import ProfileMenu from './ProfileMenu/ProfileMenu';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
-import NavItems from './Navigation/NavItems';
+import NavItems from './NavItems/NavItems';
 
 const SideMenu: FC = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
