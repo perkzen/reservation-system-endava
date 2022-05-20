@@ -1,12 +1,11 @@
 import React, { FC } from 'react';
 import classes from './TableLoading.module.scss';
-import loading from '../../../../assets/loading.gif';
+import ButtonLoadingSpinner from '../../Button/ButtonLoadingSpinner/ButtonLoadingSpinner';
 
 const TableLoading: FC = () => {
   return (
     <div className={classes.Container}>
-      <img src={loading} alt={'...Loading'} />
-      <p>... loading</p>
+      <ButtonLoadingSpinner />
     </div>
   );
 };
