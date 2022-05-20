@@ -1,8 +1,10 @@
 import { Office } from '../store/models/Office';
 
-const json: object[] = [];
+//overriding if DB elements change
+let json: any;
 
 export const generateMenu = (offices: Office[]) => {
+  const data: object[] = [];
   let locations: string[] = [];
   for (let i = 0; i < offices.length; i++) {
     locations.push(offices[i].location);
@@ -17,7 +19,7 @@ export const generateMenu = (offices: Office[]) => {
       droppable: true,
       text: uniqueLocations[i - 1],
     };
-    json.push(json_object);
+    data.push(json_object);
   }
 
   //menu child elements
@@ -30,11 +32,11 @@ export const generateMenu = (offices: Office[]) => {
           droppable: false,
           text: offices[i].name,
         };
-        json.push(json_object);
+        data.push(json_object);
       }
     }
   }
 
+  json = JSON.stringify(data);
   console.log(json);
-  return json;
 };
