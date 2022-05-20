@@ -7,9 +7,10 @@ interface DateCardProps {
   day: string;
   date: string;
   selected: boolean;
+  onClick: () => void;
 }
 
-const DateCard: FC<DateCardProps> = ({ date, day, selected }) => {
+const DateCard: FC<DateCardProps> = ({ date, day, selected, onClick }) => {
   return (
     <div
       className={classNames(
@@ -17,6 +18,7 @@ const DateCard: FC<DateCardProps> = ({ date, day, selected }) => {
         selected ? 'bg-primary' : 'bg-secondary',
         selected ? 'text-white' : 'text-black'
       )}
+      onClick={onClick}
     >
       <CalendarIcon height={25} width={25} />
       <p>{day}</p>
