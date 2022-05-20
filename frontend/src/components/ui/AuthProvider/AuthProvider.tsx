@@ -4,7 +4,7 @@ import { auth } from '../../../firebase-config';
 import { setAccessToken, setUser } from '../../../store/features/userSlice';
 import { useAppDispatch } from '../../../store/app/hooks';
 import { FirebaseUser } from '../../../store/models/User';
-import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
+import LoadingPage from '../../pages/LoadingPage/LoadingPage';
 
 interface AuthProviderProps {
   children: ReactNode;
@@ -30,7 +30,7 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     };
   }, [dispatch]);
 
-  return !loading ? <>{children}</> : <LoadingSpinner />;
+  return !loading ? <>{children}</> : <LoadingPage />;
 };
 
 export default AuthProvider;

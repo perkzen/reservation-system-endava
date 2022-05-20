@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../../../store/app/hooks';
+import { useAppDispatch } from '../../../../store/app/hooks';
 import { signOut } from 'firebase/auth';
 import { auth } from '../../../../firebase-config';
 import { useTranslation } from 'react-i18next';

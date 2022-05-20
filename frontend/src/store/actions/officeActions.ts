@@ -1,4 +1,4 @@
-import { Office } from '../models/Office';
+import { Office, OfficeQuery } from '../models/Office';
 import { createAction } from '@reduxjs/toolkit';
 
 export const OFFICE_SLICE = 'office';
@@ -14,7 +14,9 @@ export const fetchOfficesSuccess = createAction<Office[]>(
   `${OFFICE_SLICE}/fetchOfficesSuccess`
 );
 
-export const fetchOffice = createAction<string>(`${OFFICE_SLICE}/fetchOffice`);
+export const fetchOffice = createAction<OfficeQuery>(
+  `${OFFICE_SLICE}/fetchOffice`
+);
 export const fetchOfficeSuccess = createAction<Office>(
   `${OFFICE_SLICE}/fetchOfficeSuccess`
 );

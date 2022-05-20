@@ -5,6 +5,9 @@
   align-items: center;
   gap: 1rem;
   border-radius: 25px;
-  width: 115px;
-  height: 140px;
+  @apply w-24 h-32 sm:w-28 sm:h-36;
+}
+
+.Container:hover {
+  cursor: pointer;
 }

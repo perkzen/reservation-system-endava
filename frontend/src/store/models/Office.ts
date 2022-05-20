@@ -15,3 +15,9 @@ export interface Workspace {
   position: number;
   reserved: boolean;
 }
+
+export interface OfficeQuery {
+  _id: string;
+  from: number;
+  to: number;
+}
