@@ -1,7 +1,7 @@
 import React, { FC, ReactNode } from 'react';
 import classes from './Button.module.scss';
 import { classNames } from '../../../utils/classNames';
-import ButtonLoadingSpinner from './ButtonLoadingSpinner/ButtonLoadingSpinner';
+import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 
 interface ButtonProps {
   children: ReactNode;
@@ -25,7 +25,7 @@ const Button: FC<ButtonProps> = ({
       onClick={onClick}
       type={'submit'}
     >
-      {loading && <ButtonLoadingSpinner />}
+      {loading && <LoadingSpinner />}
       {children}
     </button>
   );

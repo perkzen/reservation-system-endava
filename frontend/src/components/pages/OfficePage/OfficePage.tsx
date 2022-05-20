@@ -5,7 +5,7 @@ import DateCard from '../../ui/DateCard/DateCard';
 import { format } from 'date-fns';
 import TimeSlider from '../../ui/TimeSlider/TimeSlider';
 import { workingHours } from '../../../constants/timeConstants';
-import Details from '../../ui/Details/Details';
+import OfficeLegend from '../../ui/OfficeLegend/OfficeLegend';
 import Office from '../../ui/Office/Office';
 
 // @ts-ignore
@@ -63,7 +63,7 @@ const OfficePage = () => {
         tipProps={{}}
         onChange={handleChange}
       />
-      <Details />
+      <OfficeLegend />
       {currentOffice && <Office office={currentOffice} />}
     </div>
   );

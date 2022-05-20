@@ -1,9 +1,9 @@
 import React, { FC, useState } from 'react';
 import { InformationCircleIcon } from '@heroicons/react/outline';
-import classes from './Details.module.scss';
+import classes from './OfficeLegend.module.scss';
 import { useTranslation } from 'react-i18next';
 
-const Details: FC = () => {
+const OfficeLegend: FC = () => {
   const { t } = useTranslation();
   const [showLegend, setShowLegend] = useState<boolean>(false);
 
@@ -20,4 +20,4 @@ const Details: FC = () => {
   );
 };
 
-export default Details;
+export default OfficeLegend;
