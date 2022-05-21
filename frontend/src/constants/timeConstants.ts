@@ -3,7 +3,7 @@ export const workingHours = {
   9: '9 am',
   10: '10 am',
   11: '11 am',
-  12: '12 am',
+  12: '12 pm',
   13: '1 pm',
   14: '2 pm',
   15: '3 pm',

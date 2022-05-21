@@ -33,7 +33,7 @@ const OfficePage = () => {
         to: dateToUTC(selectedDay, to),
       })
     );
-  }, [dispatch]);
+  }, [dispatch, selectedDay, from, to]);
 
   const handleChange = (value: number | number[]) => {
     if (value instanceof Array) {
@@ -70,7 +70,14 @@ const OfficePage = () => {
         onChange={handleChange}
       />
       <OfficeLegend />
-      {currentOffice && <Office office={currentOffice} />}
+      {currentOffice && (
+        <Office
+          office={currentOffice}
+          currentDate={selectedDay}
+          from={from}
+          to={to}
+        />
+      )}
     </div>
   );
 };

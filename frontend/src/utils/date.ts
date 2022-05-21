@@ -25,3 +25,9 @@ export const dateToUTC = (date: Date, hours: number): number => {
     myDate.getHours()
   );
 };
+
+export const convertTo12HourFormat = (hours: number): string => {
+  let ampm = hours < 12 || hours === 24 ? 'AM' : 'PM';
+  let convertedHour = hours % 12 || 12;
+  return convertedHour + ' ' + ampm;
+};
