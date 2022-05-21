@@ -4,13 +4,18 @@ import {
   fetchReservations,
   fetchReservationsSuccess,
 } from '../actions/reservationActions';
-import { startLoading, stopLoading } from '../features/globalSlice';
+import {
+  removeModal,
+  startLoading,
+  stopLoading,
+} from '../features/globalSlice';
 import { put } from 'redux-saga/effects';
 import instance from '../../axios';
 import { ApiRoutes, SuccessResponse } from '../../constants/apiConstants';
 import { AxiosError, AxiosResponse } from 'axios';
 import { toast } from 'react-toastify';
 import { Reservation } from '../models/Reservation';
+import { fetchOffice } from '../actions/officeActions';
 
 export function* createReservationSaga(
   action: ReturnType<typeof createReservation>
@@ -22,6 +27,14 @@ export function* createReservationSaga(
       action.payload
     )) as AxiosResponse<SuccessResponse>;
     yield toast.success(data.success);
+    yield put(removeModal());
+    yield put(
+      fetchOffice({
+        _id: action.payload.office,
+        from: action.payload.from,
+        to: action.payload.to,
+      })
+    );
   } catch (e) {
     const error = e as AxiosError;
     // @ts-ignore

@@ -74,7 +74,7 @@ export class ReservationsService {
     const active = all.filter((reservation) => reservation.to >= currentDate);
     // return all on [from,to] interval
     return active.filter(
-      (reservation) => reservation.to > from || reservation.from < to,
+      (reservation) => reservation.to > from && reservation.from < to,
     );
   }
 
