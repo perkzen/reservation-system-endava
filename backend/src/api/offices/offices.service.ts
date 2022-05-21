@@ -28,7 +28,6 @@ export class OfficesService {
         from,
         to,
       });
-
     const found = await this.officeRepository.findOne({ _id: id });
 
     if (!found) {
