@@ -16,11 +16,12 @@ const Workspace: FC<WorkspaceProps> = ({ workspace, onClick }) => {
     <img
       className={classNames(
         workspaceOrientation(workspace.orientation),
-        classes.Table
+        classes.Table,
+        workspace.reserved ? 'hover:cursor-not-allowed' : ''
       )}
       src={workspace.reserved ? WorkspaceReservedSvg : WorkspaceFreeSvg}
       alt="workspace"
-      onClick={() => onClick(workspace.id)}
+      onClick={() => !workspace.reserved && onClick(workspace.id)}
     />
   );
 };
