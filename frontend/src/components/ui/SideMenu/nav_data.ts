@@ -1,5 +1,21 @@
 import { routes } from '../../../routes';
 
+export const defaultNavigation = [
+  {
+    id: 1,
+    parent: 0,
+    droppable: true,
+    text: 'Maribor',
+  },
+
+  {
+    id: 2,
+    parent: 0,
+    droppable: true,
+    text: 'Ljubljana',
+  },
+];
+
 export const NavigationData = [
   {
     id: 1,

@@ -27,7 +27,7 @@ export const generateMenu = (offices: Office[]) => {
           parent: j + 1,
           droppable: false,
           text: offices[i].name,
-          data: `${uniqueLocations[j]}/${offices[i]._id}`,
+          data: `/${uniqueLocations[j]}/${offices[i]._id}`,
         });
       }
     }

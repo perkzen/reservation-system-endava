@@ -8,8 +8,9 @@ export enum routes {
   REGISTER = '/sign-up',
   HOME = '/',
   PAGE_NOT_FOUND = '*',
-  PROFILE = '/profile',
-  OFFICE = '/office',
+  PROFILE = '/Profile',
+  OFFICE_MB = '/Maribor/:id',
+  OFFICE_LJ = '/Ljubljana/:id',
 }
 
 interface Route {
@@ -17,10 +18,11 @@ interface Route {
   element: ReactElement;
 }
 
-export const layoutRoutes: Route[] = [
+export const protectedRoutes: Route[] = [
   { path: routes.HOME, element: <Home /> },
+  { path: routes.OFFICE_MB, element: <OfficePage /> },
+  { path: routes.OFFICE_LJ, element: <OfficePage /> },
   { path: routes.PROFILE, element: <ProfilePage /> },
-  { path: routes.OFFICE, element: <OfficePage /> },
 ];
 
 interface NavigationItem {

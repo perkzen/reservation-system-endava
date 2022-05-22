@@ -26,8 +26,12 @@
       justify-content: flex-end;
       @apply mt-5;
 
-      button {
-        @apply hover:bg-graySecondary;
+      //button {
+      //  @apply hover:bg-graySecondary;
+      //}
+
+      button:first-of-type {
+        @apply border-[1px] border-primary hover:bg-gray-100 bg-transparent text-black;
       }
 
       button:nth-child(2) {

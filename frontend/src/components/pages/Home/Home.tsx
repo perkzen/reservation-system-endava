@@ -3,9 +3,14 @@ import 'rc-slider/assets/index.css';
 import Table, { TableHeader } from '../../ui/Table/Table';
 import { ReservationTable } from '../../../store/models/Reservation';
 import { useAppDispatch, useAppSelector } from '../../../store/app/hooks';
-import { fetchReservations } from '../../../store/actions/reservationActions';
+import {
+  deleteReservation,
+  fetchReservations,
+} from '../../../store/actions/reservationActions';
 import { format } from 'date-fns';
 import EmptyTable from '../../ui/Table/EmptyTable/EmptyTable';
+import { addModal, removeModal } from '../../../store/features/globalSlice';
+import { ModalType } from '../../../store/models/Modal';
 
 const headers: TableHeader<ReservationTable>[] = [
   { accessor: 'office', label: 'Office' },
@@ -38,6 +43,20 @@ const Home: FC = () => {
     (l) => l.actionType === fetchReservations.type
   );
 
+  const openDeleteModal = (id: string) => {
+    dispatch(
+      addModal({
+        type: ModalType.DELETE,
+        title: 'Delete reservation',
+        body: 'Are you sure you want to delete your reservation?',
+        primaryActionText: 'Delete',
+        primaryAction: () => dispatch(deleteReservation(id)),
+        secondaryButtonText: 'Close',
+        secondaryAction: () => dispatch(removeModal()),
+      })
+    );
+  };
+
   return (
     <div>
       <Table
@@ -46,7 +65,9 @@ const Home: FC = () => {
         title={'Reservations'}
         buttonLabel={'New reservation'}
         isLoading={isLoading.length > 0}
+        itemIdAccessor={'_id'}
         emptyTableComponent={<EmptyTable title={'No data to display'} />}
+        onActionClick={openDeleteModal}
       />
     </div>
   );

@@ -2,14 +2,21 @@ import React, { FC } from 'react';
 import classes from './Breadcrumb.module.scss';
 import { HomeIcon } from '@heroicons/react/solid';
 import { routes } from '../../../routes';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import BreadcrumbItem, { Breadcrumb } from './BreadcrumbItem/BreadcrumbItem';
+import { v4 } from 'uuid';
 
 const Breadcrumbs: FC = () => {
-  const pages: Breadcrumb[] = [
-    { name: 'Maribor', link: '#', active: false },
-    { name: 'Workspace 1', link: '#', active: true },
-  ];
+  const { pathname, state } = useLocation();
+
+  const paths = pathname.split('/').slice(1, pathname.length);
+
+  const pages: Breadcrumb[] = paths.map((item, index) => {
+    if (index === paths.length - 1 && state)
+      return { name: state as string, link: '' };
+    return { name: item, link: '' };
+  });
+
   return (
     <nav className={classes.Container} aria-label="breadcrumb">
       <ol>
@@ -21,9 +28,11 @@ const Breadcrumbs: FC = () => {
             </Link>
           </div>
         </li>
-        {pages.map(({ name, link, active }) => (
-          <BreadcrumbItem key={name} name={name} link={link} active={active} />
-        ))}
+        <>
+          {pages.map(({ name, link }) => (
+            <BreadcrumbItem key={v4()} name={name} link={link} />
+          ))}
+        </>
       </ol>
     </nav>
   );

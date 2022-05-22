@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { layoutRoutes, routes } from '../../../routes';
+import { protectedRoutes, routes } from '../../../routes';
 import { Route, Routes } from 'react-router-dom';
 import LayoutProvider from '../../ui/LayoutProvider/LayoutProvider';
 import PageNotFound from '../PageNotFound/PageNotFound';
@@ -12,7 +12,7 @@ const AuthenticatedRouter: FC = () => {
   return (
     <>
       <Routes>
-        {layoutRoutes.map((route) => (
+        {protectedRoutes.map((route) => (
           <Route
             key={v4()}
             path={route.path}

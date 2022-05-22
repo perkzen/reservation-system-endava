@@ -7,33 +7,35 @@ import TimeSlider from '../../ui/TimeSlider/TimeSlider';
 import { workingHours } from '../../../constants/timeConstants';
 import OfficeLegend from '../../ui/OfficeLegend/OfficeLegend';
 import Office from '../../ui/Office/Office';
-
-// @ts-ignore
 import Slider from 'react-slick';
 import { sliderSettings } from '../../../utils/slider';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { useAppDispatch, useAppSelector } from '../../../store/app/hooks';
 import { fetchOffice } from '../../../store/actions/officeActions';
+import { useParams } from 'react-router-dom';
 
 const OfficePage = () => {
   const [from, setFrom] = useState<number>(8);
   const [to, setTo] = useState<number>(17);
   const [dates] = useState<Date[]>(generateDates());
   const [selectedDay, setSelectedDay] = useState<Date>(new Date());
+  const { id } = useParams();
 
   const dispatch = useAppDispatch();
   const { currentOffice } = useAppSelector((state) => state.office);
 
   useEffect(() => {
-    dispatch(
-      fetchOffice({
-        _id: '62873f5aa4f4785f032ad232',
-        from: dateToUTC(selectedDay, from),
-        to: dateToUTC(selectedDay, to),
-      })
-    );
-  }, [dispatch, selectedDay, from, to]);
+    if (id) {
+      dispatch(
+        fetchOffice({
+          _id: id,
+          from: dateToUTC(selectedDay, from),
+          to: dateToUTC(selectedDay, to),
+        })
+      );
+    }
+  }, [dispatch, selectedDay, from, to, id]);
 
   const handleChange = (value: number | number[]) => {
     if (value instanceof Array) {

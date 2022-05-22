@@ -3,6 +3,8 @@ import { XIcon } from '@heroicons/react/outline';
 import { Modal } from '../../../store/models/Modal';
 import classes from './DeleteModal.module.scss';
 import Button from '../Button/Button';
+import { useAppDispatch } from '../../../store/app/hooks';
+import { removeModal } from '../../../store/features/globalSlice';
 
 interface DeleteModalProps {
   modal: Modal;
@@ -18,6 +20,15 @@ const DeleteModal: FC<DeleteModalProps> = ({
     secondaryAction,
   },
 }) => {
+  const dispatch = useAppDispatch();
+
+  const handlePrimaryAction = () => {
+    if (primaryAction) {
+      primaryAction();
+      dispatch(removeModal());
+    }
+  };
+
   return (
     <div
       className={classes.Container}
@@ -30,11 +41,11 @@ const DeleteModal: FC<DeleteModalProps> = ({
         <div className={classes.Title}>{title}</div>
         <div className={classes.Body}>{body}</div>
         <div className={classes.ButtonContainer}>
-          {primaryAction && (
-            <Button onClick={primaryAction}>{primaryActionText}</Button>
-          )}
           {secondaryAction && (
             <Button onClick={secondaryAction}>{secondaryButtonText}</Button>
+          )}
+          {primaryAction && (
+            <Button onClick={handlePrimaryAction}>{primaryActionText}</Button>
           )}
         </div>
       </div>

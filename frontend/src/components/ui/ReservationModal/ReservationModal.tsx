@@ -10,6 +10,7 @@ import { ReservationModalData } from '../../../store/models/Reservation';
 import { useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from '../../../store/app/hooks';
 import { createReservation } from '../../../store/actions/reservationActions';
+import { removeModal } from '../../../store/features/globalSlice';
 
 interface ReservationModalProps {
   modal: Modal;
@@ -18,6 +19,7 @@ interface ReservationModalProps {
 interface ReservationFormData {
   comment: string;
 }
+
 const defaultValues: ReservationFormData = {
   comment: '',
 };
@@ -48,6 +50,7 @@ const ReservationModal: FC<ReservationModalProps> = ({
           comment: formData.comment,
         })
       );
+      dispatch(removeModal());
     }
   };
 

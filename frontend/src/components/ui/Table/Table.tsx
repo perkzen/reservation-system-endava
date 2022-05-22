@@ -18,6 +18,8 @@ interface TableProps<T> {
   buttonLabel?: string;
   isLoading?: boolean;
   emptyTableComponent: ReactNode;
+  onActionClick: (id: string) => void;
+  itemIdAccessor: keyof T;
 }
 
 const Table = <T,>({
@@ -28,6 +30,8 @@ const Table = <T,>({
   buttonLabel,
   emptyTableComponent,
   isLoading,
+  onActionClick,
+  itemIdAccessor,
 }: TableProps<T>) => {
   return (
     <div className={classes.Container}>
@@ -81,7 +85,17 @@ const Table = <T,>({
                                 </td>
                               ))}
                               <td colSpan={1}>
-                                <button>Cancel</button>
+                                <button
+                                  onClick={() =>
+                                    onActionClick(
+                                      dataItem[
+                                        itemIdAccessor
+                                      ] as unknown as string
+                                    )
+                                  }
+                                >
+                                  Cancel
+                                </button>
                               </td>
                             </tr>
                           ))}

@@ -6,18 +6,13 @@ import { Link } from 'react-router-dom';
 export interface Breadcrumb {
   name: string;
   link: string;
-  active: boolean;
 }
 
-const BreadcrumbItem: FC<Breadcrumb> = ({ name, link, active }) => {
+const BreadcrumbItem: FC<Breadcrumb> = ({ name, link }) => {
   return (
     <li className={classes.Container}>
-      <ChevronRightIcon aria-hidden="true" />
-      <Link
-        to={link}
-        className={classes.Link}
-        aria-current={active ? 'page' : undefined}
-      >
+      <ChevronRightIcon />
+      <Link to={link} className={classes.Link}>
         {name}
       </Link>
     </li>
