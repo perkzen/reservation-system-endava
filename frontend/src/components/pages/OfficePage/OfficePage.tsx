@@ -7,8 +7,6 @@ import TimeSlider from '../../ui/TimeSlider/TimeSlider';
 import { workingHours } from '../../../constants/timeConstants';
 import OfficeLegend from '../../ui/OfficeLegend/OfficeLegend';
 import Office from '../../ui/Office/Office';
-
-// @ts-ignore
 import Slider from 'react-slick';
 import { sliderSettings } from '../../../utils/slider';
 import 'slick-carousel/slick/slick.css';
