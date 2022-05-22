@@ -16,7 +16,9 @@ describe('AppController', () => {
 
   describe('root', () => {
     it('should return "The API is up and running.!"', () => {
-      expect(appController.getPing()).toBe('The API is up and running.');
+      expect(appController.getPing()).toStrictEqual({
+        success: 'The API is up and running.',
+      });
     });
   });
 });
