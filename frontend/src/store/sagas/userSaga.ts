@@ -7,7 +7,7 @@ import {
 import { put } from 'redux-saga/effects';
 import { AxiosError, AxiosResponse } from 'axios';
 import instance from '../../axios';
-import { ApiRoutes } from '../../constants/apiConstants';
+import { ApiRoutes, SuccessResponse } from '../../constants/apiConstants';
 import { Role, UserDetails } from '../models/User';
 import { startLoading, stopLoading } from '../features/globalSlice';
 import { toast } from 'react-toastify';
@@ -21,12 +21,14 @@ export function* saveUserDetailsSaga(
       : action.payload;
   try {
     yield put(startLoading({ actionType: action.type }));
-    yield instance({
+    const res = (yield instance({
       method: action.payload.method,
       url: ApiRoutes.USERS,
       data,
-    });
+    })) as AxiosResponse<SuccessResponse>;
     yield put(saveUserDetailsSuccess());
+    yield put(fetchUserDetails());
+    toast.success(res.data.success);
   } catch (e) {
     const error = e as AxiosError;
     // @ts-ignore

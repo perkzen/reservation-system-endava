@@ -11,6 +11,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { AuthGuard } from '../../guards/auth.guard';
 import { User } from '../../decorators/user.decorator';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { SuccessResponse } from '../../utils/interfaces';
 
 @ApiTags('User')
 @ApiBearerAuth()
@@ -22,7 +23,7 @@ export class UsersController {
   @ApiPreconditionFailedResponse({ description: 'User already exits' })
   @UseGuards(AuthGuard)
   @Post()
-  async createDetails(@Body() user: CreateUserDto) {
+  async createDetails(@Body() user: CreateUserDto): Promise<SuccessResponse> {
     return await this.usersService.createUserDetails(user);
   }
 
@@ -41,7 +42,7 @@ export class UsersController {
   async updateDetails(
     @Body() user: UpdateUserDto,
     @User('uid') userId: string,
-  ) {
+  ): Promise<SuccessResponse> {
     return await this.usersService.updateUserDetails(user, userId);
   }
 }
