@@ -4,11 +4,7 @@ import {
   fetchReservations,
   fetchReservationsSuccess,
 } from '../actions/reservationActions';
-import {
-  removeModal,
-  startLoading,
-  stopLoading,
-} from '../features/globalSlice';
+import { startLoading, stopLoading } from '../features/globalSlice';
 import { put } from 'redux-saga/effects';
 import instance from '../../axios';
 import { ApiRoutes, SuccessResponse } from '../../constants/apiConstants';
@@ -27,7 +23,6 @@ export function* createReservationSaga(
       action.payload
     )) as AxiosResponse<SuccessResponse>;
     yield toast.success(data.success);
-    yield put(removeModal());
     yield put(
       fetchOffice({
         _id: action.payload.office,
@@ -73,6 +68,7 @@ export function* deleteReservationsSaga(
       `${ApiRoutes.RESERVATIONS}/${action.payload}`
     )) as AxiosResponse<SuccessResponse>;
     yield toast.success(data.success);
+    yield put(fetchReservations());
   } catch (e) {
     const error = e as AxiosError;
     // @ts-ignore
