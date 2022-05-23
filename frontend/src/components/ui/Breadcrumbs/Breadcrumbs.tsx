@@ -8,9 +8,7 @@ import { v4 } from 'uuid';
 
 const Breadcrumbs: FC = () => {
   const { pathname, state } = useLocation();
-
   const paths = pathname.split('/').slice(1, pathname.length);
-  console.log(paths);
 
   const pages: Breadcrumb[] = paths.map((item, index) => {
     if (index === paths.length - 1 && state)
