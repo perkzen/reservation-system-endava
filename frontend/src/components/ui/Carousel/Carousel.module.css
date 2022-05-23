@@ -1,0 +1,3 @@
+.Container {
+    @apply sm:w-full md:w-full lg:w-1/2;
+}
