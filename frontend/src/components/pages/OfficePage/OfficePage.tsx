@@ -7,13 +7,10 @@ import TimeSlider from '../../ui/TimeSlider/TimeSlider';
 import { workingHours } from '../../../constants/timeConstants';
 import OfficeLegend from '../../ui/OfficeLegend/OfficeLegend';
 import Office from '../../ui/Office/Office';
-import Slider from 'react-slick';
-import { sliderSettings } from '../../../utils/slider';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
 import { useAppDispatch, useAppSelector } from '../../../store/app/hooks';
 import { fetchOffice } from '../../../store/actions/officeActions';
 import { useParams } from 'react-router-dom';
+import Carousel from '../../ui/Carousel/Carousel';
 
 const OfficePage = () => {
   const [from, setFrom] = useState<number>(8);
@@ -46,13 +43,13 @@ const OfficePage = () => {
 
   return (
     <div className={classes.Container}>
-      <Slider {...sliderSettings}>
+      <Carousel>
         {dates.map((date: Date, index: number) => {
           return (
             <DateCard
               key={index}
               day={format(date, 'EEEE')}
-              date={format(date, 'dd.MM.yyyy')}
+              date={date}
               selected={
                 format(date, 'dd.MM.yyyy') === format(selectedDay, 'dd.MM.yyyy')
               }
@@ -60,7 +57,7 @@ const OfficePage = () => {
             />
           );
         })}
-      </Slider>
+      </Carousel>
 
       <TimeSlider
         min={8}
