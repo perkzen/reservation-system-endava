@@ -64,7 +64,7 @@ const OfficePage = () => {
         max={17}
         marks={workingHours}
         defaultValue={[8, 17]}
-        tipFormatter={(value) => `${value}`}
+        tipFormatter={(value) => `${value}h`}
         tipProps={{}}
         onChange={handleChange}
       />
