@@ -2,39 +2,60 @@ export const sliderSettings = {
   infinite: false,
   arrows: false,
   speed: 500,
-  slidesToShow: 11,
-  slidesToScroll: 11,
+  slidesToShow: 7,
+  slidesToScroll: 7,
   responsive: [
     {
-      breakpoint: 1610,
-      settings: {
-        slidesToShow: 10,
-        slidesToScroll: 10,
-      },
-    },
-    {
-      breakpoint: 1520,
-      settings: {
-        slidesToShow: 8,
-        slidesToScroll: 8,
-      },
-    },
-    {
-      breakpoint: 1285,
+      breakpoint: 1900,
       settings: {
         slidesToShow: 6,
         slidesToScroll: 6,
       },
     },
     {
-      breakpoint: 1025,
+      breakpoint: 1700,
+      settings: {
+        slidesToShow: 5,
+        slidesToScroll: 5,
+      },
+    },
+    {
+      breakpoint: 1480,
       settings: {
         slidesToShow: 4,
         slidesToScroll: 4,
       },
     },
     {
-      breakpoint: 800,
+      breakpoint: 1250,
+      settings: {
+        slidesToShow: 3,
+        slidesToScroll: 3,
+      },
+    },
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 5,
+        slidesToScroll: 5,
+      },
+    },
+    {
+      breakpoint: 890,
+      settings: {
+        slidesToShow: 4,
+        slidesToScroll: 4,
+      },
+    },
+    {
+      breakpoint: 770,
+      settings: {
+        slidesToShow: 4,
+        slidesToScroll: 4,
+      },
+    },
+    {
+      breakpoint: 430,
       settings: {
         slidesToShow: 3,
         slidesToScroll: 3,
