@@ -4,7 +4,7 @@ import { UpdateOfficeDto } from './dto/update-office.dto';
 import { OfficeRepository } from './repository/office.repository';
 import { Errors } from '../../utils/errors';
 import { Office } from './schemas/office.schema';
-import { ReservationQuery } from '../../utils/interfaces';
+import { ReservationQuery, SuccessResponse } from '../../utils/interfaces';
 import { ReservationsService } from '../reservations/reservations.service';
 
 @Injectable()
@@ -14,8 +14,9 @@ export class OfficesService {
     private readonly reservationService: ReservationsService,
   ) {}
 
-  async create(createOfficeDto: CreateOfficeDto): Promise<Office> {
-    return await this.officeRepository.create(createOfficeDto);
+  async create(createOfficeDto: CreateOfficeDto): Promise<SuccessResponse> {
+    await this.officeRepository.create(createOfficeDto);
+    return { success: 'Office was created successfully' };
   }
 
   async findAll(): Promise<Office[]> {

@@ -10,7 +10,7 @@ import {
 } from '../actions/officeActions';
 import { startLoading, stopLoading } from '../features/globalSlice';
 import instance from '../../axios';
-import { ApiRoutes } from '../../constants/apiConstants';
+import { ApiRoutes, SuccessResponse } from '../../constants/apiConstants';
 import { Office } from '../models/Office';
 import { toast } from 'react-toastify';
 
@@ -19,13 +19,14 @@ export function* saveOfficeSaga(
 ): Generator {
   try {
     yield put(startLoading({ actionType: action.type }));
-    yield instance({
+    const { data } = (yield instance({
       method: action.payload._id ? 'PATCH' : 'POST',
       url: action.payload._id
         ? `${ApiRoutes.OFFICES}/${action.payload._id}`
         : ApiRoutes.OFFICES,
       data: action.payload,
-    });
+    })) as AxiosResponse<SuccessResponse>;
+    toast.success(data.success);
   } catch (e) {
     const error = e as AxiosError;
     // @ts-ignore
