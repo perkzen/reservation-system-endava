@@ -11,6 +11,8 @@ import { requiredField } from '../../../constants/requiredField';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../../firebase-config';
 import firebase from 'firebase/compat';
+import { Link } from 'react-router-dom';
+import { routes } from '../../../routes';
 
 interface RegisterFormData {
   email: string;
@@ -99,6 +101,14 @@ const Register: FC = () => {
           className={'mt-1'}
           error={errors.confirmPassword}
         />
+        <div className={classes.Actions}>
+          <div>
+            <p>Already registered?</p>
+          </div>
+          <div>
+            <Link to={routes.LOGIN}>Login</Link>
+          </div>
+        </div>
         <Button loading={loading}>{t('sign_up')}</Button>
       </form>
     </div>
