@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAppDispatch } from '../../../../store/app/hooks';
+import { useAppDispatch, useAppSelector } from '../../../../store/app/hooks';
 import { signOut } from 'firebase/auth';
 import { auth } from '../../../../firebase-config';
 import { useTranslation } from 'react-i18next';
@@ -9,6 +9,7 @@ import { routes } from '../../../../routes';
 import { Menu, Transition } from '@headlessui/react';
 import { classNames } from '../../../../utils/classNames';
 import { v4 } from 'uuid';
+import { Role } from '../../../../store/models/User';
 
 interface UserNavigation {
   name: string;
@@ -19,6 +20,7 @@ interface UserNavigation {
 const ProfileMenu = () => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
+  const { details } = useAppSelector((state) => state.user);
   const navigate = useNavigate();
 
   const logout = () => {
@@ -28,9 +30,15 @@ const ProfileMenu = () => {
     });
   };
 
+  const adminNavigation: UserNavigation[] = [
+    { name: 'Your Profile', path: routes.PROFILE },
+    { name: 'Create new office', path: routes.CREATE_OFFICE },
+    { name: 'Settings', path: routes.PAGE_NOT_FOUND },
+    { name: 'Logout', onClick: logout },
+  ];
+
   const userNavigation: UserNavigation[] = [
     { name: 'Your Profile', path: routes.PROFILE },
-    { name: 'Settings', path: routes.PAGE_NOT_FOUND },
     { name: 'Logout', onClick: logout },
   ];
 
@@ -60,22 +68,45 @@ const ProfileMenu = () => {
             leaveTo="transform opacity-0 scale-95"
           >
             <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-              {userNavigation.map((item) => (
-                <Menu.Item key={v4()}>
-                  {({ active }) => (
-                    <Link
-                      to={item.path ? item.path : ''}
-                      onClick={item.onClick}
-                      className={classNames(
-                        active ? 'bg-gray-100' : '',
-                        'block px-4 py-2 text-sm text-gray-700'
+              {details?.role === Role.ADMIN ? (
+                <>
+                  {adminNavigation.map((item) => (
+                    <Menu.Item key={v4()}>
+                      {({ active }) => (
+                        <Link
+                          to={item.path ? item.path : ''}
+                          onClick={item.onClick}
+                          className={classNames(
+                            active ? 'bg-gray-100' : '',
+                            'block px-4 py-2 text-sm text-gray-700'
+                          )}
+                        >
+                          {item.name}
+                        </Link>
                       )}
-                    >
-                      {item.name}
-                    </Link>
-                  )}
-                </Menu.Item>
-              ))}
+                    </Menu.Item>
+                  ))}
+                </>
+              ) : (
+                <>
+                  {userNavigation.map((item) => (
+                    <Menu.Item key={v4()}>
+                      {({ active }) => (
+                        <Link
+                          to={item.path ? item.path : ''}
+                          onClick={item.onClick}
+                          className={classNames(
+                            active ? 'bg-gray-100' : '',
+                            'block px-4 py-2 text-sm text-gray-700'
+                          )}
+                        >
+                          {item.name}
+                        </Link>
+                      )}
+                    </Menu.Item>
+                  ))}
+                </>
+              )}
             </Menu.Items>
           </Transition>
         </Menu>

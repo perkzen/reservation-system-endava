@@ -5,6 +5,7 @@ import { setAccessToken, setUser } from '../../../store/features/userSlice';
 import { useAppDispatch } from '../../../store/app/hooks';
 import { FirebaseUser } from '../../../store/models/User';
 import LoadingPage from '../../pages/LoadingPage/LoadingPage';
+import { fetchUserDetails } from '../../../store/actions/userActions';
 
 interface AuthProviderProps {
   children: ReactNode;
@@ -21,8 +22,8 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
         const user = loggedUser as FirebaseUser;
         dispatch(setUser(user));
         dispatch(setAccessToken(accessToken));
+        dispatch(fetchUserDetails());
       }
-
       setLoading(false);
     });
     return () => {
