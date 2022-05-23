@@ -3,5 +3,29 @@
   box-shadow: #CCDBE8 3px 3px 6px 0 inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
   background-color: #EEEEEE;
   padding: 30px 50px;
-  column-gap:0;
+  column-gap: 0;
+
+}
+
+.EmptyContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 40%;
+  height: 50%;
+  align-items: center;
+  box-shadow: #CCDBE8 3px 3px 6px 0 inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+  background-color: #EEEEEE;
+
+  svg {
+    width: 15%;
+    height: 15%;
+    @apply text-primary;
+  }
+
+
+  h1 {
+    font-size: 1rem;
+    @apply font-semibold;
+  }
 }
