@@ -5,7 +5,7 @@ import { CalendarIcon } from '@heroicons/react/outline';
 import Input from '../Input/Input';
 import Button from '../Button/Button';
 import { format } from 'date-fns';
-import { convertTo12HourFormat, dateToUTC } from '../../../utils/date';
+import { dateToUTC } from '../../../utils/date';
 import { ReservationModalData } from '../../../store/models/Reservation';
 import { useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from '../../../store/app/hooks';
@@ -73,11 +73,7 @@ const ReservationModal: FC<ReservationModalProps> = ({
           </p>
           <p>
             Selected time:{' '}
-            <b>
-              {convertTo12HourFormat(reservationData.from) +
-                ' - ' +
-                convertTo12HourFormat(reservationData.to)}
-            </b>
+            <b>{reservationData.from + 'h - ' + reservationData.to + 'h'}</b>
           </p>
 
           <form onSubmit={handleSubmit(onSubmit)}>
