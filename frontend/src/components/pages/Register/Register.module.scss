@@ -29,4 +29,16 @@
       @apply focus:border-graySecondary;
     }
   }
+
+  .Actions {
+    @apply flex items-center;
+    div {
+      @apply text-sm first:pr-1;
+      @apply last:hover:scale-105 last:ease-in-out last:duration-150;
+
+      a {
+        @apply font-medium text-textLight hover:text-graySecondary;
+      }
+    }
+  }
 }

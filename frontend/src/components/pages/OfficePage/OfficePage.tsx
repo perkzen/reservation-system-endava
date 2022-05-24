@@ -13,14 +13,16 @@ import { useParams } from 'react-router-dom';
 import Carousel from '../../ui/Carousel/Carousel';
 
 const OfficePage = () => {
+  const dispatch = useAppDispatch();
+  const { currentOffice } = useAppSelector((state) => state.office);
+  const { loading } = useAppSelector((state) => state.global);
+  const isLoading = loading.filter((l) => l.actionType === fetchOffice.type);
+
   const [from, setFrom] = useState<number>(8);
   const [to, setTo] = useState<number>(17);
   const [dates] = useState<Date[]>(generateDates());
   const [selectedDay, setSelectedDay] = useState<Date>(new Date());
   const { id } = useParams();
-
-  const dispatch = useAppDispatch();
-  const { currentOffice } = useAppSelector((state) => state.office);
 
   useEffect(() => {
     if (id) {
@@ -58,7 +60,6 @@ const OfficePage = () => {
           );
         })}
       </Carousel>
-
       <TimeSlider
         min={8}
         max={17}
@@ -69,14 +70,13 @@ const OfficePage = () => {
         onChange={handleChange}
       />
       <OfficeLegend />
-      {currentOffice && (
-        <Office
-          office={currentOffice}
-          currentDate={selectedDay}
-          from={from}
-          to={to}
-        />
-      )}
+      <Office
+        office={currentOffice}
+        currentDate={selectedDay}
+        from={from}
+        to={to}
+        loading={isLoading.length > 0}
+      />
     </div>
   );
 };

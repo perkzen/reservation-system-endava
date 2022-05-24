@@ -19,11 +19,10 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { AuthGuard } from '../../guards/auth.guard';
-import { Office } from './schemas/office.schema';
 import { Roles } from '../../decorators/role.decorator';
 import { Role } from '../../utils/role';
 import { RoleGuard } from '../../guards/role.guard';
-import { ReservationQuery } from '../../utils/interfaces';
+import { ReservationQuery, SuccessResponse } from '../../utils/interfaces';
 
 @ApiTags('Office')
 @Controller('offices')
@@ -36,8 +35,10 @@ export class OfficesController {
   @Roles(Role.ADMIN)
   @UseGuards(RoleGuard)
   @Post()
-  create(@Body() createOfficeDto: CreateOfficeDto): Promise<Office> {
-    return this.officesService.create(createOfficeDto);
+  async create(
+    @Body() createOfficeDto: CreateOfficeDto,
+  ): Promise<SuccessResponse> {
+    return await this.officesService.create(createOfficeDto);
   }
 
   @ApiOkResponse({ description: 'Retrieves all offices' })
