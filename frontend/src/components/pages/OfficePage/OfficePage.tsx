@@ -5,12 +5,12 @@ import DateCard from '../../ui/DateCard/DateCard';
 import { format } from 'date-fns';
 import TimeSlider from '../../ui/TimeSlider/TimeSlider';
 import { workingHours } from '../../../constants/timeConstants';
-import OfficeLegend from '../../ui/OfficeLegend/OfficeLegend';
 import Office from '../../ui/Office/Office';
 import { useAppDispatch, useAppSelector } from '../../../store/app/hooks';
 import { fetchOffice } from '../../../store/actions/officeActions';
 import { useParams } from 'react-router-dom';
 import Carousel from '../../ui/Carousel/Carousel';
+import Card from '../../ui/Card/Card';
 
 const OfficePage = () => {
   const dispatch = useAppDispatch();
@@ -45,38 +45,46 @@ const OfficePage = () => {
 
   return (
     <div className={classes.Container}>
-      <Carousel>
-        {dates.map((date: Date, index: number) => {
-          return (
-            <DateCard
-              key={index}
-              day={format(date, 'EEEE')}
-              date={date}
-              selected={
-                format(date, 'dd.MM.yyyy') === format(selectedDay, 'dd.MM.yyyy')
-              }
-              onClick={() => setSelectedDay(date)}
-            />
-          );
-        })}
-      </Carousel>
-      <TimeSlider
-        min={8}
-        max={17}
-        marks={workingHours}
-        defaultValue={[8, 17]}
-        tipFormatter={(value) => `${value}`}
-        tipProps={{}}
-        onChange={handleChange}
-      />
-      <OfficeLegend />
-      <Office
-        office={currentOffice}
-        currentDate={selectedDay}
-        from={from}
-        to={to}
-        loading={isLoading.length > 0}
-      />
+      <Card>
+        <Carousel>
+          {dates.map((date: Date, index: number) => {
+            return (
+              <DateCard
+                key={index}
+                day={format(date, 'EEEE')}
+                date={date}
+                selected={
+                  format(date, 'dd.MM.yyyy') ===
+                  format(selectedDay, 'dd.MM.yyyy')
+                }
+                onClick={() => setSelectedDay(date)}
+              />
+            );
+          })}
+        </Carousel>
+      </Card>
+
+      <Card title={'Pick your time'}>
+        <TimeSlider
+          min={8}
+          max={17}
+          marks={workingHours}
+          defaultValue={[8, 17]}
+          tipFormatter={(value) => `${value}`}
+          tipProps={{}}
+          onChange={handleChange}
+        />
+      </Card>
+      <div className={classes.OfficeContainer}>
+        {/*<OfficeLegend />*/}
+        <Office
+          office={currentOffice}
+          currentDate={selectedDay}
+          from={from}
+          to={to}
+          loading={isLoading.length > 0}
+        />
+      </div>
     </div>
   );
 };

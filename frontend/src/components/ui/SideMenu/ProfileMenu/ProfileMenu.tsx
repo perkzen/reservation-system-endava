@@ -53,7 +53,7 @@ const ProfileMenu = () => {
               <span className="sr-only">Open user menu</span>
               <img
                 className="h-8 w-8 rounded-full"
-                src="https://avatars.dicebear.com/api/initials/domenperko.svg"
+                src={`https://avatars.dicebear.com/api/initials/${details?.firstname}_${details?.surname}.svg`}
                 alt=""
               />
             </Menu.Button>

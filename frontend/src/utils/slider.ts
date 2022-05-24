@@ -2,21 +2,21 @@ export const sliderSettings = {
   infinite: false,
   arrows: false,
   speed: 500,
-  slidesToShow: 7,
-  slidesToScroll: 7,
+  slidesToShow: 11,
+  slidesToScroll: 11,
   responsive: [
     {
       breakpoint: 1900,
       settings: {
-        slidesToShow: 6,
-        slidesToScroll: 6,
+        slidesToShow: 11,
+        slidesToScroll: 11,
       },
     },
     {
       breakpoint: 1700,
       settings: {
-        slidesToShow: 5,
-        slidesToScroll: 5,
+        slidesToShow: 9,
+        slidesToScroll: 9,
       },
     },
     {
