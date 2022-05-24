@@ -1,26 +1,23 @@
-import { FC, Fragment, useState } from 'react';
+import { Fragment, useState } from 'react';
 import { Combobox, Transition } from '@headlessui/react';
 import { CheckIcon, SelectorIcon } from '@heroicons/react/solid';
 import classes from './Combobox.module.scss';
+import { v4 } from 'uuid';
 
-interface Location {
-  id: number;
-  name: string;
+interface ComboboxProps<T> {
+  data: T[];
+  queryAccessor: keyof T;
 }
 
-interface ComboboxProps {
-  locations: Location[];
-}
-
-const ComboBox: FC<ComboboxProps> = ({ locations }) => {
-  const [selected, setSelected] = useState(locations[0]);
+const ComboBox = <T,>({ data, queryAccessor }: ComboboxProps<T>) => {
+  const [selected, setSelected] = useState(data[0]);
   const [query, setQuery] = useState('');
 
-  const filteredPeople =
+  const filteredData =
     query === ''
-      ? locations
-      : locations.filter((location: Location) =>
-          location.name
+      ? data
+      : data.filter((item: T) =>
+          (item[queryAccessor] as unknown as string)
             .toLowerCase()
             .replace(/\s+/g, '')
             .includes(query.toLowerCase().replace(/\s+/g, ''))
@@ -29,14 +26,16 @@ const ComboBox: FC<ComboboxProps> = ({ locations }) => {
   return (
     <div className={classes.Container}>
       <Combobox value={selected} onChange={setSelected}>
-        <div className="relative mt-1">
-          <div className="relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
+        <div className={classes.Wrapper}>
+          <div className={classes.InputContainer}>
             <Combobox.Input
-              className="w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 focus:ring-0"
-              displayValue={(location: Location) => location.name}
+              className={classes.Input}
+              displayValue={(data: T) =>
+                data[queryAccessor] as unknown as string
+              }
               onChange={(event) => setQuery(event.target.value)}
             />
-            <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
+            <Combobox.Button className={classes.Button}>
               <SelectorIcon
                 className="h-5 w-5 text-gray-400"
                 aria-hidden="true"
@@ -50,21 +49,19 @@ const ComboBox: FC<ComboboxProps> = ({ locations }) => {
             leaveTo="opacity-0"
             afterLeave={() => setQuery('')}
           >
-            <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-              {filteredPeople.length === 0 && query !== '' ? (
-                <div className="relative cursor-default select-none py-2 px-4 text-gray-700">
-                  Nothing found.
-                </div>
+            <Combobox.Options className={classes.Options}>
+              {filteredData.length === 0 && query !== '' ? (
+                <div className={classes.NoOptions}>Nothing found.</div>
               ) : (
-                filteredPeople.map((location: Location) => (
+                filteredData.map((data: T) => (
                   <Combobox.Option
-                    key={location.id}
+                    key={v4()}
                     className={({ active }) =>
                       `relative cursor-default select-none py-2 pl-10 pr-4 ${
                         active ? 'bg-textLight text-white' : 'text-gray-900'
                       }`
                     }
-                    value={location}
+                    value={data}
                   >
                     {({ selected, active }) => (
                       <>
@@ -73,7 +70,7 @@ const ComboBox: FC<ComboboxProps> = ({ locations }) => {
                             selected ? 'font-medium' : 'font-normal'
                           }`}
                         >
-                          {location.name}
+                          {data[queryAccessor] as unknown as string}
                         </span>
                         {selected ? (
                           <span
