@@ -59,7 +59,7 @@ const ProfilePage: FC = () => {
   return (
     <div className={classes.Container}>
       <img
-        src={`https://avatars.dicebear.com/api/initials/${details?.firstname}.svg`}
+        src={`https://avatars.dicebear.com/api/initials/${details?.firstname}_${details?.surname}.svg`}
         className={'rounded-full'}
         width={100}
         height={100}
