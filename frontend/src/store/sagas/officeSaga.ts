@@ -27,6 +27,7 @@ export function* saveOfficeSaga(
       data: action.payload,
     })) as AxiosResponse<SuccessResponse>;
     toast.success(data.success);
+    yield put(fetchOffices());
   } catch (e) {
     const error = e as AxiosError;
     // @ts-ignore
