@@ -4,12 +4,16 @@ import { classNames } from '../../../utils/classNames';
 
 interface CardProps {
   children: ReactNode;
+  title?: string;
   className?: string;
 }
 
-const Card: FC<CardProps> = ({ children, className = '' }) => {
+const Card: FC<CardProps> = ({ children, title, className = '' }) => {
   return (
-    <div className={classNames(className, classes.Container)}>{children}</div>
+    <div className={classNames(className, classes.Container)}>
+      <h1>{title}</h1>
+      {children}
+    </div>
   );
 };
 
