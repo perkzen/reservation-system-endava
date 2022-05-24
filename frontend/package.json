@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@headlessui/react": "^1.6.1",
+    "@headlessui/react": "^1.6.2",
     "@heroicons/react": "^1.0.6",
     "@minoru/react-dnd-treeview": "^2.0.0",
     "@reduxjs/toolkit": "^1.8.1",
