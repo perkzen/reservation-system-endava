@@ -19,7 +19,6 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { AuthGuard } from '../../guards/auth.guard';
-import { Office } from './schemas/office.schema';
 import { Roles } from '../../decorators/role.decorator';
 import { Role } from '../../utils/role';
 import { RoleGuard } from '../../guards/role.guard';

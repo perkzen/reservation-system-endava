@@ -5,12 +5,12 @@ import { OFFICE_SLICE } from '../actions/officeActions';
 
 interface OfficeState {
   offices: Office[];
-  currentOffice: Office | null;
+  currentOffice?: Office;
 }
 
 const initialState: OfficeState = {
   offices: [],
-  currentOffice: null,
+  currentOffice: undefined,
 };
 
 export const officeSlice = createSlice({
@@ -27,7 +27,7 @@ export const officeSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(removeUser, (state) => {
       state.offices = [];
-      state.currentOffice = null;
+      state.currentOffice = undefined;
     });
   },
 });
