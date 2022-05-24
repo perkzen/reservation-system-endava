@@ -47,7 +47,7 @@ const Office: FC<OfficeProps> = ({
   };
 
   return (
-    <>
+    <div className={classes.Background}>
       {loading ? (
         <div className={classes.EmptyContainer}>
           <LoadingSpinner />
@@ -78,7 +78,7 @@ const Office: FC<OfficeProps> = ({
           )}
         </>
       )}
-    </>
+    </div>
   );
 };
 
