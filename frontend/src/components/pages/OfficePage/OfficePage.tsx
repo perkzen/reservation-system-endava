@@ -78,7 +78,11 @@ const OfficePage = () => {
       <Card>
         <div className={classes.Flex}>
           <h1>Pick your time</h1>
-          <Toggle handleChangeToggle={handleChangeToggle} checked={checked} />
+          <Toggle
+            handleChangeToggle={handleChangeToggle}
+            checked={checked}
+            label={'Full day'}
+          />
         </div>
 
         <TimeSlider
