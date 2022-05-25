@@ -39,7 +39,7 @@ const Office: FC<OfficeProps> = ({
           date: currentDate,
           from: from,
           to: to,
-          workspaceId: workspaceId,
+          workspaceId: [workspaceId],
           office: office._id,
         },
       })
@@ -47,7 +47,7 @@ const Office: FC<OfficeProps> = ({
   };
 
   return (
-    <>
+    <div className={classes.Background}>
       {loading ? (
         <div className={classes.EmptyContainer}>
           <LoadingSpinner />
@@ -78,7 +78,7 @@ const Office: FC<OfficeProps> = ({
           )}
         </>
       )}
-    </>
+    </div>
   );
 };
 

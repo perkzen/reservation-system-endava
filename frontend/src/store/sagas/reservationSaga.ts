@@ -1,6 +1,8 @@
 import {
   createReservation,
   deleteReservation,
+  fetchReservationHistory,
+  fetchReservationHistorySuccess,
   fetchReservations,
   fetchReservationsSuccess,
 } from '../actions/reservationActions';
@@ -59,6 +61,25 @@ export function* fetchReservationsSaga(
   }
 }
 
+export function* fetchReservationHistorySaga(
+  action: ReturnType<typeof fetchReservationHistory>
+): Generator {
+  try {
+    yield put(startLoading({ actionType: action.type }));
+    const { data } = (yield instance.get(ApiRoutes.HISTORY)) as AxiosResponse<
+      Reservation[]
+    >;
+    yield put(fetchReservationHistorySuccess(data));
+  } catch (e) {
+    const error = e as AxiosError;
+    // @ts-ignore
+    const message = error.response?.data?.message;
+    toast.error(message);
+  } finally {
+    yield put(stopLoading({ actionType: action.type }));
+  }
+}
+
 export function* deleteReservationsSaga(
   action: ReturnType<typeof deleteReservation>
 ): Generator {
@@ -68,7 +89,7 @@ export function* deleteReservationsSaga(
       `${ApiRoutes.RESERVATIONS}/${action.payload}`
     )) as AxiosResponse<SuccessResponse>;
     yield toast.success(data.success);
-    yield put(fetchReservations());
+    yield put(fetchReservationHistory());
   } catch (e) {
     const error = e as AxiosError;
     // @ts-ignore

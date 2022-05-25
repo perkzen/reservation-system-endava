@@ -13,16 +13,26 @@ export class ReservationsService {
     // active reservations from user
     const active = await this.findAllByUser(data.userId);
 
-    if (active.length > 3) {
+    if (active.length >= 3) {
       throw new HttpException(
         Errors.RESERVATION_LIMIT,
         HttpStatus.PRECONDITION_FAILED,
       );
     }
 
+    const NINE_HOURS = 32400000;
+
+    if (data.to - data.from > NINE_HOURS) {
+      throw new HttpException(
+        Errors.TO_LONG_RESERVATION_TIME,
+        HttpStatus.PRECONDITION_FAILED,
+      );
+    }
+
     // get all reservations for this workspace
     const reservations = await this.reservationRepository.find({
-      workspaceId: data.workspaceId,
+      // workspaceId: data.workspaceId,
+      workspaceId: { $in: data.workspaceId },
     });
 
     // this workspace has not been reserved yet
@@ -76,6 +86,10 @@ export class ReservationsService {
     return active.filter(
       (reservation) => reservation.to > from && reservation.from < to,
     );
+  }
+
+  async findAllReservationsByUser(userId: string): Promise<Reservation[]> {
+    return await this.reservationRepository.find({ userId: userId });
   }
 
   async remove(id: string, userId: string): Promise<SuccessResponse> {

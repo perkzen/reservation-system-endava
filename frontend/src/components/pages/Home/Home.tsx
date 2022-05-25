@@ -5,12 +5,12 @@ import { ReservationTable } from '../../../store/models/Reservation';
 import { useAppDispatch, useAppSelector } from '../../../store/app/hooks';
 import {
   deleteReservation,
-  fetchReservations,
+  fetchReservationHistory,
 } from '../../../store/actions/reservationActions';
-import { format } from 'date-fns';
 import EmptyTable from '../../ui/Table/EmptyTable/EmptyTable';
 import { addModal, removeModal } from '../../../store/features/globalSlice';
 import { ModalType } from '../../../store/models/Modal';
+import { formatDate } from '../../../utils/date';
 
 const headers: TableHeader<ReservationTable>[] = [
   { accessor: 'office', label: 'Office' },
@@ -22,25 +22,25 @@ const headers: TableHeader<ReservationTable>[] = [
 
 const Home: FC = () => {
   const dispatch = useAppDispatch();
-  const { reservations } = useAppSelector((state) => state.reservation);
+  const { history } = useAppSelector((state) => state.reservation);
   const { loading } = useAppSelector((state) => state.global);
 
   // convert Reservation to ReservationTable
-  const data: ReservationTable[] = reservations.map((reservation) => {
+  const data: ReservationTable[] = history.map((reservation) => {
     return {
       ...reservation,
       office: reservation.office.name,
-      from: format(reservation.from, 'PPpp'),
-      to: format(reservation.to, 'PPpp'),
+      from: formatDate(reservation.from),
+      to: formatDate(reservation.to),
     };
   });
 
   useEffect(() => {
-    dispatch(fetchReservations());
+    dispatch(fetchReservationHistory());
   }, [dispatch]);
 
   const isLoading = loading.filter(
-    (l) => l.actionType === fetchReservations.type
+    (l) => l.actionType === fetchReservationHistory.type
   );
 
   const openDeleteModal = (id: string) => {

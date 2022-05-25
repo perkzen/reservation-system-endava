@@ -2,7 +2,7 @@ import { Office } from './Office';
 
 interface ReservationModel {
   _id: string;
-  workspaceId: string;
+  workspaceId: string[];
   userId: string;
   comment?: string;
   from: number;
@@ -20,7 +20,7 @@ export interface Reservation extends ReservationModel {
 export interface ReservationTable {
   _id: string;
   office: string;
-  workspaceId: string;
+  workspaceId: string[];
   comment?: string;
   from: string;
   to: string;

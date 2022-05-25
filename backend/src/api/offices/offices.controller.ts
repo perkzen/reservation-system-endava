@@ -4,8 +4,8 @@ import {
   Delete,
   Get,
   Param,
-  Patch,
   Post,
+  Put,
   Query,
   UseGuards,
 } from '@nestjs/common';
@@ -23,6 +23,7 @@ import { Roles } from '../../decorators/role.decorator';
 import { Role } from '../../utils/role';
 import { RoleGuard } from '../../guards/role.guard';
 import { ReservationQuery, SuccessResponse } from '../../utils/interfaces';
+import { Office } from './schemas/office.schema';
 
 @ApiTags('Office')
 @Controller('offices')
@@ -43,7 +44,7 @@ export class OfficesController {
 
   @ApiOkResponse({ description: 'Retrieves all offices' })
   @Get()
-  async findAll() {
+  async findAll(): Promise<Office[]> {
     return this.officesService.findAll();
   }
 
@@ -51,14 +52,17 @@ export class OfficesController {
   @ApiQuery({ name: 'from' })
   @ApiQuery({ name: 'to' })
   @Get(':id')
-  async findOne(@Param('id') id: string, @Query() query: ReservationQuery) {
+  async findOne(
+    @Param('id') id: string,
+    @Query() query: ReservationQuery,
+  ): Promise<Office> {
     return this.officesService.findOne(id, query);
   }
 
   @ApiOkResponse({ description: 'Updates office information' })
   @Roles(Role.ADMIN)
   @UseGuards(RoleGuard)
-  @Patch(':id')
+  @Put(':id')
   async update(
     @Param('id') id: string,
     @Body() updateOfficeDto: UpdateOfficeDto,

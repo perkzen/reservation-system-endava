@@ -7,4 +7,5 @@ export enum Errors {
   AUTHORIZATION_HEADERS_MISSING = 'Authorization headers missing',
   WORKSPACE_TAKEN = 'This workspace is already taken for this date and time',
   RESERVATION_LIMIT = 'You can only have 3 active reservations',
+  TO_LONG_RESERVATION_TIME = 'You can only reserve this workspace for a maximum of 9 hours',
 }

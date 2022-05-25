@@ -15,6 +15,14 @@ export const fetchReservationsSuccess = createAction<Reservation[]>(
   `${RESERVATION_SLICE}/fetchReservationSuccess`
 );
 
+export const fetchReservationHistory = createAction(
+  `${RESERVATION_SLICE}/fetchReservationHistory`
+);
+
+export const fetchReservationHistorySuccess = createAction<Reservation[]>(
+  `${RESERVATION_SLICE}/fetchReservationHistorySuccess`
+);
+
 export const deleteReservation = createAction<string>(
   `${RESERVATION_SLICE}/cancelReservation`
 );

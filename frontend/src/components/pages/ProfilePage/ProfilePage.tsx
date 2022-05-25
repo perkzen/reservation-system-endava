@@ -27,7 +27,7 @@ const ProfilePage: FC = () => {
   const { t } = useTranslation();
   const { details, user } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
-  const [method, setMethod] = useState<'POST' | 'PATCH'>('POST');
+  const [method, setMethod] = useState<'POST' | 'PUT'>('POST');
 
   const { register, reset, formState, handleSubmit } =
     useForm<UserDetailsFormData>({
@@ -43,7 +43,7 @@ const ProfilePage: FC = () => {
 
   useEffect(() => {
     if (details?.uid) {
-      setMethod('PATCH');
+      setMethod('PUT');
       reset({
         firstname: details.firstname,
         surname: details.surname,
@@ -59,7 +59,7 @@ const ProfilePage: FC = () => {
   return (
     <div className={classes.Container}>
       <img
-        src={`https://avatars.dicebear.com/api/initials/${details?.firstname}.svg`}
+        src={`https://avatars.dicebear.com/api/initials/${details?.firstname}_${details?.surname}.svg`}
         className={'rounded-full'}
         width={100}
         height={100}
@@ -69,22 +69,16 @@ const ProfilePage: FC = () => {
         <Input
           {...register('firstname', requiredField)}
           error={errors.firstname}
-          className={classes.Input}
-          name="firstname"
           label={t('firstname')}
         />
         <Input
           {...register('surname', requiredField)}
           error={errors.surname}
-          className={classes.Input}
-          name="surname"
           label={t('surname')}
         />
         <Input
           {...register('location', requiredField)}
           error={errors.location}
-          className={classes.Input}
-          name="location"
           label={t('location')}
         />
         <Button disabled={!isDirty}>{t('save')}</Button>
