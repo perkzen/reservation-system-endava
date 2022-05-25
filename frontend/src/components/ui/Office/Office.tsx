@@ -1,14 +1,19 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import classes from './Office.module.scss';
 import Workspace from '../Workspace/Workspace';
 import { grid, gridToArray } from '../../../utils/grid';
-import { Office as OfficeModel } from '../../../store/models/Office';
+import {
+  Office as OfficeModel,
+  Workspace as WorkspaceModel,
+} from '../../../store/models/Office';
 import { findWorkspace, positionWorkspace } from '../../../utils/workspace';
 import { v4 } from 'uuid';
-import { useAppDispatch } from '../../../store/app/hooks';
+import { useAppDispatch, useAppSelector } from '../../../store/app/hooks';
 import { addModal } from '../../../store/features/globalSlice';
 import { ModalType } from '../../../store/models/Modal';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
+import { fetchReservations } from '../../../store/actions/reservationActions';
+import { dateToUTC } from '../../../utils/date';
 
 interface OfficeProps {
   office?: OfficeModel;
@@ -29,6 +34,12 @@ const Office: FC<OfficeProps> = ({
 }) => {
   const dispatch = useAppDispatch();
 
+  const { reservations } = useAppSelector((state) => state.reservation);
+
+  useEffect(() => {
+    dispatch(fetchReservations());
+  }, [dispatch]);
+
   const handleClick = (workspaceId: string) => {
     if (!office) return;
     dispatch(
@@ -44,6 +55,20 @@ const Office: FC<OfficeProps> = ({
         },
       })
     );
+  };
+
+  const checkIfMine = (workspace: WorkspaceModel): boolean => {
+    if (workspace.reserved) {
+      for (const reservation of reservations) {
+        if (
+          reservation.workspaceId === workspace.id &&
+          reservation.from === dateToUTC(currentDate!, from!) &&
+          reservation.to === dateToUTC(currentDate!, to!)
+        )
+          return true;
+      }
+    }
+    return false;
   };
 
   return (
@@ -65,6 +90,7 @@ const Office: FC<OfficeProps> = ({
                     key={v4()}
                     workspace={findWorkspace(pos, office.workspaces)}
                     onClick={handleClick}
+                    isMine={checkIfMine(findWorkspace(pos, office.workspaces))}
                   />
                 ) : (
                   <div key={v4()} />
