@@ -1,0 +1,32 @@
+{
+  "name": "Office name",
+  "location": "Maribor",
+  "cols": 5,
+  "rows": 5,
+  "workspaces": [
+    {
+      "id": "1",
+      "orientation": "top",
+      "position": 1,
+      "reserved": false
+    },
+    {
+      "id": "2",
+      "orientation": "right",
+      "position": 2,
+      "reserved": false
+    },
+    {
+      "id": "3",
+      "orientation": "bottom",
+      "position": 3,
+      "reserved": false
+    },
+    {
+      "id": "4",
+      "orientation": "left",
+      "position": 4,
+      "reserved": false
+    }
+  ]
+}

@@ -11,8 +11,22 @@
     @apply font-semibold;
   }
 
-  button {
-    width: 20%;
-  }
+  .ButtonContainer {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    @apply xs:flex-col xs:gap-4;
 
+    .FileInput {
+      width: 25%;
+      @apply xs:w-full;
+    }
+
+    button {
+      width: 25%;
+      @apply xs:w-full;
+    }
+
+  }
 }

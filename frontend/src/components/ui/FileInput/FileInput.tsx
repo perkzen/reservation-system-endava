@@ -1,18 +1,32 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import classes from './FileInput.module.scss';
 import { toast } from 'react-toastify';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
+import { classNames } from '../../../utils/classNames';
 
 type AcceptType = 'application/json';
 
 interface FileInputProps<T> {
   accept: AcceptType;
+  data?: T;
   setData: (data: T | undefined) => void;
+  className?: string;
 }
 
-const FileInput = <T,>({ accept, setData }: FileInputProps<T>) => {
+const FileInput = <T,>({
+  accept,
+  data,
+  setData,
+  className = '',
+}: FileInputProps<T>) => {
   const [file, setFile] = useState<File | null>();
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (!data) {
+      setFile(null);
+    }
+  }, [data]);
 
   const handleRemove = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
     e.preventDefault();
@@ -52,7 +66,7 @@ const FileInput = <T,>({ accept, setData }: FileInputProps<T>) => {
   }
 
   return (
-    <div className={classes.Container}>
+    <div className={classNames(classes.Container, className)}>
       <label className={classes.FileInput}>
         {loading ? (
           <span>
