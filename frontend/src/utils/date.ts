@@ -1,5 +1,6 @@
-import { eachDayOfInterval } from 'date-fns';
+import { addMinutes, eachDayOfInterval, format } from 'date-fns';
 import add from 'date-fns/add';
+import { DATE_HOUR_MINUTES } from '../constants/dateFormats';
 
 export const generateDates = (): Date[] => {
   const currentDate = new Date();
@@ -24,4 +25,9 @@ export const dateToUTC = (date: Date, hours: number): number => {
     myDate.getDate(),
     myDate.getHours()
   );
+};
+
+export const formatDate = (unix: number) => {
+  const date = new Date(unix);
+  return format(addMinutes(date, date.getTimezoneOffset()), DATE_HOUR_MINUTES);
 };
