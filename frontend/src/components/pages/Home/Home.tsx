@@ -7,10 +7,10 @@ import {
   deleteReservation,
   fetchReservations,
 } from '../../../store/actions/reservationActions';
-import { format } from 'date-fns';
 import EmptyTable from '../../ui/Table/EmptyTable/EmptyTable';
 import { addModal, removeModal } from '../../../store/features/globalSlice';
 import { ModalType } from '../../../store/models/Modal';
+import { formatDate } from '../../../utils/date';
 
 const headers: TableHeader<ReservationTable>[] = [
   { accessor: 'office', label: 'Office' },
@@ -30,8 +30,8 @@ const Home: FC = () => {
     return {
       ...reservation,
       office: reservation.office.name,
-      from: format(reservation.from, 'PPpp'),
-      to: format(reservation.to, 'PPpp'),
+      from: formatDate(reservation.from),
+      to: formatDate(reservation.to),
     };
   });
 

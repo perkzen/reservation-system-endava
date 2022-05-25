@@ -69,22 +69,16 @@ const ProfilePage: FC = () => {
         <Input
           {...register('firstname', requiredField)}
           error={errors.firstname}
-          className={classes.Input}
-          name="firstname"
           label={t('firstname')}
         />
         <Input
           {...register('surname', requiredField)}
           error={errors.surname}
-          className={classes.Input}
-          name="surname"
           label={t('surname')}
         />
         <Input
           {...register('location', requiredField)}
           error={errors.location}
-          className={classes.Input}
-          name="location"
           label={t('location')}
         />
         <Button disabled={!isDirty}>{t('save')}</Button>

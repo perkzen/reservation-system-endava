@@ -13,7 +13,7 @@ export class ReservationsService {
     // active reservations from user
     const active = await this.findAllByUser(data.userId);
 
-    if (active.length > 3) {
+    if (active.length >= 3) {
       throw new HttpException(
         Errors.RESERVATION_LIMIT,
         HttpStatus.PRECONDITION_FAILED,
@@ -76,6 +76,10 @@ export class ReservationsService {
     return active.filter(
       (reservation) => reservation.to > from && reservation.from < to,
     );
+  }
+
+  async findAllReservationsByUser(userId: string): Promise<Reservation[]> {
+    return await this.reservationRepository.find({ userId: userId });
   }
 
   async remove(id: string, userId: string): Promise<SuccessResponse> {
