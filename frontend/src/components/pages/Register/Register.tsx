@@ -40,12 +40,12 @@ const Register: FC = () => {
   const onSubmit = async (data: RegisterFormData) => {
     setLoading(true);
     setError('');
-    if (data.password !== data.confirmPassword) {
-      setError(Errors.PASSWORDS_DONT_MATCH);
-      return;
-    }
 
     try {
+      if (data.password !== data.confirmPassword) {
+        setError(Errors.PASSWORDS_DONT_MATCH);
+        return;
+      }
       await createUserWithEmailAndPassword(auth, data.email, data.password);
     } catch (e) {
       const error = e as firebase.auth.Error;
