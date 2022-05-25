@@ -19,5 +19,14 @@
   "profile_page": "Profile page",
   "save": "Save",
   "available": "Available",
-  "unavailable": "Occupied"
+  "unavailable": "Occupied",
+  "forgotten_password": "Forgotten Password",
+  "login": "Login",
+  "back_to_login": "Back to login",
+  "new_password": "New Password",
+  "send": "Send",
+  "reset": "Reset",
+  "reset_password": "Reset Password",
+  "email_reset_success": "Password Reset Successful",
+  "reset_success": "Password Reset Successful"
 }

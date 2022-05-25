@@ -106,7 +106,7 @@ const Register: FC = () => {
             <p>Already registered?</p>
           </div>
           <div>
-            <Link to={routes.LOGIN}>Login</Link>
+            <Link to={routes.LOGIN}>{t('login')}</Link>
           </div>
         </div>
         <Button loading={loading}>{t('sign_up')}</Button>
