@@ -1,9 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Office } from '../models/Office';
 import { removeUser } from './userSlice';
-import { fetchOfficeSuccess, OFFICE_SLICE } from '../actions/officeActions';
-import { Reservation } from '../models/Reservation';
-import { fetchOfficeReservationsSuccess } from '../actions/reservationActions';
+import { OFFICE_SLICE } from '../actions/officeActions';
 
 interface OfficeState {
   offices: Office[];

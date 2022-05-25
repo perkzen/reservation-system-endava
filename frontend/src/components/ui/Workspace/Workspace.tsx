@@ -6,14 +6,22 @@ import WorkspaceReservedSvg from '../../../assets/workspace-reserved.svg';
 import WorkspaceMySvg from '../../../assets/workspace-my.svg';
 import { Workspace as WorkspaceModel } from '../../../store/models/Office';
 import { workspaceOrientation } from '../../../utils/workspace';
+import { useAppSelector } from '../../../store/app/hooks';
 
 interface WorkspaceProps {
   workspace: WorkspaceModel;
   onClick: (workspaceId: string) => void;
-  // isMine: boolean;
 }
 
 const Workspace: FC<WorkspaceProps> = ({ workspace, onClick }) => {
+  const { user } = useAppSelector((state) => state.user);
+
+  const showWorkspace = (): string => {
+    if (workspace.userId === user?.uid) return WorkspaceMySvg;
+    if (!workspace.reserved) return WorkspaceFreeSvg;
+    return WorkspaceReservedSvg;
+  };
+
   return (
     <img
       className={classNames(
@@ -21,7 +29,7 @@ const Workspace: FC<WorkspaceProps> = ({ workspace, onClick }) => {
         classes.Table,
         workspace.reserved ? 'hover:cursor-not-allowed' : ''
       )}
-      src={workspace.reserved ? WorkspaceReservedSvg : WorkspaceFreeSvg}
+      src={showWorkspace()}
       alt="workspace"
       onClick={() => !workspace.reserved && onClick(workspace.id)}
     />

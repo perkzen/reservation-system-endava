@@ -1,8 +1,6 @@
 import {
   createReservation,
   deleteReservation,
-  fetchOfficeReservations,
-  fetchOfficeReservationsSuccess,
   fetchReservationHistory,
   fetchReservationHistorySuccess,
   fetchReservations,
@@ -34,13 +32,6 @@ export function* createReservationSaga(
         to: action.payload.to,
       })
     );
-    yield put(
-      fetchOfficeReservations({
-        _id: action.payload.office,
-        from: action.payload.from,
-        to: action.payload.to,
-      })
-    );
   } catch (e) {
     const error = e as AxiosError;
     // @ts-ignore
@@ -60,25 +51,6 @@ export function* fetchReservationsSaga(
       ApiRoutes.RESERVATIONS
     )) as AxiosResponse<Reservation[]>;
     yield put(fetchReservationsSuccess(data));
-  } catch (e) {
-    const error = e as AxiosError;
-    // @ts-ignore
-    const message = error.response?.data?.message;
-    toast.error(message);
-  } finally {
-    yield put(stopLoading({ actionType: action.type }));
-  }
-}
-
-export function* fetchOfficeReservationsSaga(
-  action: ReturnType<typeof fetchOfficeReservations>
-): Generator {
-  try {
-    yield put(startLoading({ actionType: action.type }));
-    const { data } = (yield instance.get(
-      `${ApiRoutes.OFFICE_RESERVATIONS}/${action.payload._id}?from=${action.payload.from}&to=${action.payload.to}`
-    )) as AxiosResponse<Reservation[]>;
-    yield put(fetchOfficeReservationsSuccess(data));
   } catch (e) {
     const error = e as AxiosError;
     // @ts-ignore
