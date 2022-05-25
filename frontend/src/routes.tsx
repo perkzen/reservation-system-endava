@@ -7,6 +7,8 @@ import CreateOfficePage from './components/pages/CreateOfficePage/CreateOfficePa
 export enum routes {
   LOGIN = '/sign-in',
   REGISTER = '/sign-up',
+  FORGOT_PASSWORD = '/forgot-password',
+  RESET_PASSWORD = '/reset-password',
   HOME = '/',
   PAGE_NOT_FOUND = '*',
   PROFILE = '/Profile',

@@ -1,68 +1,61 @@
 import React, { FC, useState } from 'react';
-import classes from './Login.module.scss';
+import classes from './ResetPassword.module.scss';
 import companyLogo from '../../../assets/endava-logo.png';
 import Button from '../../ui/Button/Button';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Input from '../../ui/Input/Input';
 import { useForm } from 'react-hook-form';
 import { routes } from '../../../routes';
 import { useTranslation } from 'react-i18next';
 import ErrorMessage from '../../ui/ErrorMessage/ErrorMessage';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { confirmPasswordReset } from 'firebase/auth';
 import { auth } from '../../../firebase-config';
-import { useAppDispatch } from '../../../store/app/hooks';
-import { setAccessToken, setUser } from '../../../store/features/userSlice';
 import firebase from 'firebase/compat';
-import { FirebaseUser } from '../../../store/models/User';
 import { Errors, FirebaseErrors } from '../../../constants/errorConstants';
 import { requiredField } from '../../../constants/requiredField';
+import { toast } from 'react-toastify';
 
-interface LoginFormData {
-  email: string;
+interface ResetFormData {
   password: string;
 }
 
-const defaultValues: LoginFormData = {
-  email: '',
+const defaultValues: ResetFormData = {
   password: '',
 };
 
-const Login: FC = () => {
+const useQuery = () => {
+  return new URLSearchParams(useLocation().search);
+};
+
+const ResetPassword: FC = () => {
   const [loading, setLoading] = useState(false);
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
   const [error, setError] = useState('');
   const { t } = useTranslation();
-  const { register, formState, handleSubmit } = useForm<LoginFormData>({
+  const { register, formState, handleSubmit } = useForm<ResetFormData>({
     defaultValues,
     mode: 'onSubmit',
   });
+  const query = useQuery();
 
   const { errors } = formState;
 
-  const onSubmit = async (data: LoginFormData) => {
+  const onSubmit = async (data: ResetFormData) => {
+    setLoading(true);
     setError('');
+
     try {
-      setLoading(true);
-      const res = await signInWithEmailAndPassword(
-        auth,
-        data.email,
-        data.password
-      );
-      const user = res.user as FirebaseUser;
-      const accessToken = await res.user.getIdToken(true);
-      dispatch(setUser(user));
-      dispatch(setAccessToken(accessToken));
-      navigate(routes.HOME);
+      await resetPassword(query.get('oobCode')!, data.password);
+      toast.success(t('reset_success'));
     } catch (e) {
       const error = e as firebase.auth.Error;
 
-      if (
-        error.message === FirebaseErrors.WRONG_PASSWORD ||
-        FirebaseErrors.USER_NOT_FOUND ||
-        FirebaseErrors.WRONG_EMAIL
-      ) {
-        setError(Errors.WRONG_CREDENTIALS);
+      if (error.message === FirebaseErrors.INVALID_ACTION) {
+        setError(Errors.INVALID_ACTION);
+        return;
+      }
+
+      if (error.message === FirebaseErrors.SHORT_PASSWORD) {
+        setError(Errors.SHORT_PASSWORD);
         return;
       }
 
@@ -72,11 +65,15 @@ const Login: FC = () => {
     }
   };
 
+  const resetPassword = (oobCode: string, newPassword: string) => {
+    return confirmPasswordReset(auth, oobCode, newPassword);
+  };
+
   return (
     <div className={classes.Container}>
       <div className={classes.Header}>
         <img src={companyLogo} alt="Company logo" />
-        <h2>{t('sign_in_your_account')}</h2>
+        <h2>{t('reset_password')}</h2>
         <p>{t('seat_reservation_system')}</p>
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -84,30 +81,21 @@ const Login: FC = () => {
           <ErrorMessage error={error} />
         </div>
         <Input
-          {...register('email', requiredField)}
-          label={t('email')}
-          className={'mt-1'}
-          error={errors.email}
-        />
-        <Input
           {...register('password', requiredField)}
-          label={t('password')}
+          label={t('new_password')}
           type={'password'}
           className={'mt-1'}
           error={errors.password}
         />
         <div className={classes.Actions}>
           <div>
-            <Link to={routes.REGISTER}>{t('create_account')}</Link>
-          </div>
-          <div>
-            <Link to={routes.FORGOT_PASSWORD}>{t('forgot_password')}</Link>
+            <Link to={routes.LOGIN}>{t('back_to_login')}</Link>
           </div>
         </div>
-        <Button loading={loading}>{t('sign_in')}</Button>
+        <Button loading={loading}>{t('reset')}</Button>
       </form>
     </div>
   );
 };
 
-export default Login;
+export default ResetPassword;

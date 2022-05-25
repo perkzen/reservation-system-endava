@@ -5,6 +5,7 @@ export enum Errors {
   EMAIL_TAKE = 'Email is already taken!',
   INVALID_EMAIL = 'Invalid email!',
   WRONG_CREDENTIALS = 'User with this email or password does not exist!',
+  INVALID_ACTION = 'Invalid action',
 }
 
 export enum FirebaseErrors {
@@ -14,4 +15,5 @@ export enum FirebaseErrors {
   WRONG_PASSWORD = 'Firebase: Error (auth/wrong-password).',
   WRONG_EMAIL = 'Firebase: Error (auth/invalid-email).',
   USER_NOT_FOUND = 'Firebase: Error (auth/user-not-found).',
+  INVALID_ACTION = 'Firebase: Error (auth/invalid-action-code).',
 }
