@@ -6,14 +6,20 @@ import {
   Param,
   Delete,
   UseGuards,
+  Query,
 } from '@nestjs/common';
 import { ReservationsService } from './reservations.service';
 import { CreateReservationDto } from './dto/create-reservation.dto';
-import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOkResponse,
+  ApiQuery,
+  ApiTags,
+} from '@nestjs/swagger';
 import { AuthGuard } from '../../guards/auth.guard';
 import { User } from '../../decorators/user.decorator';
 import { Reservation } from './Schemas/reservation.schema';
-import { SuccessResponse } from '../../utils/interfaces';
+import { ReservationQuery, SuccessResponse } from '../../utils/interfaces';
 
 @ApiTags('Reservation')
 @ApiBearerAuth()
@@ -36,6 +42,22 @@ export class ReservationsController {
   @Get()
   async findAll(@User('uid') userId: string): Promise<Reservation[]> {
     return await this.reservationsService.findAllByUser(userId);
+  }
+
+  @ApiOkResponse({
+    description: 'Retrieves all reservations from office',
+  })
+  @ApiQuery({ name: 'from' })
+  @ApiQuery({ name: 'to' })
+  @Get('office/:id')
+  async findOfficeReservations(
+    @Param('id') officeId: string,
+    @Query() query: ReservationQuery,
+  ): Promise<Reservation[]> {
+    return await this.reservationsService.findOfficeReservationsByDate(
+      officeId,
+      query,
+    );
   }
 
   @ApiOkResponse({ description: 'Cancel reservation ' })
