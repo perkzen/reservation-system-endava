@@ -34,7 +34,7 @@ const Office: FC<OfficeProps> = ({
 }) => {
   const dispatch = useAppDispatch();
 
-  const { reservations } = useAppSelector((state) => state.reservation);
+  //const { reservations } = useAppSelector((state) => state.reservation);
 
   useEffect(() => {
     dispatch(fetchReservations());
@@ -50,26 +50,26 @@ const Office: FC<OfficeProps> = ({
           date: currentDate,
           from: from,
           to: to,
-          workspaceId: workspaceId,
+          workspaceId: [workspaceId],
           office: office._id,
         },
       })
     );
   };
 
-  const checkIfMine = (workspace: WorkspaceModel): boolean => {
-    if (workspace.reserved) {
-      for (const reservation of reservations) {
-        if (
-          reservation.workspaceId === workspace.id &&
-          reservation.from === dateToUTC(currentDate!, from!) &&
-          reservation.to === dateToUTC(currentDate!, to!)
-        )
-          return true;
-      }
-    }
-    return false;
-  };
+  // const checkIfMine = (workspace: WorkspaceModel): boolean => {
+  //   if (workspace.reserved) {
+  //     for (const reservation of reservations) {
+  //       if (
+  //         reservation.workspaceId === workspace.id &&
+  //         reservation.from === dateToUTC(currentDate!, from!) &&
+  //         reservation.to === dateToUTC(currentDate!, to!)
+  //       )
+  //         return true;
+  //     }
+  //   }
+  //   return false;
+  // };
 
   return (
     <div className={classes.Background}>
@@ -90,7 +90,7 @@ const Office: FC<OfficeProps> = ({
                     key={v4()}
                     workspace={findWorkspace(pos, office.workspaces)}
                     onClick={handleClick}
-                    isMine={checkIfMine(findWorkspace(pos, office.workspaces))}
+                    //  isMine={checkIfMine(findWorkspace(pos, office.workspaces))}
                   />
                 ) : (
                   <div key={v4()} />

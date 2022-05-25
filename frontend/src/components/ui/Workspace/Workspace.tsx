@@ -10,10 +10,10 @@ import { workspaceOrientation } from '../../../utils/workspace';
 interface WorkspaceProps {
   workspace: WorkspaceModel;
   onClick: (workspaceId: string) => void;
-  isMine: boolean;
+  // isMine: boolean;
 }
 
-const Workspace: FC<WorkspaceProps> = ({ workspace, onClick, isMine }) => {
+const Workspace: FC<WorkspaceProps> = ({ workspace, onClick }) => {
   return (
     <img
       className={classNames(
@@ -21,13 +21,7 @@ const Workspace: FC<WorkspaceProps> = ({ workspace, onClick, isMine }) => {
         classes.Table,
         workspace.reserved ? 'hover:cursor-not-allowed' : ''
       )}
-      src={
-        isMine
-          ? WorkspaceMySvg
-          : workspace.reserved
-          ? WorkspaceReservedSvg
-          : WorkspaceFreeSvg
-      }
+      src={workspace.reserved ? WorkspaceReservedSvg : WorkspaceFreeSvg}
       alt="workspace"
       onClick={() => !workspace.reserved && onClick(workspace.id)}
     />

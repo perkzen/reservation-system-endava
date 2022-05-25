@@ -22,7 +22,8 @@ export class ReservationsService {
 
     // get all reservations for this workspace
     const reservations = await this.reservationRepository.find({
-      workspaceId: data.workspaceId,
+      // workspaceId: data.workspaceId,
+      workspaceId: { $in: data.workspaceId },
     });
 
     // this workspace has not been reserved yet

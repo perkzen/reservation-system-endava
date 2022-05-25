@@ -42,16 +42,30 @@ export class OfficesService {
       throw new HttpException(Errors.OFFICE_NOT_FOUND, HttpStatus.NOT_FOUND);
     }
 
+    // if (reservations) {
+    //   found.workspaces = found.workspaces.map((workspace) => {
+    //     for (const reservation of reservations) {
+    //       if (reservation.workspaceId === workspace.id) {
+    //         return { ...workspace, reserved: true };
+    //       }
+    //     }
+    //     return { ...workspace, reserved: false };
+    //   });
+    // }
+
     if (reservations) {
       found.workspaces = found.workspaces.map((workspace) => {
         for (const reservation of reservations) {
-          if (reservation.workspaceId === workspace.id) {
-            return { ...workspace, reserved: true };
+          for (const reservedWorkspaceId of reservation.workspaceId) {
+            if (reservedWorkspaceId === workspace.id) {
+              return { ...workspace, reserved: true };
+            }
           }
         }
         return { ...workspace, reserved: false };
       });
     }
+
     return found;
   }
 
