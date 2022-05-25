@@ -2,17 +2,14 @@ import React, { FC, useEffect } from 'react';
 import classes from './Office.module.scss';
 import Workspace from '../Workspace/Workspace';
 import { grid, gridToArray } from '../../../utils/grid';
-import {
-  Office as OfficeModel,
-  Workspace as WorkspaceModel,
-} from '../../../store/models/Office';
+import { Office as OfficeModel } from '../../../store/models/Office';
 import { findWorkspace, positionWorkspace } from '../../../utils/workspace';
 import { v4 } from 'uuid';
 import { useAppDispatch, useAppSelector } from '../../../store/app/hooks';
 import { addModal } from '../../../store/features/globalSlice';
 import { ModalType } from '../../../store/models/Modal';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
-import { fetchReservations } from '../../../store/actions/reservationActions';
+import { fetchOfficeReservations } from '../../../store/actions/reservationActions';
 import { dateToUTC } from '../../../utils/date';
 
 interface OfficeProps {
@@ -34,11 +31,19 @@ const Office: FC<OfficeProps> = ({
 }) => {
   const dispatch = useAppDispatch();
 
-  //const { reservations } = useAppSelector((state) => state.reservation);
+  const { reservations } = useAppSelector((state) => state.reservation);
 
-  // useEffect(() => {
-  //   dispatch(fetchReservations());
-  // }, [dispatch]);
+  useEffect(() => {
+    if (office?._id && from && to && currentDate) {
+      dispatch(
+        fetchOfficeReservations({
+          _id: office._id,
+          from: dateToUTC(currentDate, from),
+          to: dateToUTC(currentDate, from),
+        })
+      );
+    }
+  }, [currentDate, dispatch, from, office, to]);
 
   const handleClick = (workspaceId: string) => {
     if (!office) return;
