@@ -78,6 +78,10 @@ export class ReservationsService {
     );
   }
 
+  async findAllReservationsByUser(userId: string): Promise<Reservation[]> {
+    return await this.reservationRepository.find({ userId: userId });
+  }
+
   async remove(id: string, userId: string): Promise<SuccessResponse> {
     await this.reservationRepository.deleteOne({
       _id: id,

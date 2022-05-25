@@ -60,6 +60,16 @@ export class ReservationsController {
     );
   }
 
+  @ApiOkResponse({
+    description: 'Retrieves all past reservations from user',
+  })
+  @Get('history')
+  async findAllReservations(
+    @User('uid') userId: string,
+  ): Promise<Reservation[]> {
+    return await this.reservationsService.findAllReservationsByUser(userId);
+  }
+
   @ApiOkResponse({ description: 'Cancel reservation ' })
   @Delete(':id')
   async remove(
