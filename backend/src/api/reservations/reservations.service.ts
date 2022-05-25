@@ -20,6 +20,15 @@ export class ReservationsService {
       );
     }
 
+    const NINE_HOURS = 32400000;
+
+    if (data.to - data.from > NINE_HOURS) {
+      throw new HttpException(
+        Errors.TO_LONG_RESERVATION_TIME,
+        HttpStatus.PRECONDITION_FAILED,
+      );
+    }
+
     // get all reservations for this workspace
     const reservations = await this.reservationRepository.find({
       // workspaceId: data.workspaceId,
