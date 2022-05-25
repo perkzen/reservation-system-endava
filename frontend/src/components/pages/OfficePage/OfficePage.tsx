@@ -11,6 +11,7 @@ import { fetchOffice } from '../../../store/actions/officeActions';
 import { useParams } from 'react-router-dom';
 import Carousel from '../../ui/Carousel/Carousel';
 import Card from '../../ui/Card/Card';
+import Toggle from '../../ui/Toggle/Toggle';
 
 const OfficePage = () => {
   const dispatch = useAppDispatch();
@@ -24,6 +25,8 @@ const OfficePage = () => {
   const [selectedDay, setSelectedDay] = useState<Date>(new Date());
   const { id } = useParams();
 
+  const [checked, setChecked] = useState<boolean>(true);
+
   useEffect(() => {
     if (id) {
       dispatch(
@@ -36,11 +39,21 @@ const OfficePage = () => {
     }
   }, [dispatch, selectedDay, from, to, id]);
 
-  const handleChange = (value: number | number[]) => {
+  const handleChangeSlider = (value: number | number[]) => {
     if (value instanceof Array) {
+      if (value[0] === 8 && value[1] === 17) setChecked(true);
       setFrom(value[0]);
       setTo(value[1]);
     }
+    if (checked) setChecked(false);
+  };
+
+  const handleChangeToggle = () => {
+    if (!checked) {
+      setFrom(8);
+      setTo(17);
+    }
+    setChecked(!checked);
   };
 
   return (
@@ -64,15 +77,21 @@ const OfficePage = () => {
         </Carousel>
       </Card>
 
-      <Card title={'Pick your time'}>
+      <Card>
+        <div className={classes.Flex}>
+          <h1>Pick your time</h1>
+          <Toggle handleChangeToggle={handleChangeToggle} checked={checked} />
+        </div>
+
         <TimeSlider
           min={8}
           max={17}
           marks={workingHours}
-          defaultValue={[8, 17]}
+          defaultValue={[from, to]}
+          value={[from, to]}
           tipFormatter={(value) => `${value}`}
           tipProps={{}}
-          onChange={handleChange}
+          onChange={handleChangeSlider}
         />
       </Card>
       <div className={classes.OfficeContainer}>
