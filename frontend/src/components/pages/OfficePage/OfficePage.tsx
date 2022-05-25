@@ -74,7 +74,6 @@ const OfficePage = () => {
           })}
         </Carousel>
       </Card>
-
       <Card>
         <div className={classes.Flex}>
           <h1>Pick your time</h1>
