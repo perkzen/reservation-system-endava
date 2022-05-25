@@ -6,6 +6,7 @@ import { Errors } from '../../utils/errors';
 import { Office } from './schemas/office.schema';
 import { ReservationQuery, SuccessResponse } from '../../utils/interfaces';
 import { ReservationsService } from '../reservations/reservations.service';
+import mongoose from 'mongoose';
 
 @Injectable()
 export class OfficesService {
@@ -14,8 +15,14 @@ export class OfficesService {
     private readonly reservationService: ReservationsService,
   ) {}
 
-  async create(createOfficeDto: CreateOfficeDto): Promise<SuccessResponse> {
-    await this.officeRepository.create(createOfficeDto);
+  async create(office: CreateOfficeDto): Promise<SuccessResponse> {
+    const workspaces = office.workspaces.map((workspace) => {
+      return {
+        ...workspace,
+        id: new mongoose.Types.ObjectId().toString(),
+      };
+    });
+    await this.officeRepository.create({ ...office, workspaces });
     return { success: 'Office was created successfully' };
   }
 

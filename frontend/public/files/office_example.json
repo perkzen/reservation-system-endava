@@ -5,28 +5,20 @@
   "rows": 5,
   "workspaces": [
     {
-      "id": "1",
       "orientation": "top",
-      "position": 1,
-      "reserved": false
+      "position": 1
     },
     {
-      "id": "2",
       "orientation": "right",
-      "position": 2,
-      "reserved": false
+      "position": 2
     },
     {
-      "id": "3",
       "orientation": "bottom",
-      "position": 3,
-      "reserved": false
+      "position": 3
     },
     {
-      "id": "4",
       "orientation": "left",
-      "position": 4,
-      "reserved": false
+      "position": 4
     }
   ]
 }

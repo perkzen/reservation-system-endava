@@ -1,10 +1,10 @@
 .Container {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
   align-items: center;
+  gap: 2rem;
   width: 100%;
-  height: 80vh;
+  height: 85vh;
 
   .Title {
     font-size: 2rem;
@@ -13,19 +13,18 @@
 
   .ButtonContainer {
     display: flex;
-    flex-direction: row;
     width: 100%;
-    justify-content: space-between;
     @apply xs:flex-col xs:gap-4;
+    @apply sm:flex-col sm:gap-4;
+    @apply md:flex-row lg:flex-row;
+    @apply md:justify-between lg:justify-between;
 
     .FileInput {
-      width: 25%;
-      @apply xs:w-full;
+      @apply sm:w-full md:w-1/2 lg:w-1/4;
     }
 
     button {
-      width: 25%;
-      @apply xs:w-full;
+      @apply sm:w-full md:w-1/2 lg:w-1/4;
     }
   }
 
