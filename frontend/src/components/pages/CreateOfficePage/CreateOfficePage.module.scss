@@ -27,6 +27,11 @@
       width: 25%;
       @apply xs:w-full;
     }
+  }
 
+  a {
+    @apply text-sm;
+    @apply hover:scale-105 ease-in-out duration-150;
+    @apply font-medium text-textLight hover:text-graySecondary;
   }
 }

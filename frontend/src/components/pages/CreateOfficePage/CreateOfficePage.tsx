@@ -6,6 +6,7 @@ import { Office as OfficeModel } from '../../../store/models/Office';
 import { useAppDispatch, useAppSelector } from '../../../store/app/hooks';
 import Button from '../../ui/Button/Button';
 import { saveOffice } from '../../../store/actions/officeActions';
+import { Link } from 'react-router-dom';
 
 const CreateOfficePage: FC = () => {
   const dispatch = useAppDispatch();
@@ -35,6 +36,9 @@ const CreateOfficePage: FC = () => {
         </Button>
       </div>
       <Office office={office} emptyText={'Upload file to see office preview'} />
+      <Link to={'/files/office_example.json'} target="_blank">
+        Download example of a office.json file
+      </Link>
     </div>
   );
 };
