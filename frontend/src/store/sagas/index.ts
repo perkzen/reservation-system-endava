@@ -16,11 +16,15 @@ import {
 import {
   createReservation,
   deleteReservation,
+  fetchOfficeReservations,
+  fetchReservationHistory,
   fetchReservations,
 } from '../actions/reservationActions';
 import {
   createReservationSaga,
   deleteReservationsSaga,
+  fetchOfficeReservationsSaga,
+  fetchReservationHistorySaga,
   fetchReservationsSaga,
 } from './reservationSaga';
 
@@ -40,4 +44,6 @@ export function* watchReservation(): Generator {
   yield takeLatest(createReservation.type, createReservationSaga);
   yield takeLatest(fetchReservations.type, fetchReservationsSaga);
   yield takeLatest(deleteReservation.type, deleteReservationsSaga);
+  yield takeLatest(fetchOfficeReservations.type, fetchOfficeReservationsSaga);
+  yield takeLatest(fetchReservationHistory.type, fetchReservationHistorySaga);
 }

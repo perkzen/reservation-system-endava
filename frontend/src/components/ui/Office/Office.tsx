@@ -36,9 +36,9 @@ const Office: FC<OfficeProps> = ({
 
   //const { reservations } = useAppSelector((state) => state.reservation);
 
-  useEffect(() => {
-    dispatch(fetchReservations());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchReservations());
+  // }, [dispatch]);
 
   const handleClick = (workspaceId: string) => {
     if (!office) return;

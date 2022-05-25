@@ -5,7 +5,7 @@ import { ReservationTable } from '../../../store/models/Reservation';
 import { useAppDispatch, useAppSelector } from '../../../store/app/hooks';
 import {
   deleteReservation,
-  fetchReservations,
+  fetchReservationHistory,
 } from '../../../store/actions/reservationActions';
 import EmptyTable from '../../ui/Table/EmptyTable/EmptyTable';
 import { addModal, removeModal } from '../../../store/features/globalSlice';
@@ -22,11 +22,11 @@ const headers: TableHeader<ReservationTable>[] = [
 
 const Home: FC = () => {
   const dispatch = useAppDispatch();
-  const { reservations } = useAppSelector((state) => state.reservation);
+  const { history } = useAppSelector((state) => state.reservation);
   const { loading } = useAppSelector((state) => state.global);
 
   // convert Reservation to ReservationTable
-  const data: ReservationTable[] = reservations.map((reservation) => {
+  const data: ReservationTable[] = history.map((reservation) => {
     return {
       ...reservation,
       office: reservation.office.name,
@@ -36,11 +36,11 @@ const Home: FC = () => {
   });
 
   useEffect(() => {
-    dispatch(fetchReservations());
+    dispatch(fetchReservationHistory());
   }, [dispatch]);
 
   const isLoading = loading.filter(
-    (l) => l.actionType === fetchReservations.type
+    (l) => l.actionType === fetchReservationHistory.type
   );
 
   const openDeleteModal = (id: string) => {

@@ -1,27 +1,33 @@
 import { Reservation } from '../models/Reservation';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RESERVATION_SLICE } from '../actions/reservationActions';
+import {
+  fetchReservationHistorySuccess,
+  RESERVATION_SLICE,
+} from '../actions/reservationActions';
 import { removeUser } from './userSlice';
 
 interface ReservationState {
-  reservations: Reservation[];
+  history: Reservation[];
 }
 
 const initialState: ReservationState = {
-  reservations: [],
+  history: [],
 };
 
 export const reservationSlice = createSlice({
   name: RESERVATION_SLICE,
   initialState,
   reducers: {
-    fetchReservationSuccess: (state, action: PayloadAction<Reservation[]>) => {
-      state.reservations = action.payload;
+    fetchReservationHistorySuccess: (
+      state,
+      action: PayloadAction<Reservation[]>
+    ) => {
+      state.history = action.payload;
     },
   },
   extraReducers: (builder) => {
     builder.addCase(removeUser, (state) => {
-      state.reservations = [];
+      state.history = [];
     });
   },
 });
