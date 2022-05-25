@@ -4,8 +4,8 @@ import {
   Delete,
   Get,
   Param,
-  Patch,
   Post,
+  Put,
   Query,
   UseGuards,
 } from '@nestjs/common';
@@ -58,7 +58,7 @@ export class OfficesController {
   @ApiOkResponse({ description: 'Updates office information' })
   @Roles(Role.ADMIN)
   @UseGuards(RoleGuard)
-  @Patch(':id')
+  @Put(':id')
   async update(
     @Param('id') id: string,
     @Body() updateOfficeDto: UpdateOfficeDto,

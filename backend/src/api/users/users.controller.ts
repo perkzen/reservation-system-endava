@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Patch, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Put, UseGuards } from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiNotFoundResponse,
@@ -38,7 +38,7 @@ export class UsersController {
   @ApiOkResponse({ description: 'Updates user details ' })
   @ApiNotFoundResponse({ description: 'User not found' })
   @UseGuards(AuthGuard)
-  @Patch()
+  @Put()
   async updateDetails(
     @Body() user: UpdateUserDto,
     @User('uid') userId: string,
