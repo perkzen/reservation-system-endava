@@ -27,7 +27,7 @@ const ProfilePage: FC = () => {
   const { t } = useTranslation();
   const { details, user } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
-  const [method, setMethod] = useState<'POST' | 'PATCH'>('POST');
+  const [method, setMethod] = useState<'POST' | 'PUT'>('POST');
 
   const { register, reset, formState, handleSubmit } =
     useForm<UserDetailsFormData>({
@@ -43,7 +43,7 @@ const ProfilePage: FC = () => {
 
   useEffect(() => {
     if (details?.uid) {
-      setMethod('PATCH');
+      setMethod('PUT');
       reset({
         firstname: details.firstname,
         surname: details.surname,
