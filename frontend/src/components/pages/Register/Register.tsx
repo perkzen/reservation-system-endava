@@ -103,10 +103,7 @@ const Register: FC = () => {
         />
         <div className={classes.Actions}>
           <div>
-            <p>Already registered?</p>
-          </div>
-          <div>
-            <Link to={routes.LOGIN}>{t('login')}</Link>
+            <Link to={routes.LOGIN}>{t('back_to_login')}</Link>
           </div>
         </div>
         <Button loading={loading}>{t('sign_up')}</Button>

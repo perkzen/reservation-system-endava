@@ -27,6 +27,6 @@
   "send": "Send",
   "reset": "Reset",
   "reset_password": "Reset password",
-  "email_reset_success": "An email for reset was sent",
+  "email_sent": "Email was sent",
   "reset_success": "Password reset successful"
 }
