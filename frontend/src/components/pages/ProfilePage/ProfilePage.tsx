@@ -11,7 +11,7 @@ import {
 } from '../../../store/actions/userActions';
 import { requiredField } from '../../../constants/requiredField';
 import { fetchOffices } from '../../../store/actions/officeActions';
-import Combobox from '../../ui/Combobox/Combobox';
+import ComboBox from '../../ui/ComboBox/Combobox';
 
 interface UserDetailsFormData {
   firstname: string;
@@ -103,7 +103,7 @@ const ProfilePage: FC = () => {
           />
         </div>
         <div>
-          <Combobox
+          <ComboBox
             selected={office}
             setSelected={setOffice}
             options={options}

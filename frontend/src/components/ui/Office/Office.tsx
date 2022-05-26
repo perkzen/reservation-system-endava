@@ -17,9 +17,6 @@ interface OfficeProps {
   to?: number;
   loading?: boolean;
   emptyText?: string;
-  multipleReservations?: boolean;
-  workspacesIds?: string[];
-  setWorkspacesIds?: (ids: string[]) => void;
 }
 
 const Office: FC<OfficeProps> = ({
@@ -29,15 +26,10 @@ const Office: FC<OfficeProps> = ({
   to,
   loading,
   emptyText,
-  multipleReservations,
-  workspacesIds,
-  setWorkspacesIds,
 }) => {
   const dispatch = useAppDispatch();
 
   const handleClick = (workspaceId: string) => {
-    if (!office || !workspacesIds || !setWorkspacesIds) return;
-
     dispatch(
       addModal({
         type: ModalType.RESERVATION,
@@ -47,7 +39,7 @@ const Office: FC<OfficeProps> = ({
           from: from,
           to: to,
           workspaceId: [workspaceId],
-          office: office._id,
+          office: office?._id,
         },
       })
     );
@@ -72,9 +64,6 @@ const Office: FC<OfficeProps> = ({
                     key={v4()}
                     workspace={findWorkspace(pos, office.workspaces)}
                     onClick={handleClick}
-                    multipleReservations={multipleReservations}
-                    setWorkspacesIds={setWorkspacesIds}
-                    workspacesIds={workspacesIds}
                   />
                 ) : (
                   <div key={v4()} />

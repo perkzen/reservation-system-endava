@@ -7,38 +7,40 @@ import WorkspaceMySvg from '../../../assets/workspace-my.svg';
 import WorkspaceSelectedSvg from '../../../assets/workspace-selected.svg';
 import { Workspace as WorkspaceModel } from '../../../store/models/Office';
 import { workspaceOrientation } from '../../../utils/workspace';
-import { useAppSelector } from '../../../store/app/hooks';
+import { useAppDispatch, useAppSelector } from '../../../store/app/hooks';
+import {
+  addWorkspaceToReservation,
+  removeWorkspaceFromReservation,
+} from '../../../store/features/reservationsSlice';
 
 interface WorkspaceProps {
   workspace: WorkspaceModel;
   onClick: (workspaceId: string) => void;
-  multipleReservations?: boolean;
-  setWorkspacesIds?: (ids: string[]) => void;
-  workspacesIds?: string[];
 }
 
-const Workspace: FC<WorkspaceProps> = ({
-  workspace,
-  onClick,
-  multipleReservations,
-  setWorkspacesIds,
-  workspacesIds,
-}) => {
+const Workspace: FC<WorkspaceProps> = ({ workspace, onClick }) => {
   const { user } = useAppSelector((state) => state.user);
+  const { multipleReservations, reservedWorkspaces } = useAppSelector(
+    (state) => state.reservation
+  );
+  const dispatch = useAppDispatch();
 
   const showWorkspace = (): string => {
+    if (reservedWorkspaces.includes(workspace.id)) return WorkspaceSelectedSvg;
     if (workspace.userId === user?.uid) return WorkspaceMySvg;
     if (!workspace.reserved) return WorkspaceFreeSvg;
     return WorkspaceReservedSvg;
   };
 
-  const handleClick = () => {
-    if (setWorkspacesIds && workspacesIds && !workspace.reserved) {
-      if (workspacesIds?.includes(workspace.id)) {
-        setWorkspacesIds(workspacesIds.filter((id) => id !== workspace.id));
-      } else {
-        setWorkspacesIds([...workspacesIds, workspace.id]);
-      }
+  const handleOnClick = () => {
+    if (!multipleReservations && !workspace.reserved) {
+      onClick(workspace.id);
+      return;
+    }
+    if (reservedWorkspaces.includes(workspace.id)) {
+      dispatch(removeWorkspaceFromReservation(workspace.id));
+    } else {
+      dispatch(addWorkspaceToReservation(workspace.id));
     }
   };
 
@@ -49,19 +51,10 @@ const Workspace: FC<WorkspaceProps> = ({
         classes.Table,
         workspace.reserved ? 'hover:cursor-not-allowed' : ''
       )}
-      src={
-        workspacesIds?.includes(workspace.id) && !workspace.reserved
-          ? WorkspaceSelectedSvg
-          : showWorkspace()
-      }
+      src={showWorkspace()}
       alt="workspace"
-      onClick={() =>
-        !workspace.reserved && !multipleReservations
-          ? onClick(workspace.id)
-          : handleClick()
-      }
+      onClick={handleOnClick}
     />
   );
 };
-
 export default Workspace;
