@@ -10,11 +10,12 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  min-height: 30vh;
   @apply font-medium text-textLight;
 
   svg {
-    width: 10%;
-    height: 10%;
+    width: 15%;
+    height: 15%;
     @apply text-primary py-10;
   }
 
@@ -23,6 +24,18 @@
     font-size: 1rem;
     @apply font-semibold;
   }
+}
+
+.OfficeContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.Office {
+  margin: auto;
 }
 
 .Background {

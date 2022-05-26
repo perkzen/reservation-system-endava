@@ -13,6 +13,8 @@ import instance from '../../axios';
 import { ApiRoutes, SuccessResponse } from '../../constants/apiConstants';
 import { Office } from '../models/Office';
 import { toast } from 'react-toastify';
+import { push } from 'redux-first-history';
+import { routes } from '../../routes';
 
 export function* saveOfficeSaga(
   action: ReturnType<typeof saveOffice>
@@ -83,10 +85,7 @@ export function* fetchOfficeSaga(
     )) as AxiosResponse<Office>;
     yield put(fetchOfficeSuccess(data));
   } catch (e) {
-    const error = e as AxiosError;
-    // @ts-ignore
-    const message = error.response?.data?.message;
-    toast.error(message);
+    yield put(push(`${routes.OFFICE}/office-not-found`));
   } finally {
     yield put(stopLoading({ actionType: action.type }));
   }

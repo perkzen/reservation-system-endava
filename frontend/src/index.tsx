@@ -4,15 +4,15 @@ import './index.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
-import { store } from './store/app/store';
-import { BrowserRouter } from 'react-router-dom';
+import { store, history } from './store/app/store';
+import { HistoryRouter as BrowserRouter } from 'redux-first-history/rr6';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter history={history}>
       <Provider store={store}>
         <App />
       </Provider>
