@@ -63,22 +63,23 @@ const ReservationModal: FC<ReservationModalProps> = ({
         <div className={classes.Icon}>
           <CalendarIcon />
         </div>
-        <div className={classes.Header}>
-          <div className={classes.Title}>{title}</div>
-        </div>
+        <div className={classes.Title}>{title}</div>
 
         <div className={classes.Body}>
           <p>
             Selected day: <b>{format(reservationData.date, 'dd.MM.yyyy')}</b>
-          </p>
-          <p>
+            <br />
             Selected time:{' '}
             <b>{reservationData.from + 'h - ' + reservationData.to + 'h'}</b>
           </p>
-
           <form onSubmit={handleSubmit(onSubmit)}>
-            <Input {...register('comment')} label={'Comment'} />
-            <Button>Confirm</Button>
+            <div className={classes.Input}>
+              <Input {...register('comment')} label={'Comment'} />
+            </div>
+            <div className={classes.ButtonContainer}>
+              <Button onClick={() => dispatch(removeModal())}>Close</Button>
+              <Button>Confirm</Button>
+            </div>
           </form>
         </div>
       </div>
