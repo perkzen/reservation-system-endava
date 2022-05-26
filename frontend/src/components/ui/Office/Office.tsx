@@ -9,6 +9,7 @@ import { useAppDispatch } from '../../../store/app/hooks';
 import { addModal } from '../../../store/features/globalSlice';
 import { ModalType } from '../../../store/models/Modal';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
+import OfficeLegend from '../OfficeLegend/OfficeLegend';
 
 interface OfficeProps {
   office?: OfficeModel;
@@ -54,22 +55,27 @@ const Office: FC<OfficeProps> = ({
       ) : (
         <>
           {office ? (
-            <div
-              className={classes.Container}
-              style={grid(office.cols, office.rows)}
-            >
-              {gridToArray(office.cols, office.rows).map((pos) =>
-                positionWorkspace(pos, office.workspaces) ? (
-                  <Workspace
-                    key={v4()}
-                    workspace={findWorkspace(pos, office.workspaces)}
-                    onClick={handleClick}
-                  />
-                ) : (
-                  <div key={v4()} />
-                )
-              )}
-            </div>
+            <>
+              <OfficeLegend />
+              <div className={classes.Office}>
+                <div
+                  className={classes.Container}
+                  style={grid(office.cols, office.rows)}
+                >
+                  {gridToArray(office.cols, office.rows).map((pos) =>
+                    positionWorkspace(pos, office.workspaces) ? (
+                      <Workspace
+                        key={v4()}
+                        workspace={findWorkspace(pos, office.workspaces)}
+                        onClick={handleClick}
+                      />
+                    ) : (
+                      <div key={v4()} />
+                    )
+                  )}
+                </div>
+              </div>
+            </>
           ) : (
             <div className={classes.EmptyContainer}>
               <h1>{emptyText}</h1>
