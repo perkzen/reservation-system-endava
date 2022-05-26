@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { dateToUTC, generateDates } from '../../../utils/date';
-import classes from '../Home/Home.module.scss';
+import classes from './OfficePage.module.scss';
 import DateCard from '../../ui/DateCard/DateCard';
 import { format } from 'date-fns';
 import TimeSlider from '../../ui/TimeSlider/TimeSlider';
@@ -96,7 +96,6 @@ const OfficePage = () => {
         />
       </Card>
       <div className={classes.OfficeContainer}>
-        {/*<OfficeLegend />*/}
         <Office
           office={currentOffice}
           currentDate={selectedDay}
