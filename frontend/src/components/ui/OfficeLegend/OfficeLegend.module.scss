@@ -4,21 +4,27 @@
   left: 0;
   @apply pt-2 pl-2;
 
-
   div {
     display: flex;
 
     div {
       border-radius: 50%;
-      width: 0.75rem;
-      height: 0.75rem;
+      width: 0.6rem;
+      height: 0.6rem;
       margin-top: 0.2rem;
+      @media only screen and (min-width: 768px) {
+        width: 0.75rem;
+        height: 0.75rem;
+      }
     }
 
     p {
-      font-size: 80%;
+      font-size: 67%;
       margin-left: 0.2rem;
-      opacity: 75%;
+      opacity: 62%;
+      @media only screen and (min-width: 768px) {
+        font-size: 80%;
+      }
     }
   }
 

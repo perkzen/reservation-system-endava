@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../../store/app/hooks';
 import { signOut } from 'firebase/auth';
 import { auth } from '../../../../firebase-config';
-import { useTranslation } from 'react-i18next';
 import { removeUser } from '../../../../store/features/userSlice';
 import { routes } from '../../../../routes';
 import { Menu, Transition } from '@headlessui/react';
@@ -19,7 +18,6 @@ interface UserNavigation {
 }
 
 const ProfileMenu = () => {
-  const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const { details } = useAppSelector((state) => state.user);
   const navigate = useNavigate();
@@ -48,7 +46,7 @@ const ProfileMenu = () => {
       <div className="flex-1 flex" />
       <div className="ml-4 flex items-center md:ml-6">
         {/* ProfileMenu dropdown */}
-        <Menu as="div" className="ml-3 relative">
+        <Menu as="div" className="relative">
           <div>
             {!details ? (
               <LoadingSpinner />
@@ -56,7 +54,7 @@ const ProfileMenu = () => {
               <Menu.Button className="max-w-xs bg-white flex items-center text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
                 <span className="sr-only">Open user menu</span>
                 <img
-                  className="h-8 w-8 rounded-full"
+                  className="w-8 rounded-full"
                   src={`https://avatars.dicebear.com/api/initials/${details?.firstname}_${details?.surname}.svg`}
                   alt="profile"
                 />

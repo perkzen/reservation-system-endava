@@ -107,11 +107,6 @@ const OfficePage = () => {
       <Card>
         <div className={classes.Flex}>
           <h1>Pick your time</h1>
-          <Toggle
-            handleChangeToggle={toggleFullDay}
-            checked={fullDay}
-            label={'Full day'}
-          />
         </div>
         <TimeSlider
           min={8}
@@ -124,6 +119,26 @@ const OfficePage = () => {
           onChange={handleChangeSlider}
         />
       </Card>
+      <div>
+        <Toggle
+          handleChangeToggle={toggleFullDay}
+          checked={fullDay}
+          label={'Full day'}
+        />
+        <Button
+          disabled={!multipleReservations}
+          onClick={handleMultipleReservations}
+        >
+          Confirm
+        </Button>
+      </div>
+      <div>
+        <Toggle
+          handleChangeToggle={handleToggleMultipleReservations}
+          checked={multipleReservations}
+          label={'Multiple reservations'}
+        />
+      </div>
       <Office
         office={currentOffice}
         currentDate={selectedDay}
@@ -131,17 +146,6 @@ const OfficePage = () => {
         to={to}
         loading={isLoading.length > 0}
       />
-      <Toggle
-        handleChangeToggle={handleToggleMultipleReservations}
-        checked={multipleReservations}
-        label={'Multiple reservations'}
-      />
-      <Button
-        disabled={!multipleReservations}
-        onClick={handleMultipleReservations}
-      >
-        Confirm reservations
-      </Button>
     </div>
   );
 };

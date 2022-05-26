@@ -2,7 +2,6 @@
   display: inline-grid;
   padding: 30px 50px;
   column-gap: 0;
-
 }
 
 .EmptyContainer {
@@ -10,7 +9,7 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  min-height: 30vh;
+  min-height: 45vh;
   @apply font-medium text-textLight;
 
   svg {
