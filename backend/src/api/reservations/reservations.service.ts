@@ -96,7 +96,15 @@ export class ReservationsService {
   }
 
   async findAllReservationsByUser(userId: string): Promise<Reservation[]> {
-    return await this.reservationRepository.find({ userId: userId });
+    const reservations = await this.reservationRepository.find({
+      userId: userId,
+    });
+    const currentDate = Date.now();
+    return reservations.map((reservation) => {
+      const updateReservation = reservation;
+      updateReservation.active = reservation.to >= currentDate;
+      return updateReservation;
+    });
   }
 
   async remove(id: string, userId: string): Promise<SuccessResponse> {

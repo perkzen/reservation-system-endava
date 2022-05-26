@@ -24,8 +24,13 @@ export interface ReservationTable {
   comment?: string;
   date: string;
   time: string;
+  active: boolean;
 }
 
 export interface ReservationModalData extends CreateReservation {
   date: Date;
+}
+
+export interface ReservationHistory extends ReservationModel, Reservation {
+  active: boolean;
 }

@@ -27,7 +27,6 @@ const Home: FC = () => {
 
   // convert Reservation to ReservationTable
   const data: ReservationTable[] = history.map((reservation) => {
-    console.log(reservation);
     return {
       ...reservation,
       office: reservation.office.name,
@@ -64,11 +63,12 @@ const Home: FC = () => {
         data={data}
         headers={headers}
         title={'My reservations'}
-        buttonLabel={'New reservation'}
         isLoading={isLoading.length > 0}
         itemIdAccessor={'_id'}
         emptyTableComponent={<EmptyTable title={'No data to display'} />}
         onActionClick={openDeleteModal}
+        showStatus
+        statusData={data.map((d) => d.active)}
       />
     </div>
   );

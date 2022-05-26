@@ -12,7 +12,7 @@ import instance from '../../axios';
 import { ApiRoutes, SuccessResponse } from '../../constants/apiConstants';
 import { AxiosError, AxiosResponse } from 'axios';
 import { toast } from 'react-toastify';
-import { Reservation } from '../models/Reservation';
+import { Reservation, ReservationHistory } from '../models/Reservation';
 import { fetchOffice } from '../actions/officeActions';
 
 export function* createReservationSaga(
@@ -67,7 +67,7 @@ export function* fetchReservationHistorySaga(
   try {
     yield put(startLoading({ actionType: action.type }));
     const { data } = (yield instance.get(ApiRoutes.HISTORY)) as AxiosResponse<
-      Reservation[]
+      ReservationHistory[]
     >;
     yield put(fetchReservationHistorySuccess(data));
   } catch (e) {

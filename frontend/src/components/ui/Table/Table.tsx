@@ -20,6 +20,9 @@ interface TableProps<T> {
   emptyTableComponent: ReactNode;
   onActionClick: (id: string) => void;
   itemIdAccessor: keyof T;
+  onRowClick?: (id: string) => void;
+  showStatus?: boolean;
+  statusData?: boolean[];
 }
 
 const Table = <T,>({
@@ -32,6 +35,9 @@ const Table = <T,>({
   isLoading,
   onActionClick,
   itemIdAccessor,
+  onRowClick,
+  showStatus,
+  statusData,
 }: TableProps<T>) => {
   return (
     <div className={classes.Container}>
@@ -50,9 +56,11 @@ const Table = <T,>({
               <table>
                 <thead>
                   <tr>
-                    <th scope="col" className={'sr-only'} colSpan={1}>
-                      <span>index</span>
-                    </th>
+                    {showStatus && (
+                      <th>
+                        <span>Status</span>
+                      </th>
+                    )}
                     {headers.map((header) => (
                       <th key={v4()}>
                         <span>{header.label}</span>
@@ -72,9 +80,30 @@ const Table = <T,>({
                     <>
                       {data.length > 0 ? (
                         <>
-                          {data.map((dataItem, dataIndex) => (
-                            <tr key={v4()}>
-                              <td>{dataIndex + 1}</td>
+                          {data.map((dataItem, index) => (
+                            <tr
+                              key={v4()}
+                              className={onRowClick && classes.Clickable}
+                              onClick={() =>
+                                onRowClick &&
+                                onRowClick(
+                                  dataItem[itemIdAccessor] as unknown as string
+                                )
+                              }
+                            >
+                              {statusData && (
+                                <td>
+                                  {statusData[index] ? (
+                                    <span className="inline-flex rounded-full bg-green-100 px-2 text-xs font-semibold leading-5 text-green-800">
+                                      Active
+                                    </span>
+                                  ) : (
+                                    <span className="inline-flex rounded-full bg-red-100 px-2 text-xs font-semibold leading-5 text-red-800">
+                                      Expired
+                                    </span>
+                                  )}
+                                </td>
+                              )}
                               {headers.map((header) => (
                                 <td key={v4()}>
                                   {
@@ -94,7 +123,9 @@ const Table = <T,>({
                                     )
                                   }
                                 >
-                                  Cancel
+                                  {!statusData || statusData[index]
+                                    ? 'Cancel'
+                                    : 'Renew'}
                                 </button>
                               </td>
                             </tr>

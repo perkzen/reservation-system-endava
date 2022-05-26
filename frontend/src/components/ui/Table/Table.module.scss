@@ -62,4 +62,8 @@
       }
     }
   }
+
+  .Clickable {
+    @apply cursor-pointer hover:bg-secondary;
+  }
 }
