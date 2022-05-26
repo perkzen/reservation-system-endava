@@ -3,7 +3,7 @@ import { FieldError } from 'react-hook-form';
 import classes from './Input.module.scss';
 import { classNames } from '../../../utils/classNames';
 
-interface InputProps extends HTMLProps<HTMLInputElement> {
+export interface InputProps extends HTMLProps<HTMLInputElement> {
   error?: FieldError;
   className?: string;
   label: string;
