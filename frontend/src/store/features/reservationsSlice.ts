@@ -6,11 +6,15 @@ import { removeUser } from './userSlice';
 interface ReservationState {
   history: Reservation[];
   reservations: Reservation[];
+  reservedWorkspaces: string[];
+  multipleReservations: boolean;
 }
 
 const initialState: ReservationState = {
   history: [],
   reservations: [],
+  reservedWorkspaces: [],
+  multipleReservations: false,
 };
 
 export const reservationSlice = createSlice({
@@ -29,12 +33,33 @@ export const reservationSlice = createSlice({
     ) => {
       state.reservations = action.payload;
     },
+    addWorkspaceToReservation: (state, action: PayloadAction<string>) => {
+      state.reservedWorkspaces = [...state.reservedWorkspaces, action.payload];
+    },
+    removeWorkspaceFromReservation: (state, action: PayloadAction<string>) => {
+      state.reservedWorkspaces = state.reservedWorkspaces.filter(
+        (workspace) => workspace !== action.payload
+      );
+    },
+    removeAllWorkspaceFromReservations: (state) => {
+      state.reservedWorkspaces = [];
+    },
+    toggleMultipleReservations: (state) => {
+      state.multipleReservations = !state.multipleReservations;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(removeUser, (state) => {
       state.history = [];
+      state.reservedWorkspaces = [];
     });
   },
 });
 
+export const {
+  addWorkspaceToReservation,
+  removeWorkspaceFromReservation,
+  removeAllWorkspaceFromReservations,
+  toggleMultipleReservations,
+} = reservationSlice.actions;
 export default reservationSlice.reducer;

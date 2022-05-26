@@ -14,13 +14,20 @@ import Card from '../../ui/Card/Card';
 import Toggle from '../../ui/Toggle/Toggle';
 import { DATE, WEEK_DAY } from '../../../constants/dateFormats';
 import Button from '../../ui/Button/Button';
-import { addModal } from '../../../store/features/globalSlice';
-import { ModalType } from '../../../store/models/Modal';
 import OfficeLegend from '../../ui/OfficeLegend/OfficeLegend';
+import { ModalType } from '../../../store/models/Modal';
+import { addModal } from '../../../store/features/globalSlice';
+import {
+  removeAllWorkspaceFromReservations,
+  toggleMultipleReservations,
+} from '../../../store/features/reservationsSlice';
 
 const OfficePage = () => {
   const dispatch = useAppDispatch();
   const { currentOffice } = useAppSelector((state) => state.office);
+  const { reservedWorkspaces, multipleReservations } = useAppSelector(
+    (state) => state.reservation
+  );
   const { loading } = useAppSelector((state) => state.global);
   const isLoading = loading.filter((l) => l.actionType === fetchOffice.type);
 
@@ -30,10 +37,7 @@ const OfficePage = () => {
   const [selectedDay, setSelectedDay] = useState<Date>(new Date());
   const { id } = useParams();
 
-  const [checked, setChecked] = useState<boolean>(true);
-  const [checkedReservations, setCheckedReservations] =
-    useState<boolean>(false);
-  const [workspacesIds, setWorkspacesIds] = useState<string[]>([]);
+  const [fullDay, setFullDay] = useState<boolean>(true);
 
   useEffect(() => {
     if (id) {
@@ -49,28 +53,27 @@ const OfficePage = () => {
 
   const handleChangeSlider = (value: number | number[]) => {
     if (value instanceof Array) {
-      if (value[0] === 8 && value[1] === 17) setChecked(true);
+      if (value[0] === 8 && value[1] === 17) setFullDay(true);
       setFrom(value[0]);
       setTo(value[1]);
     }
-    if (checked) setChecked(false);
+    if (fullDay) setFullDay(false);
   };
 
   const toggleFullDay = () => {
-    if (!checked) {
+    if (!fullDay) {
       setFrom(8);
       setTo(17);
     }
-    setChecked(!checked);
+    setFullDay(!fullDay);
   };
 
-  const toggleMultipleReservations = () => {
-    setCheckedReservations(!checkedReservations);
-    if (!checkedReservations) setWorkspacesIds([]);
+  const handleToggleMultipleReservations = () => {
+    dispatch(toggleMultipleReservations());
+    dispatch(removeAllWorkspaceFromReservations());
   };
 
-  const handleClick = () => {
-    if (!currentOffice) return;
+  const handleMultipleReservations = () => {
     dispatch(
       addModal({
         type: ModalType.RESERVATION,
@@ -79,11 +82,12 @@ const OfficePage = () => {
           date: selectedDay,
           from: from,
           to: to,
-          workspaceId: [workspacesIds],
-          office: currentOffice._id,
+          workspaceId: reservedWorkspaces,
+          office: currentOffice?._id,
         },
       })
     );
+    dispatch(removeAllWorkspaceFromReservations());
   };
 
   return (
@@ -108,7 +112,7 @@ const OfficePage = () => {
           <h1>Pick your time</h1>
           <Toggle
             handleChangeToggle={toggleFullDay}
-            checked={checked}
+            checked={fullDay}
             label={'Full day'}
           />
         </div>
@@ -131,17 +135,17 @@ const OfficePage = () => {
           from={from}
           to={to}
           loading={isLoading.length > 0}
-          multipleReservations={checkedReservations}
-          workspacesIds={workspacesIds}
-          setWorkspacesIds={setWorkspacesIds}
         />
       </div>
       <Toggle
-        handleChangeToggle={toggleMultipleReservations}
-        checked={checkedReservations}
+        handleChangeToggle={handleToggleMultipleReservations}
+        checked={multipleReservations}
         label={'Multiple reservations'}
       />
-      <Button disabled={!checkedReservations} onClick={handleClick}>
+      <Button
+        disabled={!multipleReservations}
+        onClick={handleMultipleReservations}
+      >
         Confirm reservations
       </Button>
     </div>
