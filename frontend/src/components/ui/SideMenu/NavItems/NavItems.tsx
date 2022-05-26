@@ -36,20 +36,23 @@ const NavItems = () => {
           render={(node, { depth, isOpen, onToggle }) => (
             <div style={{ marginInlineStart: depth * 10 }}>
               {node.data ? (
-                <Link
-                  to={node.data as unknown as string}
-                  state={node.text}
-                  key={node.id}
-                >
-                  {node.text}
-                </Link>
+                <>
+                  <Link
+                    to={node.data as unknown as string}
+                    state={node.text}
+                    key={node.id}
+                    onClick={onToggle}
+                  >
+                    {node.text}
+                    {node.droppable && (
+                      <span>
+                        {isOpen ? <ChevronDownIcon /> : <ChevronRightIcon />}
+                      </span>
+                    )}
+                  </Link>
+                </>
               ) : (
                 node.text
-              )}
-              {node.droppable && (
-                <span onClick={onToggle}>
-                  {isOpen ? <ChevronDownIcon /> : <ChevronRightIcon />}
-                </span>
               )}
             </div>
           )}
