@@ -13,8 +13,7 @@ export enum routes {
   HOME = '/',
   PAGE_NOT_FOUND = '*',
   PROFILE = '/Profile',
-  OFFICE_MB = '/Maribor/:id',
-  OFFICE_LJ = '/Ljubljana/:id',
+  OFFICE = ':location/:id',
   CREATE_OFFICE = '/create-office',
   FLOOR_PLAN = '/:location',
 }
@@ -26,8 +25,7 @@ interface Route {
 
 export const protectedRoutes: Route[] = [
   { path: routes.HOME, element: <Home /> },
-  { path: routes.OFFICE_MB, element: <OfficePage /> },
-  { path: routes.OFFICE_LJ, element: <OfficePage /> },
+  { path: routes.OFFICE, element: <OfficePage /> },
   { path: routes.PROFILE, element: <ProfilePage /> },
   { path: routes.PROFILE, element: <ProfilePage /> },
   { path: routes.FLOOR_PLAN, element: <FloorPlanPage /> },
@@ -35,16 +33,4 @@ export const protectedRoutes: Route[] = [
 
 export const adminRoutes: Route[] = [
   { path: routes.CREATE_OFFICE, element: <CreateOfficePage /> },
-];
-
-interface NavigationItem {
-  path: string;
-  name: string;
-}
-
-export const navigation: NavigationItem[] = [
-  // { path: routes.HOME, name: 'Home' },
-  { path: '', name: 'Maribor' },
-  { path: '', name: 'Ljubljana' },
-  { path: routes.PROFILE, name: 'Profile' },
 ];
