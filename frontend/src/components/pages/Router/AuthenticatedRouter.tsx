@@ -11,7 +11,6 @@ import { useAppSelector } from '../../../store/app/hooks';
 import { Role } from '../../../store/models/User';
 import ForgotPassword from '../ForgotPasswordPage/ForgotPassword';
 import ResetPassword from '../ResetPasswordPage/ResetPassword';
-import AuthProvider from '../../ui/AuthProvider/AuthProvider';
 
 const AuthenticatedRouter: FC = () => {
   const { details } = useAppSelector((state) => state.user);
@@ -24,11 +23,9 @@ const AuthenticatedRouter: FC = () => {
             key={v4()}
             path={route.path}
             element={
-              <AuthProvider>
-                <ProtectedRoute>
-                  <LayoutProvider>{route.element}</LayoutProvider>
-                </ProtectedRoute>
-              </AuthProvider>
+              <ProtectedRoute>
+                <LayoutProvider>{route.element}</LayoutProvider>
+              </ProtectedRoute>
             }
           />
         ))}
@@ -39,11 +36,9 @@ const AuthenticatedRouter: FC = () => {
                 key={v4()}
                 path={route.path}
                 element={
-                  <AuthProvider>
-                    <ProtectedRoute>
-                      <LayoutProvider>{route.element}</LayoutProvider>
-                    </ProtectedRoute>
-                  </AuthProvider>
+                  <ProtectedRoute>
+                    <LayoutProvider>{route.element}</LayoutProvider>
+                  </ProtectedRoute>
                 }
               />
             ))}
