@@ -13,6 +13,9 @@ import Carousel from '../../ui/Carousel/Carousel';
 import Card from '../../ui/Card/Card';
 import Toggle from '../../ui/Toggle/Toggle';
 import { DATE, WEEK_DAY } from '../../../constants/dateFormats';
+import Button from '../../ui/Button/Button';
+import { addModal } from '../../../store/features/globalSlice';
+import { ModalType } from '../../../store/models/Modal';
 
 const OfficePage = () => {
   const dispatch = useAppDispatch();
@@ -27,6 +30,9 @@ const OfficePage = () => {
   const { id } = useParams();
 
   const [checked, setChecked] = useState<boolean>(true);
+  const [checkedReservations, setCheckedReservations] =
+    useState<boolean>(false);
+  const [workspacesIds, setWorkspacesIds] = useState<string[]>([]);
 
   useEffect(() => {
     if (id) {
@@ -49,12 +55,34 @@ const OfficePage = () => {
     if (checked) setChecked(false);
   };
 
-  const handleChangeToggle = () => {
+  const toggleFullDay = () => {
     if (!checked) {
       setFrom(8);
       setTo(17);
     }
     setChecked(!checked);
+  };
+
+  const toggleMultipleReservations = () => {
+    setCheckedReservations(!checkedReservations);
+    if (!checkedReservations) setWorkspacesIds([]);
+  };
+
+  const handleClick = () => {
+    if (!currentOffice) return;
+    dispatch(
+      addModal({
+        type: ModalType.RESERVATION,
+        title: 'Confirm reservation',
+        data: {
+          date: selectedDay,
+          from: from,
+          to: to,
+          workspaceId: [workspacesIds],
+          office: currentOffice._id,
+        },
+      })
+    );
   };
 
   return (
@@ -78,7 +106,7 @@ const OfficePage = () => {
         <div className={classes.Flex}>
           <h1>Pick your time</h1>
           <Toggle
-            handleChangeToggle={handleChangeToggle}
+            handleChangeToggle={toggleFullDay}
             checked={checked}
             label={'Full day'}
           />
@@ -103,8 +131,19 @@ const OfficePage = () => {
           from={from}
           to={to}
           loading={isLoading.length > 0}
+          multipleReservations={checkedReservations}
+          workspacesIds={workspacesIds}
+          setWorkspacesIds={setWorkspacesIds}
         />
       </div>
+      <Toggle
+        handleChangeToggle={toggleMultipleReservations}
+        checked={checkedReservations}
+        label={'Multiple reservations'}
+      />
+      <Button disabled={!checkedReservations} onClick={handleClick}>
+        Confirm reservations
+      </Button>
     </div>
   );
 };
