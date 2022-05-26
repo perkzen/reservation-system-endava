@@ -10,6 +10,7 @@ import { Menu, Transition } from '@headlessui/react';
 import { classNames } from '../../../../utils/classNames';
 import { v4 } from 'uuid';
 import { Role } from '../../../../store/models/User';
+import LoadingSpinner from '../../LoadingSpinner/LoadingSpinner';
 
 interface UserNavigation {
   name: string;
@@ -49,14 +50,18 @@ const ProfileMenu = () => {
         {/* ProfileMenu dropdown */}
         <Menu as="div" className="ml-3 relative">
           <div>
-            <Menu.Button className="max-w-xs bg-white flex items-center text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
-              <span className="sr-only">Open user menu</span>
-              <img
-                className="h-8 w-8 rounded-full"
-                src={`https://avatars.dicebear.com/api/initials/${details?.firstname}_${details?.surname}.svg`}
-                alt=""
-              />
-            </Menu.Button>
+            {!details ? (
+              <LoadingSpinner />
+            ) : (
+              <Menu.Button className="max-w-xs bg-white flex items-center text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                <span className="sr-only">Open user menu</span>
+                <img
+                  className="h-8 w-8 rounded-full"
+                  src={`https://avatars.dicebear.com/api/initials/${details?.firstname}_${details?.surname}.svg`}
+                  alt="profile"
+                />
+              </Menu.Button>
+            )}
           </div>
           <Transition
             as={Fragment}
