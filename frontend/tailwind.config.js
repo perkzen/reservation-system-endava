@@ -9,6 +9,7 @@ module.exports = {
         textLight: '#808080',
         graySecondary: '#36444f',
         grayMenu: '#363E43',
+        reserved: '#D1D5DB',
       },
       transformOrigin: {
         0: '0%',
