@@ -9,9 +9,7 @@ const FloorPlanPage: FC = () => {
 
   return (
     <>
-      {location === 'Ljubljana' ? (
-        <h1>No floor plan available.</h1>
-      ) : (
+      {location === 'Maribor' ? (
         <>
           <img src={FloorPlan} useMap="#image-map" alt={'Floor plan'} />
 
@@ -66,6 +64,8 @@ const FloorPlanPage: FC = () => {
             />
           </map>
         </>
+      ) : (
+        <h1>No floor plan available.</h1>
       )}
     </>
   );
