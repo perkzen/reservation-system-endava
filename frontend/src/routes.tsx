@@ -16,7 +16,7 @@ export enum routes {
   OFFICE_MB = '/Maribor/:id',
   OFFICE_LJ = '/Ljubljana/:id',
   CREATE_OFFICE = '/create-office',
-  FLOOR_PLAN = '/floor-plan',
+  FLOOR_PLAN = '/floor-plan/:location',
 }
 
 interface Route {
