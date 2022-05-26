@@ -45,7 +45,7 @@
   justify-content: center;
   align-items: center;
   background-color: #EEEEEE;
-  box-shadow: #CCDBE8 3px 3px 6px 0 inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
-  width: 100%;
+  //box-shadow: #e0dede 3px 3px 6px 0 inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+  @apply rounded-md shadow-md;
   min-height: 50%;
 }
