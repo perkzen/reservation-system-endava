@@ -11,7 +11,7 @@ import {
 } from '../../../store/actions/userActions';
 import { requiredField } from '../../../constants/requiredField';
 import { fetchOffices } from '../../../store/actions/officeActions';
-import ComboBox from '../../ui/Combobox/Combobox';
+import ComboBox from '../../ui/ComboBox/Combobox';
 
 interface UserDetailsFormData {
   firstname: string;
