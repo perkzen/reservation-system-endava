@@ -87,6 +87,7 @@ const OfficePage = () => {
         },
       })
     );
+    dispatch(removeAllWorkspaceFromReservations());
   };
 
   return (
