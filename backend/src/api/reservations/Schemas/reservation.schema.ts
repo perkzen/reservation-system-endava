@@ -23,6 +23,9 @@ export class Reservation {
 
   @Prop()
   to: number;
+
+  @Prop({ required: false })
+  active: boolean;
 }
 
 export type ReservationDocument = Reservation & Document;

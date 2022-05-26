@@ -1,5 +1,9 @@
 import { createAction } from '@reduxjs/toolkit';
-import { CreateReservation, Reservation } from '../models/Reservation';
+import {
+  CreateReservation,
+  Reservation,
+  ReservationHistory,
+} from '../models/Reservation';
 
 export const RESERVATION_SLICE = 'reservation';
 
@@ -19,9 +23,9 @@ export const fetchReservationHistory = createAction(
   `${RESERVATION_SLICE}/fetchReservationHistory`
 );
 
-export const fetchReservationHistorySuccess = createAction<Reservation[]>(
-  `${RESERVATION_SLICE}/fetchReservationHistorySuccess`
-);
+export const fetchReservationHistorySuccess = createAction<
+  ReservationHistory[]
+>(`${RESERVATION_SLICE}/fetchReservationHistorySuccess`);
 
 export const deleteReservation = createAction<string>(
   `${RESERVATION_SLICE}/cancelReservation`

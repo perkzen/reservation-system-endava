@@ -47,10 +47,8 @@ const ProfilePage: FC = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (user) {
-      dispatch(fetchUserDetails());
-    }
-  }, [dispatch, user]);
+    dispatch(fetchUserDetails());
+  }, [dispatch]);
 
   useEffect(() => {
     setOffice(details?.location);

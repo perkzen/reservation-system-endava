@@ -22,10 +22,15 @@ export interface ReservationTable {
   office: string;
   workspaceId: string[];
   comment?: string;
-  from: string;
-  to: string;
+  date: string;
+  time: string;
+  active: boolean;
 }
 
 export interface ReservationModalData extends CreateReservation {
   date: Date;
+}
+
+export interface ReservationHistory extends ReservationModel, Reservation {
+  active: boolean;
 }
