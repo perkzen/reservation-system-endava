@@ -8,6 +8,11 @@
     justify-content: flex-start;
   }
 
+  button {
+    width: 150px;
+    float: right;
+    @apply xs:w-20;
+  }
 }
 
 .Flex {

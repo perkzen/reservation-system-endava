@@ -7,7 +7,7 @@
       @apply text-gray-400 hover:text-gray-500;
 
       svg {
-        @apply flex-shrink-0 h-5 w-5;
+        @apply flex-shrink-0 h-4 w-4 md:h-5 md:w-5;
       }
     }
   }
