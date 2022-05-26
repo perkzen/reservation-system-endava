@@ -10,6 +10,13 @@ export class ReservationsService {
   constructor(private readonly reservationRepository: ReservationRepository) {}
 
   async create(data: CreateReservationDto): Promise<SuccessResponse> {
+    if (data.workspaceId.length === 0) {
+      throw new HttpException(
+        Errors.PLEASE_SELECT_WORKSPACE,
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
     // active reservations from user
     const active = await this.findAllByUser(data.userId);
 
