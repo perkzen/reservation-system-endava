@@ -1,4 +1,17 @@
 .Container {
+  position: absolute;
+  top: 26rem;
+  left: 2rem;
+
+  @media only screen and (min-width: 640px) {
+    top: 27rem;
+    left: 2rem;
+  }
+
+  @media only screen and (min-width: 768px) {
+    top: 27rem;
+    left: 18rem;
+  }
   div {
     display: flex;
 
@@ -10,9 +23,9 @@
     }
 
     p {
-      font-size: small;
+      font-size: 80%;
       margin-left: 0.2rem;
-      opacity: 70%;
+      opacity: 75%;
     }
   }
 

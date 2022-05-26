@@ -13,6 +13,7 @@ import Carousel from '../../ui/Carousel/Carousel';
 import Card from '../../ui/Card/Card';
 import Toggle from '../../ui/Toggle/Toggle';
 import { DATE, WEEK_DAY } from '../../../constants/dateFormats';
+import OfficeLegend from '../../ui/OfficeLegend/OfficeLegend';
 
 const OfficePage = () => {
   const dispatch = useAppDispatch();
@@ -83,7 +84,6 @@ const OfficePage = () => {
             label={'Full day'}
           />
         </div>
-
         <TimeSlider
           min={8}
           max={17}
@@ -96,6 +96,7 @@ const OfficePage = () => {
         />
       </Card>
       <div className={classes.OfficeContainer}>
+        <OfficeLegend />
         <Office
           office={currentOffice}
           currentDate={selectedDay}
