@@ -12,6 +12,7 @@ import {
 import { requiredField } from '../../../constants/requiredField';
 import { fetchOffices } from '../../../store/actions/officeActions';
 import ComboBox from '../../ui/ComboBox/Combobox';
+import LoadingSpinner from '../../ui/LoadingSpinner/LoadingSpinner';
 
 interface UserDetailsFormData {
   firstname: string;
@@ -42,8 +43,8 @@ const ProfilePage: FC = () => {
   const { errors, isDirty } = formState;
 
   useEffect(() => {
-    if (offices) dispatch(fetchOffices());
-  }, [dispatch, offices]);
+    dispatch(fetchOffices());
+  }, [dispatch]);
 
   useEffect(() => {
     if (user) {
@@ -80,13 +81,18 @@ const ProfilePage: FC = () => {
 
   return (
     <div className={classes.Container}>
-      <img
-        src={`https://avatars.dicebear.com/api/initials/${details?.firstname}_${details?.surname}.svg`}
-        className={'rounded-full'}
-        width={100}
-        height={100}
-        alt={'Profile'}
-      />
+      {!details ? (
+        <LoadingSpinner />
+      ) : (
+        <img
+          src={`https://avatars.dicebear.com/api/initials/${details?.firstname}_${details?.surname}.svg`}
+          className={'rounded-full'}
+          width={100}
+          height={100}
+          alt={'Profile'}
+        />
+      )}
+
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
           <Input

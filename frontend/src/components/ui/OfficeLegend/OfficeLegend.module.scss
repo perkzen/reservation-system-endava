@@ -1,6 +1,9 @@
 .Container {
+  position: absolute;
+  top: 0;
+  left: 0;
   @apply pt-2 pl-2;
-  align-self: flex-start;
+
 
   div {
     display: flex;
