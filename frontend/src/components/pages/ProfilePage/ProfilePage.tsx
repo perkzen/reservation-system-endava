@@ -30,7 +30,7 @@ const ProfilePage: FC = () => {
   const { details, user } = useAppSelector((state) => state.user);
   const { offices } = useAppSelector((state) => state.office);
   const dispatch = useAppDispatch();
-  const [method, setMethod] = useState<'POST' | 'PATCH'>('POST');
+  const [method, setMethod] = useState<'POST' | 'PUT'>('POST');
   const [location, setLocation] = useState<any>(details?.location);
 
   const { register, reset, formState, handleSubmit } =
