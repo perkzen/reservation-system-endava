@@ -14,7 +14,7 @@ interface ComboboxProps {
   setSelected: (selected: string) => void;
 }
 
-const Combobox: FC<ComboboxProps> = ({
+const ComboBox: FC<ComboboxProps> = ({
   options,
   query,
   setQuery,
@@ -42,7 +42,6 @@ const Combobox: FC<ComboboxProps> = ({
       <div className="relative">
         <ComboboxUI.Input
           autoComplete={'off'}
-          placeholder={' '}
           className={classes.Input}
           onChange={(event: any) => setQuery(event.target.value)}
           displayValue={(item: string) => item}
@@ -58,17 +57,13 @@ const Combobox: FC<ComboboxProps> = ({
               <ComboboxUI.Option
                 key={v4()}
                 value={item}
-                className={({ active }) =>
-                  classNames(
-                    'relative cursor-default select-none py-2 pl-8 pr-4',
-                    active ? 'bg-primary text-white' : 'text-gray-900'
-                  )
+                className={
+                  'relative cursor-default select-none py-2 pl-10 pr-4 text-graySecondary'
                 }
               >
                 {({ selected }) => (
                   <>
                     <span className={classNames('block truncate')}>{item}</span>
-
                     {selected && (
                       <span
                         className={classNames(
@@ -89,4 +84,4 @@ const Combobox: FC<ComboboxProps> = ({
   );
 };
 
-export default Combobox;
+export default ComboBox;
