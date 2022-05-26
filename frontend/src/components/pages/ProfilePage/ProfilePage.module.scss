@@ -16,11 +16,18 @@
     flex-direction: column;
     justify-content: center;
     width: 20%;
-    gap: 1.5rem;
     min-width: 200px;
+  }
 
-    button {
-      width: 100%;
-    }
+  .InputContainer {
+    padding-bottom: 1.5rem;
+  }
+
+  .Button {
+    padding-top: 1.5rem;
+  }
+
+  .CustomLabel {
+    @apply text-xs ml-2;
   }
 }

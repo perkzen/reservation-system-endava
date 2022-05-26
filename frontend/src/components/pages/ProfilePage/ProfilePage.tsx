@@ -10,6 +10,8 @@ import {
   saveUserDetails,
 } from '../../../store/actions/userActions';
 import { requiredField } from '../../../constants/requiredField';
+import ComboBox from '../../ui/Combobox/Combobox';
+import { fetchOffices } from '../../../store/actions/officeActions';
 
 interface UserDetailsFormData {
   firstname: string;
@@ -26,8 +28,10 @@ const defaultValues: UserDetailsFormData = {
 const ProfilePage: FC = () => {
   const { t } = useTranslation();
   const { details, user } = useAppSelector((state) => state.user);
+  const { offices } = useAppSelector((state) => state.office);
   const dispatch = useAppDispatch();
   const [method, setMethod] = useState<'POST' | 'PATCH'>('POST');
+  const [location, setLocation] = useState<any>(details?.location);
 
   const { register, reset, formState, handleSubmit } =
     useForm<UserDetailsFormData>({
@@ -36,6 +40,10 @@ const ProfilePage: FC = () => {
     });
 
   const { errors, isDirty } = formState;
+
+  useEffect(() => {
+    if (offices) dispatch(fetchOffices());
+  }, [dispatch, offices]);
 
   useEffect(() => {
     if (user) dispatch(fetchUserDetails());
@@ -66,28 +74,37 @@ const ProfilePage: FC = () => {
         alt={'Profile'}
       />
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Input
-          {...register('firstname', requiredField)}
-          error={errors.firstname}
-          className={classes.Input}
-          name="firstname"
-          label={t('firstname')}
-        />
-        <Input
-          {...register('surname', requiredField)}
-          error={errors.surname}
-          className={classes.Input}
-          name="surname"
-          label={t('surname')}
-        />
-        <Input
-          {...register('location', requiredField)}
-          error={errors.location}
-          className={classes.Input}
-          name="location"
-          label={t('location')}
-        />
-        <Button disabled={!isDirty}>{t('save')}</Button>
+        <div className={classes.InputContainer}>
+          <Input
+            {...register('firstname', requiredField)}
+            error={errors.firstname}
+            className={classes.Input}
+            name="firstname"
+            label={t('firstname')}
+          />
+        </div>
+        <div>
+          <Input
+            {...register('surname', requiredField)}
+            error={errors.surname}
+            className={classes.Input}
+            name="surname"
+            label={t('surname')}
+          />
+        </div>
+        <div>
+          <label className={classes.CustomLabel}>{t('location')}</label>
+          {offices.length > 0 && (
+            <ComboBox
+              data={offices}
+              queryAccessor={'name'}
+              onStateChange={setLocation}
+            />
+          )}
+        </div>
+        <div className={classes.Button}>
+          <Button disabled={!isDirty}>{t('save')}</Button>
+        </div>
       </form>
     </div>
   );

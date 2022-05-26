@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { Combobox, Transition } from '@headlessui/react';
 import { CheckIcon, SelectorIcon } from '@heroicons/react/solid';
 import classes from './Combobox.module.scss';
@@ -7,9 +7,14 @@ import { v4 } from 'uuid';
 interface ComboboxProps<T> {
   data: T[];
   queryAccessor: keyof T;
+  onStateChange: any;
 }
 
-const ComboBox = <T,>({ data, queryAccessor }: ComboboxProps<T>) => {
+const ComboBox = <T,>({
+  data,
+  queryAccessor,
+  onStateChange,
+}: ComboboxProps<T>) => {
   const [selected, setSelected] = useState(data[0]);
   const [query, setQuery] = useState('');
 
@@ -23,6 +28,10 @@ const ComboBox = <T,>({ data, queryAccessor }: ComboboxProps<T>) => {
             .includes(query.toLowerCase().replace(/\s+/g, ''))
         );
 
+  // useEffect(() => {
+  //   onStateChange(selected);
+  // }, [selected]);
+
   return (
     <div className={classes.Container}>
       <Combobox value={selected} onChange={setSelected}>
@@ -31,7 +40,7 @@ const ComboBox = <T,>({ data, queryAccessor }: ComboboxProps<T>) => {
             <Combobox.Input
               className={classes.Input}
               displayValue={(data: T) =>
-                data[queryAccessor] as unknown as string
+                data[queryAccessor] as unknown as string | ''
               }
               onChange={(event) => setQuery(event.target.value)}
             />
