@@ -10,14 +10,14 @@ import {
 import EmptyTable from '../../ui/Table/EmptyTable/EmptyTable';
 import { addModal, removeModal } from '../../../store/features/globalSlice';
 import { ModalType } from '../../../store/models/Modal';
-import { formatDate } from '../../../utils/date';
+import { getDate, getTime } from '../../../utils/date';
 
 const headers: TableHeader<ReservationTable>[] = [
   { accessor: 'office', label: 'Office' },
   { accessor: 'workspaceId', label: 'Workspace' },
   { accessor: 'comment', label: 'Comment' },
-  { accessor: 'from', label: 'From' },
-  { accessor: 'to', label: 'To' },
+  { accessor: 'date', label: 'Date' },
+  { accessor: 'time', label: 'Time' },
 ];
 
 const Home: FC = () => {
@@ -27,11 +27,12 @@ const Home: FC = () => {
 
   // convert Reservation to ReservationTable
   const data: ReservationTable[] = history.map((reservation) => {
+    console.log(reservation);
     return {
       ...reservation,
       office: reservation.office.name,
-      from: formatDate(reservation.from),
-      to: formatDate(reservation.to),
+      date: getDate(reservation.from),
+      time: getTime(reservation.from) + 'h - ' + getTime(reservation.to) + 'h',
     };
   });
 
@@ -62,7 +63,7 @@ const Home: FC = () => {
       <Table
         data={data}
         headers={headers}
-        title={'Reservations'}
+        title={'My reservations'}
         buttonLabel={'New reservation'}
         isLoading={isLoading.length > 0}
         itemIdAccessor={'_id'}
