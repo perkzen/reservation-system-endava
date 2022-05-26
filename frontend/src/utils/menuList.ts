@@ -15,7 +15,7 @@ export const generateMenu = (offices: Office[]) => {
       parent: 0,
       droppable: true,
       text: uniqueLocations[i - 1],
-      data: `/floor-plan/${uniqueLocations[i - 1]}`,
+      data: `/${uniqueLocations[i - 1]}`,
     });
   }
 
