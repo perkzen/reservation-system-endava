@@ -14,7 +14,6 @@ import Card from '../../ui/Card/Card';
 import Toggle from '../../ui/Toggle/Toggle';
 import { DATE, WEEK_DAY } from '../../../constants/dateFormats';
 import Button from '../../ui/Button/Button';
-import OfficeLegend from '../../ui/OfficeLegend/OfficeLegend';
 import { ModalType } from '../../../store/models/Modal';
 import { addModal } from '../../../store/features/globalSlice';
 import {
@@ -92,21 +91,19 @@ const OfficePage = () => {
 
   return (
     <div className={classes.Container}>
-      <Card>
-        <Carousel>
-          {dates.map((date: Date, index: number) => {
-            return (
-              <DateCard
-                key={index}
-                day={format(date, WEEK_DAY)}
-                date={date}
-                selected={format(date, DATE) === format(selectedDay, DATE)}
-                onClick={() => setSelectedDay(date)}
-              />
-            );
-          })}
-        </Carousel>
-      </Card>
+      <Carousel>
+        {dates.map((date: Date, index: number) => {
+          return (
+            <DateCard
+              key={index}
+              day={format(date, WEEK_DAY)}
+              date={date}
+              selected={format(date, DATE) === format(selectedDay, DATE)}
+              onClick={() => setSelectedDay(date)}
+            />
+          );
+        })}
+      </Carousel>
       <Card>
         <div className={classes.Flex}>
           <h1>Pick your time</h1>
@@ -127,16 +124,13 @@ const OfficePage = () => {
           onChange={handleChangeSlider}
         />
       </Card>
-      <div className={classes.OfficeContainer}>
-        <OfficeLegend />
-        <Office
-          office={currentOffice}
-          currentDate={selectedDay}
-          from={from}
-          to={to}
-          loading={isLoading.length > 0}
-        />
-      </div>
+      <Office
+        office={currentOffice}
+        currentDate={selectedDay}
+        from={from}
+        to={to}
+        loading={isLoading.length > 0}
+      />
       <Toggle
         handleChangeToggle={handleToggleMultipleReservations}
         checked={multipleReservations}
