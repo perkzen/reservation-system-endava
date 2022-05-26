@@ -10,19 +10,17 @@ import {
   saveUserDetails,
 } from '../../../store/actions/userActions';
 import { requiredField } from '../../../constants/requiredField';
-import ComboBox from '../../ui/Combobox/Combobox';
 import { fetchOffices } from '../../../store/actions/officeActions';
+import Combobox from '../../ui/Combobox/Combobox';
 
 interface UserDetailsFormData {
   firstname: string;
   surname: string;
-  location: string;
 }
 
 const defaultValues: UserDetailsFormData = {
   firstname: '',
   surname: '',
-  location: '',
 };
 
 const ProfilePage: FC = () => {
@@ -31,7 +29,9 @@ const ProfilePage: FC = () => {
   const { offices } = useAppSelector((state) => state.office);
   const dispatch = useAppDispatch();
   const [method, setMethod] = useState<'POST' | 'PUT'>('POST');
-  const [location, setLocation] = useState<any>(details?.location);
+  const options = offices.map((office) => office.name);
+  const [query, setQuery] = useState('');
+  const [office, setOffice] = useState(details?.location);
 
   const { register, reset, formState, handleSubmit } =
     useForm<UserDetailsFormData>({
@@ -46,8 +46,14 @@ const ProfilePage: FC = () => {
   }, [dispatch, offices]);
 
   useEffect(() => {
-    if (user) dispatch(fetchUserDetails());
+    if (user) {
+      dispatch(fetchUserDetails());
+    }
   }, [dispatch, user]);
+
+  useEffect(() => {
+    setOffice(details?.location);
+  }, [details]);
 
   useEffect(() => {
     if (details?.uid) {
@@ -55,14 +61,22 @@ const ProfilePage: FC = () => {
       reset({
         firstname: details.firstname,
         surname: details.surname,
-        location: details.location,
       });
     }
-  }, [details, reset]);
+  }, [details, office, reset]);
 
   const onSubmit = (data: UserDetailsFormData) => {
-    dispatch(saveUserDetails({ ...data, uid: user?.uid, method }));
+    dispatch(
+      saveUserDetails({
+        ...data,
+        uid: user?.uid,
+        method,
+        location: office as string,
+      })
+    );
   };
+
+  const isDisabled = isDirty || details?.location === office;
 
   return (
     <div className={classes.Container}>
@@ -74,12 +88,10 @@ const ProfilePage: FC = () => {
         alt={'Profile'}
       />
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className={classes.InputContainer}>
+        <div>
           <Input
             {...register('firstname', requiredField)}
             error={errors.firstname}
-            className={classes.Input}
-            name="firstname"
             label={t('firstname')}
           />
         </div>
@@ -87,24 +99,20 @@ const ProfilePage: FC = () => {
           <Input
             {...register('surname', requiredField)}
             error={errors.surname}
-            className={classes.Input}
-            name="surname"
             label={t('surname')}
           />
         </div>
         <div>
-          <label className={classes.CustomLabel}>{t('location')}</label>
-          {offices.length > 0 && (
-            <ComboBox
-              data={offices}
-              queryAccessor={'name'}
-              onStateChange={setLocation}
-            />
-          )}
+          <Combobox
+            selected={office}
+            setSelected={setOffice}
+            options={options}
+            label={'Primary office'}
+            query={query}
+            setQuery={setQuery}
+          />
         </div>
-        <div className={classes.Button}>
-          <Button disabled={!isDirty}>{t('save')}</Button>
-        </div>
+        <Button disabled={isDisabled}>{t('save')}</Button>
       </form>
     </div>
   );

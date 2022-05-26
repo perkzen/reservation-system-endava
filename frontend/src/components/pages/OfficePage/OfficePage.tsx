@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { dateToUTC, generateDates } from '../../../utils/date';
-import classes from '../Home/Home.module.scss';
+import classes from './OfficePage.module.scss';
 import DateCard from '../../ui/DateCard/DateCard';
 import { format } from 'date-fns';
 import TimeSlider from '../../ui/TimeSlider/TimeSlider';
@@ -16,6 +16,7 @@ import { DATE, WEEK_DAY } from '../../../constants/dateFormats';
 import Button from '../../ui/Button/Button';
 import { addModal } from '../../../store/features/globalSlice';
 import { ModalType } from '../../../store/models/Modal';
+import OfficeLegend from '../../ui/OfficeLegend/OfficeLegend';
 
 const OfficePage = () => {
   const dispatch = useAppDispatch();
@@ -111,7 +112,6 @@ const OfficePage = () => {
             label={'Full day'}
           />
         </div>
-
         <TimeSlider
           min={8}
           max={17}
@@ -124,7 +124,7 @@ const OfficePage = () => {
         />
       </Card>
       <div className={classes.OfficeContainer}>
-        {/*<OfficeLegend />*/}
+        <OfficeLegend />
         <Office
           office={currentOffice}
           currentDate={selectedDay}

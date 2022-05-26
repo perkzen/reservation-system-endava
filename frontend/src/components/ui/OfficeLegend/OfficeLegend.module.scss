@@ -1,18 +1,44 @@
 .Container {
-  svg {
-    @apply w-5 text-primary m-1 inline cursor-pointer;
+  position: absolute;
+  top: 26rem;
+  left: 1.5rem;
+
+  @media only screen and (min-width: 640px) {
+    top: 27rem;
+    left: 2rem;
   }
 
-  .Info {
-    @apply w-12 pt-3 inline;
+  @media only screen and (min-width: 768px) {
+    top: 27rem;
+    left: 17.5rem;
+  }
+  div {
+    display: flex;
+
+    div {
+      border-radius: 50%;
+      width: 0.75rem;
+      height: 0.75rem;
+      margin-top: 0.2rem;
+    }
+
+    p {
+      font-size: 80%;
+      margin-left: 0.2rem;
+      opacity: 75%;
+    }
   }
 
   .Available {
-    @apply bg-secondary mr-1.5 inline text-xs p-1 rounded;
-
+    @apply bg-primary;
   }
 
   .Unavailable {
-    @apply bg-primary inline text-xs text-accent p-1 rounded;
+    @apply bg-reserved;
+  }
+
+  .Yours {
+    border: 2px solid;
+    @apply bg-accent border-reserved;
   }
 }

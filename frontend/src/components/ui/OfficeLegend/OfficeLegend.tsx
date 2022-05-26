@@ -1,21 +1,24 @@
-import React, { FC, useState } from 'react';
-import { InformationCircleIcon } from '@heroicons/react/outline';
+import React, { FC } from 'react';
 import classes from './OfficeLegend.module.scss';
 import { useTranslation } from 'react-i18next';
 
 const OfficeLegend: FC = () => {
   const { t } = useTranslation();
-  const [showLegend, setShowLegend] = useState<boolean>(false);
 
   return (
     <div className={classes.Container}>
-      <InformationCircleIcon onClick={() => setShowLegend(!showLegend)} />
-      {showLegend ? (
-        <div className={classes.Info}>
-          <div className={classes.Available}>{t('available')}</div>
-          <div className={classes.Unavailable}>{t('unavailable')}</div>
-        </div>
-      ) : null}
+      <div>
+        <div className={classes.Available}></div>
+        <p>{t('available')}</p>
+      </div>
+      <div>
+        <div className={classes.Unavailable}></div>
+        <p>{t('unavailable')}</p>
+      </div>
+      <div>
+        <div className={classes.Yours}></div>
+        <p>{t('your_reservation')}</p>
+      </div>
     </div>
   );
 };
