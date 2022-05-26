@@ -39,7 +39,7 @@ const Office: FC<OfficeProps> = ({
           date: currentDate,
           from: from,
           to: to,
-          workspaceId: workspaceId,
+          workspaceId: [workspaceId],
           office: office._id,
         },
       })

@@ -1,0 +1,8 @@
+.Container {
+  @apply inline-flex relative items-center cursor-pointer;
+
+
+  span {
+    @apply ml-3 text-sm font-medium text-primary;
+  }
+}

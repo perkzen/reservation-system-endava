@@ -20,7 +20,7 @@ export function* saveOfficeSaga(
   try {
     yield put(startLoading({ actionType: action.type }));
     const { data } = (yield instance({
-      method: action.payload._id ? 'PATCH' : 'POST',
+      method: action.payload._id ? 'PUT' : 'POST',
       url: action.payload._id
         ? `${ApiRoutes.OFFICES}/${action.payload._id}`
         : ApiRoutes.OFFICES,

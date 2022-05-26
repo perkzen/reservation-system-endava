@@ -51,7 +51,7 @@ const ProfilePage: FC = () => {
 
   useEffect(() => {
     if (details?.uid) {
-      setMethod('PATCH');
+      setMethod('PUT');
       reset({
         firstname: details.firstname,
         surname: details.surname,

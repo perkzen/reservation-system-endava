@@ -1,0 +1,24 @@
+{
+  "name": "Office name",
+  "location": "Maribor",
+  "cols": 5,
+  "rows": 5,
+  "workspaces": [
+    {
+      "orientation": "top",
+      "position": 1
+    },
+    {
+      "orientation": "right",
+      "position": 2
+    },
+    {
+      "orientation": "bottom",
+      "position": 3
+    },
+    {
+      "orientation": "left",
+      "position": 4
+    }
+  ]
+}

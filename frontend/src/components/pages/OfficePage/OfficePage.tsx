@@ -12,6 +12,7 @@ import { useParams } from 'react-router-dom';
 import Carousel from '../../ui/Carousel/Carousel';
 import Card from '../../ui/Card/Card';
 import Toggle from '../../ui/Toggle/Toggle';
+import { DATE, WEEK_DAY } from '../../../constants/dateFormats';
 
 const OfficePage = () => {
   const dispatch = useAppDispatch();
@@ -64,23 +65,23 @@ const OfficePage = () => {
             return (
               <DateCard
                 key={index}
-                day={format(date, 'EEEE')}
+                day={format(date, WEEK_DAY)}
                 date={date}
-                selected={
-                  format(date, 'dd.MM.yyyy') ===
-                  format(selectedDay, 'dd.MM.yyyy')
-                }
+                selected={format(date, DATE) === format(selectedDay, DATE)}
                 onClick={() => setSelectedDay(date)}
               />
             );
           })}
         </Carousel>
       </Card>
-
       <Card>
         <div className={classes.Flex}>
           <h1>Pick your time</h1>
-          <Toggle handleChangeToggle={handleChangeToggle} checked={checked} />
+          <Toggle
+            handleChangeToggle={handleChangeToggle}
+            checked={checked}
+            label={'Full day'}
+          />
         </div>
 
         <TimeSlider

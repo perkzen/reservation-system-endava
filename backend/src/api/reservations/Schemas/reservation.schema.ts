@@ -9,8 +9,8 @@ export class Reservation {
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Office' })
   office: Office;
 
-  @Prop()
-  workspaceId: string;
+  @Prop({ type: [String] })
+  workspaceId: string[];
 
   @Prop()
   userId: string;

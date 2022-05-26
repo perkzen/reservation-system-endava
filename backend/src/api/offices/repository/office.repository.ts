@@ -3,6 +3,7 @@ import { Office, OfficeDocument } from '../schemas/office.schema';
 import { FilterQuery, Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { CreateOfficeDto } from '../dto/create-office.dto';
+import { UpdateOfficeDto } from '../dto/update-office.dto';
 
 @Injectable()
 export class OfficeRepository {
@@ -25,7 +26,7 @@ export class OfficeRepository {
 
   async findOneAndUpdate(
     officeFilterQuery: FilterQuery<Office>,
-    office: Partial<Office>,
+    office: Partial<UpdateOfficeDto>,
   ) {
     return this.officeModel.findOneAndUpdate(officeFilterQuery, office);
   }

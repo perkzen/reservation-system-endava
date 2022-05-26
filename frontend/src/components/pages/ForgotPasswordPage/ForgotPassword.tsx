@@ -40,7 +40,7 @@ const ForgotPassword: FC = () => {
 
     try {
       await forgotPassword(data.email);
-      toast.success(t('email_reset_success'));
+      toast.success(t('email_sent'));
     } catch (e) {
       const error = e as firebase.auth.Error;
 

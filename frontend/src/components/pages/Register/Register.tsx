@@ -40,12 +40,12 @@ const Register: FC = () => {
   const onSubmit = async (data: RegisterFormData) => {
     setLoading(true);
     setError('');
-    if (data.password !== data.confirmPassword) {
-      setError(Errors.PASSWORDS_DONT_MATCH);
-      return;
-    }
 
     try {
+      if (data.password !== data.confirmPassword) {
+        setError(Errors.PASSWORDS_DONT_MATCH);
+        return;
+      }
       await createUserWithEmailAndPassword(auth, data.email, data.password);
     } catch (e) {
       const error = e as firebase.auth.Error;
@@ -103,10 +103,7 @@ const Register: FC = () => {
         />
         <div className={classes.Actions}>
           <div>
-            <p>Already registered?</p>
-          </div>
-          <div>
-            <Link to={routes.LOGIN}>{t('login')}</Link>
+            <Link to={routes.LOGIN}>{t('back_to_login')}</Link>
           </div>
         </div>
         <Button loading={loading}>{t('sign_up')}</Button>

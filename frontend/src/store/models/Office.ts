@@ -14,6 +14,7 @@ export interface Workspace {
   orientation: Orientation;
   position: number;
   reserved: boolean;
+  userId?: string;
 }
 
 export interface OfficeQuery {
