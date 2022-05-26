@@ -1,6 +1,6 @@
 .Container {
-  position: absolute;
   @apply pt-2 pl-2;
+  align-self: flex-start;
 
   div {
     display: flex;
@@ -28,7 +28,6 @@
   }
 
   .Yours {
-    border: 2px solid;
-    @apply bg-accent border-reserved;
+    @apply bg-accent;
   }
 }

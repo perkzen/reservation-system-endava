@@ -1,42 +1,50 @@
+.Container {
+  display: inline-grid;
+  padding: 30px 50px;
+  column-gap: 0;
+
+}
+
+.EmptyContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  min-height: 30vh;
+  @apply font-medium text-textLight;
+
+  svg {
+    width: 15%;
+    height: 15%;
+    @apply text-primary py-10;
+  }
+
+
+  h1 {
+    font-size: 1rem;
+    @apply font-semibold;
+  }
+}
+
+.OfficeContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.Office {
+  margin: auto;
+}
+
 .Background {
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  align-items: center;
   background-color: #EEEEEE;
   box-shadow: #CCDBE8 3px 3px 6px 0 inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
   width: 100%;
   min-height: 50%;
-
-
-  .Office {
-   margin: auto;
-  }
-
-  .Container {
-    display: inline-grid;
-    padding: 30px 50px;
-    column-gap: 0;
-
-  }
-
-  .EmptyContainer {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    @apply font-medium text-textLight;
-
-    svg {
-      width: 10%;
-      height: 10%;
-      @apply text-primary py-10;
-    }
-
-
-    h1 {
-      font-size: 1rem;
-      @apply font-semibold;
-    }
-  }
-
-
 }

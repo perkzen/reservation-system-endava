@@ -55,7 +55,7 @@ const Office: FC<OfficeProps> = ({
       ) : (
         <>
           {office ? (
-            <>
+            <div className={classes.OfficeContainer}>
               <OfficeLegend />
               <div className={classes.Office}>
                 <div
@@ -75,7 +75,7 @@ const Office: FC<OfficeProps> = ({
                   )}
                 </div>
               </div>
-            </>
+            </div>
           ) : (
             <div className={classes.EmptyContainer}>
               <h1>{emptyText}</h1>
