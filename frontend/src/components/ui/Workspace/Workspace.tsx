@@ -26,7 +26,8 @@ const Workspace: FC<WorkspaceProps> = ({ workspace, onClick }) => {
   const dispatch = useAppDispatch();
 
   const showWorkspace = (): string => {
-    if (reservedWorkspaces.includes(workspace.id)) return WorkspaceSelectedSvg;
+    if (reservedWorkspaces.includes(workspace.id) && !workspace.reserved)
+      return WorkspaceSelectedSvg;
     if (workspace.userId === user?.uid) return WorkspaceMySvg;
     if (!workspace.reserved) return WorkspaceFreeSvg;
     return WorkspaceReservedSvg;
@@ -37,9 +38,12 @@ const Workspace: FC<WorkspaceProps> = ({ workspace, onClick }) => {
       onClick(workspace.id);
       return;
     }
-    if (reservedWorkspaces.includes(workspace.id)) {
+    if (reservedWorkspaces.includes(workspace.id) && !workspace.reserved) {
       dispatch(removeWorkspaceFromReservation(workspace.id));
-    } else {
+    } else if (
+      !reservedWorkspaces.includes(workspace.id) &&
+      !workspace.reserved
+    ) {
       dispatch(addWorkspaceToReservation(workspace.id));
     }
   };

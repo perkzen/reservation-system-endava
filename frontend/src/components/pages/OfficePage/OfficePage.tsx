@@ -73,20 +73,22 @@ const OfficePage = () => {
   };
 
   const handleMultipleReservations = () => {
-    dispatch(
-      addModal({
-        type: ModalType.RESERVATION,
-        title: 'Confirm reservation',
-        data: {
-          date: selectedDay,
-          from: from,
-          to: to,
-          workspaceId: reservedWorkspaces,
-          office: currentOffice?._id,
-        },
-      })
-    );
-    dispatch(removeAllWorkspaceFromReservations());
+    if (reservedWorkspaces.length !== 0) {
+      dispatch(
+        addModal({
+          type: ModalType.RESERVATION,
+          title: 'Confirm reservation',
+          data: {
+            date: selectedDay,
+            from: from,
+            to: to,
+            workspaceId: reservedWorkspaces,
+            office: currentOffice?._id,
+          },
+        })
+      );
+      dispatch(removeAllWorkspaceFromReservations());
+    }
   };
 
   return (
