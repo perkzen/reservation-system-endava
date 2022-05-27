@@ -13,6 +13,7 @@ import { requiredField } from '../../../constants/requiredField';
 import { fetchOffices } from '../../../store/actions/officeActions';
 import ComboBox from '../../ui/ComboBox/Combobox';
 import LoadingSpinner from '../../ui/LoadingSpinner/LoadingSpinner';
+import { UserIcon } from '@heroicons/react/solid';
 
 interface UserDetailsFormData {
   firstname: string;
@@ -75,20 +76,29 @@ const ProfilePage: FC = () => {
     );
   };
 
-  const isDisabled = isDirty || details?.primaryOffice === office;
+  const isDisabled = () => {
+    if (office === undefined) return true;
+    return !isDirty;
+  };
 
   return (
     <div className={classes.Container}>
-      {!details ? (
+      {!user ? (
         <LoadingSpinner />
       ) : (
-        <img
-          src={`https://avatars.dicebear.com/api/initials/${details?.firstname}_${details?.surname}.svg`}
-          className={'rounded-full'}
-          width={100}
-          height={100}
-          alt={'Profile'}
-        />
+        <>
+          {details ? (
+            <img
+              src={`https://avatars.dicebear.com/api/initials/${details?.firstname}_${details?.surname}.svg`}
+              className={'rounded-full'}
+              width={100}
+              height={100}
+              alt={'Profile'}
+            />
+          ) : (
+            <UserIcon className={'text-neutral-700'} width={50} height={50} />
+          )}
+        </>
       )}
 
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -116,7 +126,7 @@ const ProfilePage: FC = () => {
             setQuery={setQuery}
           />
         </div>
-        <Button disabled={isDisabled}>{t('save')}</Button>
+        <Button disabled={isDisabled()}>{t('save')}</Button>
       </form>
     </div>
   );

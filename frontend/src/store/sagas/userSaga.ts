@@ -11,6 +11,8 @@ import { ApiRoutes, SuccessResponse } from '../../constants/apiConstants';
 import { Role, UserDetails } from '../models/User';
 import { startLoading, stopLoading } from '../features/globalSlice';
 import { toast } from 'react-toastify';
+import { push } from 'redux-first-history';
+import { routes } from '../../routes';
 
 export function* saveUserDetailsSaga(
   action: ReturnType<typeof saveUserDetails>
@@ -52,7 +54,8 @@ export function* fetchUserDetailsSaga(
     const error = e as AxiosError;
     // @ts-ignore
     const message = error.response?.data?.message;
-    toast.error(message);
+    toast.warning(message);
+    yield put(push(routes.PROFILE));
   } finally {
     yield put(stopLoading({ actionType: action.type }));
   }

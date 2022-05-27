@@ -10,6 +10,7 @@ import { classNames } from '../../../../utils/classNames';
 import { v4 } from 'uuid';
 import { Role } from '../../../../store/models/User';
 import LoadingSpinner from '../../LoadingSpinner/LoadingSpinner';
+import { UserIcon } from '@heroicons/react/solid';
 
 interface UserNavigation {
   name: string;
@@ -19,7 +20,7 @@ interface UserNavigation {
 
 const ProfileMenu = () => {
   const dispatch = useAppDispatch();
-  const { details } = useAppSelector((state) => state.user);
+  const { details, user } = useAppSelector((state) => state.user);
   const navigate = useNavigate();
 
   const logout = () => {
@@ -49,16 +50,24 @@ const ProfileMenu = () => {
         {/* ProfileMenu dropdown */}
         <Menu as="div" className="relative">
           <div>
-            {!details ? (
+            {!user ? (
               <LoadingSpinner />
             ) : (
               <Menu.Button className="max-w-xs bg-white flex items-center text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
                 <span className="sr-only">Open user menu</span>
-                <img
-                  className="w-8 rounded-full"
-                  src={`https://avatars.dicebear.com/api/initials/${details?.firstname}_${details?.surname}.svg`}
-                  alt="profile"
-                />
+                {details ? (
+                  <img
+                    className="w-8 rounded-full"
+                    src={`https://avatars.dicebear.com/api/initials/${details?.firstname}_${details?.surname}.svg`}
+                    alt="profile"
+                  />
+                ) : (
+                  <UserIcon
+                    className={'text-neutral-700'}
+                    width={32}
+                    height={32}
+                  />
+                )}
               </Menu.Button>
             )}
           </div>

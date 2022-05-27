@@ -42,6 +42,7 @@ const ComboBox: FC<ComboboxProps> = ({
       <div className="relative">
         <ComboboxUI.Input
           autoComplete={'off'}
+          placeholder={' '}
           className={classes.Input}
           onChange={(event: any) => setQuery(event.target.value)}
           displayValue={(item: string) => item}
