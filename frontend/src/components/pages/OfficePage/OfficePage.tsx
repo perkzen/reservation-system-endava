@@ -34,9 +34,12 @@ const OfficePage = () => {
   const [to, setTo] = useState<number>(17);
   const [dates] = useState<Date[]>(generateDates());
   const [selectedDay, setSelectedDay] = useState<Date>(new Date());
+  const [fullDay, setFullDay] = useState<boolean>(true);
   const { id } = useParams();
 
-  const [fullDay, setFullDay] = useState<boolean>(true);
+  useEffect(() => {
+    dispatch(removeAllWorkspaceFromReservations());
+  }, [selectedDay, from, to, dispatch]);
 
   useEffect(() => {
     if (id) {
