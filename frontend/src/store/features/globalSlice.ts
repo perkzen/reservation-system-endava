@@ -1,15 +1,18 @@
 import { Modal } from '../models/Modal';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { LoadingAction } from '../models/Actions';
+import { removeUser } from './userSlice';
 
 export interface GlobalState {
   modal: Modal | null;
   loading: LoadingAction[];
+  initialRedirect: boolean;
 }
 
 const initialState: GlobalState = {
   modal: null,
   loading: [],
+  initialRedirect: true,
 };
 
 const globalSlice = createSlice({
@@ -30,6 +33,14 @@ const globalSlice = createSlice({
         filterAction(savedAction, action)
       );
     },
+    initialRedirectToOffice: (state) => {
+      state.initialRedirect = false;
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(removeUser, (state) => {
+      state.initialRedirect = true;
+    });
   },
 });
 
@@ -40,6 +51,11 @@ const filterAction = (
   return currAction.actionType !== action.payload?.actionType;
 };
 
-export const { addModal, removeModal, startLoading, stopLoading } =
-  globalSlice.actions;
+export const {
+  addModal,
+  removeModal,
+  startLoading,
+  stopLoading,
+  initialRedirectToOffice,
+} = globalSlice.actions;
 export default globalSlice.reducer;

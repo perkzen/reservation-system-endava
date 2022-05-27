@@ -28,8 +28,8 @@ const defaultValues: LoginFormData = {
 };
 
 const Login: FC = () => {
-  const [loading, setLoading] = useState(false);
   const dispatch = useAppDispatch();
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [error, setError] = useState('');
   const { t } = useTranslation();

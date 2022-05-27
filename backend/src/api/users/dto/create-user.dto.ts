@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString } from 'class-validator';
+import { IsObject, IsString } from 'class-validator';
 import { Role } from '../../../utils/role';
 
 export class CreateUserDto {
@@ -16,8 +16,8 @@ export class CreateUserDto {
   surname: string;
 
   @ApiProperty({ required: true })
-  @IsString()
-  primaryOffice: string;
+  @IsObject()
+  primaryOffice: { name: string; _id: string };
 
   @ApiProperty({ required: true })
   role: Role;

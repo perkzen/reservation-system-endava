@@ -14,6 +14,7 @@ import { fetchOffices } from '../../../store/actions/officeActions';
 import ComboBox from '../../ui/ComboBox/Combobox';
 import LoadingSpinner from '../../ui/LoadingSpinner/LoadingSpinner';
 import { UserIcon } from '@heroicons/react/solid';
+import { initialRedirectToOffice } from '../../../store/features/globalSlice';
 
 interface UserDetailsFormData {
   firstname: string;
@@ -33,7 +34,12 @@ const ProfilePage: FC = () => {
   const [method, setMethod] = useState<'POST' | 'PUT'>('POST');
   const options = offices.map((office) => office.name);
   const [query, setQuery] = useState('');
-  const [office, setOffice] = useState(details?.primaryOffice);
+  const [primaryOffice, setPrimaryOffice] = useState<string | undefined>(
+    details?.primaryOffice.name
+  );
+  const primaryOfficeData = offices.find(
+    (office) => office.name === primaryOffice
+  );
 
   const { register, reset, formState, handleSubmit } =
     useForm<UserDetailsFormData>({
@@ -49,10 +55,11 @@ const ProfilePage: FC = () => {
 
   useEffect(() => {
     dispatch(fetchUserDetails());
+    dispatch(initialRedirectToOffice());
   }, [dispatch]);
 
   useEffect(() => {
-    setOffice(details?.primaryOffice);
+    setPrimaryOffice(details?.primaryOffice.name);
   }, [details]);
 
   useEffect(() => {
@@ -63,7 +70,7 @@ const ProfilePage: FC = () => {
         surname: details.surname,
       });
     }
-  }, [details, office, reset]);
+  }, [details, primaryOffice, reset]);
 
   const onSubmit = (data: UserDetailsFormData) => {
     dispatch(
@@ -71,13 +78,17 @@ const ProfilePage: FC = () => {
         ...data,
         uid: user?.uid,
         method,
-        primaryOffice: office as string,
+        primaryOffice: {
+          name: primaryOffice,
+          _id: primaryOfficeData?._id,
+          location: primaryOfficeData?.location,
+        },
       })
     );
   };
 
   const isDisabled = () => {
-    if (office === undefined) return true;
+    if (primaryOffice === undefined) return true;
     return !isDirty;
   };
 
@@ -118,8 +129,8 @@ const ProfilePage: FC = () => {
         </div>
         <div>
           <ComboBox
-            selected={office}
-            setSelected={setOffice}
+            selected={primaryOffice}
+            setSelected={setPrimaryOffice}
             options={options}
             label={'Primary office'}
             query={query}

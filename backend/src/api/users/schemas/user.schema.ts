@@ -12,8 +12,8 @@ export class User {
   @Prop()
   surname: string;
 
-  @Prop()
-  primaryOffice: string;
+  @Prop({ type: { name: String, _id: String, location: String } })
+  primaryOffice: { name: string; _id: string; location: string };
 
   @Prop({ type: String, enum: Role })
   role: Role;
