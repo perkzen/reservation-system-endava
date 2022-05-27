@@ -9,6 +9,7 @@ interface ButtonProps {
   className?: string;
   disabled?: boolean;
   loading?: boolean;
+  type?: 'button' | 'submit' | 'reset';
 }
 
 const Button: FC<ButtonProps> = ({
@@ -17,13 +18,14 @@ const Button: FC<ButtonProps> = ({
   className = '',
   disabled,
   loading,
+  type = 'submit',
 }) => {
   return (
     <button
       disabled={disabled}
       className={classNames(className, classes.Container)}
       onClick={onClick}
-      type={'submit'}
+      type={type}
     >
       {loading && <LoadingSpinner />}
       {children}

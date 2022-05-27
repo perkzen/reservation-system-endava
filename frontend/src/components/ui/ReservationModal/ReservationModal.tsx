@@ -77,7 +77,9 @@ const ReservationModal: FC<ReservationModalProps> = ({
               <Input {...register('comment')} label={'Comment'} />
             </div>
             <div className={classes.ButtonContainer}>
-              <Button onClick={() => dispatch(removeModal())}>Close</Button>
+              <Button type={'button'} onClick={() => dispatch(removeModal())}>
+                Close
+              </Button>
               <Button>Confirm</Button>
             </div>
           </form>
