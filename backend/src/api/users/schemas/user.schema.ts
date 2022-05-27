@@ -13,7 +13,7 @@ export class User {
   surname: string;
 
   @Prop()
-  location: string;
+  primaryOffice: string;
 
   @Prop({ type: String, enum: Role })
   role: Role;

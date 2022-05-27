@@ -17,7 +17,7 @@ export interface UserDetails {
   uid?: string;
   firstname: string;
   surname: string;
-  location: string;
+  primaryOffice: string;
   role?: Role;
 }
 

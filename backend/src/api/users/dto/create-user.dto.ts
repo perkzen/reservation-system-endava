@@ -17,7 +17,7 @@ export class CreateUserDto {
 
   @ApiProperty({ required: true })
   @IsString()
-  location: string;
+  primaryOffice: string;
 
   @ApiProperty({ required: true })
   role: Role;

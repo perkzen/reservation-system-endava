@@ -32,7 +32,7 @@ const ProfilePage: FC = () => {
   const [method, setMethod] = useState<'POST' | 'PUT'>('POST');
   const options = offices.map((office) => office.name);
   const [query, setQuery] = useState('');
-  const [office, setOffice] = useState(details?.location);
+  const [office, setOffice] = useState(details?.primaryOffice);
 
   const { register, reset, formState, handleSubmit } =
     useForm<UserDetailsFormData>({
@@ -51,7 +51,7 @@ const ProfilePage: FC = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    setOffice(details?.location);
+    setOffice(details?.primaryOffice);
   }, [details]);
 
   useEffect(() => {
@@ -70,12 +70,12 @@ const ProfilePage: FC = () => {
         ...data,
         uid: user?.uid,
         method,
-        location: office as string,
+        primaryOffice: office as string,
       })
     );
   };
 
-  const isDisabled = isDirty || details?.location === office;
+  const isDisabled = isDirty || details?.primaryOffice === office;
 
   return (
     <div className={classes.Container}>
