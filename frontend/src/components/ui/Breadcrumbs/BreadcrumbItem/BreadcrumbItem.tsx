@@ -12,7 +12,7 @@ export interface Breadcrumb {
 const BreadcrumbItem: FC<Breadcrumb> = ({ name, link, active }) => {
   return (
     <li className={classes.Container}>
-      <div className={classes.Test}>
+      <div className={classes.Icon}>
         <ChevronRightIcon />
       </div>
       {active ? (
