@@ -38,6 +38,7 @@ const ProfileMenu = () => {
 
   const userNavigation: UserNavigation[] = [
     { name: 'Your Profile', path: routes.PROFILE },
+    { name: 'My reservations', path: routes.HOME },
     { name: 'Logout', onClick: logout },
   ];
 

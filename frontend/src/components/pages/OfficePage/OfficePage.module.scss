@@ -1,4 +1,7 @@
 .Container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   .DateContainer {
     display: flex;
     width: 100%;
@@ -7,14 +10,22 @@
     flex-wrap: wrap;
     justify-content: flex-start;
   }
-
-  button {
-    width: 12%;
-    float: right;
-    @apply xs:w-20;
+  .Flex {
+    @apply flex justify-between
   }
+
+  .MultipleReservation {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    button {
+      width: 12%;
+      @apply xs:w-20;
+    }
+  }
+
 }
 
-.Flex {
-  @apply flex justify-between
-}
+
