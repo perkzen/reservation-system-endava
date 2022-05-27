@@ -51,6 +51,7 @@ export class OfficesService {
                 ...workspace,
                 reserved: true,
                 userId: reservation.userId,
+                reservationId: reservation._id,
               };
             }
           }
