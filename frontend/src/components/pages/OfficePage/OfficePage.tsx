@@ -95,6 +95,9 @@ const OfficePage = () => {
 
   return (
     <div className={classes.Container}>
+      <div className={classes.Flex}>
+        <h1>Pick your workspace</h1>
+      </div>
       <Carousel>
         {dates.map((date: Date, index: number) => {
           return (
@@ -109,14 +112,6 @@ const OfficePage = () => {
         })}
       </Carousel>
       <Card>
-        <div className={classes.Flex}>
-          <h1>Pick your time</h1>
-          <Toggle
-            handleChangeToggle={toggleFullDay}
-            checked={fullDay}
-            label={'Full day'}
-          />
-        </div>
         <TimeSlider
           min={8}
           max={17}
@@ -130,6 +125,12 @@ const OfficePage = () => {
       </Card>
       <div className={classes.MultipleReservation}>
         <div>
+          <Toggle
+            handleChangeToggle={toggleFullDay}
+            checked={fullDay}
+            label={'Full day'}
+          />
+          <br />
           <Toggle
             handleChangeToggle={handleToggleMultipleReservations}
             checked={multipleReservations}
@@ -145,7 +146,6 @@ const OfficePage = () => {
           </Button>
         )}
       </div>
-
       <Office
         office={currentOffice}
         currentDate={selectedDay}
