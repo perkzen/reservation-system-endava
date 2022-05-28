@@ -11,10 +11,8 @@ const LayoutProvider: FC<LayoutProps> = ({ children }) => {
     <div className={classes.Container}>
       <SideMenu />
       <main>
-        <div className="py-6">
-          <div className="mx-auto px-4 sm:px-6 md:px-8">
-            <div className="py-4">{children}</div>
-          </div>
+        <div className="mx-auto px-4 sm:px-6 md:px-8">
+          <div className="py-4">{children}</div>
         </div>
       </main>
     </div>
