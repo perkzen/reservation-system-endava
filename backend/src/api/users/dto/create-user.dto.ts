@@ -10,14 +10,13 @@ export class CreateUserDto {
   @ApiProperty({ required: true })
   @IsString()
   firstname: string;
-
   @ApiProperty({ required: true })
   @IsString()
   surname: string;
 
   @ApiProperty({ required: true })
   @IsObject()
-  primaryOffice: { name: string; _id: string };
+  primaryOffice: { name: string; _id: string; location: string };
 
   @ApiProperty({ required: true })
   role: Role;
