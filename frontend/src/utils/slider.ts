@@ -1,9 +1,10 @@
 export const sliderSettings = {
   infinite: false,
-  arrows: false,
+  arrows: true,
   speed: 500,
   slidesToShow: 12,
   slidesToScroll: 12,
+  nextArrow: Element,
   responsive: [
     {
       breakpoint: 1900,
