@@ -1,6 +1,6 @@
 import React from 'react';
 import { classNames } from './classNames';
-import classes from '../components/ui/Carousel/Carousel.module.css';
+import classes from '../components/ui/Carousel/Carousel.module.scss';
 import Arrow from '../assets/arrow.svg';
 
 // @ts-ignore
