@@ -17,7 +17,7 @@ const OfficeLegend: FC = () => {
       </div>
       <div>
         <div className={classes.Yours}></div>
-        <p>{t('your_reservation')}</p>
+        <p>{t('your_desk')}</p>
       </div>
     </div>
   );

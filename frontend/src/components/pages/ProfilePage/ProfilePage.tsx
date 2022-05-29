@@ -13,6 +13,8 @@ import { requiredField } from '../../../constants/requiredField';
 import { fetchOffices } from '../../../store/actions/officeActions';
 import ComboBox from '../../ui/ComboBox/Combobox';
 import LoadingSpinner from '../../ui/LoadingSpinner/LoadingSpinner';
+import { UserIcon } from '@heroicons/react/solid';
+import { initialRedirectToOffice } from '../../../store/features/globalSlice';
 
 interface UserDetailsFormData {
   firstname: string;
@@ -32,7 +34,12 @@ const ProfilePage: FC = () => {
   const [method, setMethod] = useState<'POST' | 'PUT'>('POST');
   const options = offices.map((office) => office.name);
   const [query, setQuery] = useState('');
-  const [office, setOffice] = useState(details?.location);
+  const [primaryOffice, setPrimaryOffice] = useState<string | undefined>(
+    details?.primaryOffice.name
+  );
+  const primaryOfficeData = offices.find(
+    (office) => office.name === primaryOffice
+  );
 
   const { register, reset, formState, handleSubmit } =
     useForm<UserDetailsFormData>({
@@ -48,10 +55,11 @@ const ProfilePage: FC = () => {
 
   useEffect(() => {
     dispatch(fetchUserDetails());
+    dispatch(initialRedirectToOffice());
   }, [dispatch]);
 
   useEffect(() => {
-    setOffice(details?.location);
+    setPrimaryOffice(details?.primaryOffice.name);
   }, [details]);
 
   useEffect(() => {
@@ -62,7 +70,7 @@ const ProfilePage: FC = () => {
         surname: details.surname,
       });
     }
-  }, [details, office, reset]);
+  }, [details, primaryOffice, reset]);
 
   const onSubmit = (data: UserDetailsFormData) => {
     dispatch(
@@ -70,25 +78,38 @@ const ProfilePage: FC = () => {
         ...data,
         uid: user?.uid,
         method,
-        location: office as string,
+        primaryOffice: {
+          name: primaryOffice,
+          _id: primaryOfficeData?._id,
+          location: primaryOfficeData?.location,
+        },
       })
     );
   };
 
-  const isDisabled = isDirty || details?.location === office;
+  const isDisabled = () => {
+    if (primaryOffice === undefined) return true;
+    return !isDirty;
+  };
 
   return (
     <div className={classes.Container}>
-      {!details ? (
+      {!user ? (
         <LoadingSpinner />
       ) : (
-        <img
-          src={`https://avatars.dicebear.com/api/initials/${details?.firstname}_${details?.surname}.svg`}
-          className={'rounded-full'}
-          width={100}
-          height={100}
-          alt={'Profile'}
-        />
+        <>
+          {details ? (
+            <img
+              src={`https://avatars.dicebear.com/api/initials/${details?.firstname}_${details?.surname}.svg`}
+              className={'rounded-full'}
+              width={100}
+              height={100}
+              alt={'Profile'}
+            />
+          ) : (
+            <UserIcon className={'text-neutral-700'} width={50} height={50} />
+          )}
+        </>
       )}
 
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -108,15 +129,15 @@ const ProfilePage: FC = () => {
         </div>
         <div>
           <ComboBox
-            selected={office}
-            setSelected={setOffice}
+            selected={primaryOffice}
+            setSelected={setPrimaryOffice}
             options={options}
             label={'Primary office'}
             query={query}
             setQuery={setQuery}
           />
         </div>
-        <Button disabled={isDisabled}>{t('save')}</Button>
+        <Button disabled={isDisabled()}>{t('save')}</Button>
       </form>
     </div>
   );

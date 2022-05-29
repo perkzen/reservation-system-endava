@@ -26,9 +26,10 @@
       justify-content: flex-end;
       @apply mt-5;
 
-      //button {
-      //  @apply hover:bg-graySecondary;
-      //}
+      button {
+        @apply hover:bg-neutral-800 disabled:opacity-90 disabled:cursor-not-allowed disabled:transform-none disabled:cursor-not-allowed;
+        @apply active:scale-90 ease-in-out duration-150;
+      }
 
       button:first-of-type {
         @apply border-[1px] border-primary hover:bg-gray-100 bg-transparent text-black;

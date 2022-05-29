@@ -34,9 +34,12 @@ const OfficePage = () => {
   const [to, setTo] = useState<number>(17);
   const [dates] = useState<Date[]>(generateDates());
   const [selectedDay, setSelectedDay] = useState<Date>(new Date());
+  const [fullDay, setFullDay] = useState<boolean>(true);
   const { id } = useParams();
 
-  const [fullDay, setFullDay] = useState<boolean>(true);
+  useEffect(() => {
+    dispatch(removeAllWorkspaceFromReservations());
+  }, [selectedDay, from, to, dispatch]);
 
   useEffect(() => {
     if (id) {
@@ -73,24 +76,28 @@ const OfficePage = () => {
   };
 
   const handleMultipleReservations = () => {
-    dispatch(
-      addModal({
-        type: ModalType.RESERVATION,
-        title: 'Confirm reservation',
-        data: {
-          date: selectedDay,
-          from: from,
-          to: to,
-          workspaceId: reservedWorkspaces,
-          office: currentOffice?._id,
-        },
-      })
-    );
-    dispatch(removeAllWorkspaceFromReservations());
+    if (reservedWorkspaces.length !== 0) {
+      dispatch(
+        addModal({
+          type: ModalType.RESERVATION,
+          title: 'Confirm reservation',
+          data: {
+            date: selectedDay,
+            from: from,
+            to: to,
+            workspaceId: reservedWorkspaces,
+            office: currentOffice?._id,
+          },
+        })
+      );
+    }
   };
 
   return (
     <div className={classes.Container}>
+      <div className={classes.Flex}>
+        <h1>Pick your workspace</h1>
+      </div>
       <Carousel>
         {dates.map((date: Date, index: number) => {
           return (
@@ -105,14 +112,6 @@ const OfficePage = () => {
         })}
       </Carousel>
       <Card>
-        <div className={classes.Flex}>
-          <h1>Pick your time</h1>
-          <Toggle
-            handleChangeToggle={toggleFullDay}
-            checked={fullDay}
-            label={'Full day'}
-          />
-        </div>
         <TimeSlider
           min={8}
           max={17}
@@ -124,6 +123,29 @@ const OfficePage = () => {
           onChange={handleChangeSlider}
         />
       </Card>
+      <div className={classes.MultipleReservation}>
+        <div>
+          <Toggle
+            handleChangeToggle={toggleFullDay}
+            checked={fullDay}
+            label={'Full day'}
+          />
+          <br />
+          <Toggle
+            handleChangeToggle={handleToggleMultipleReservations}
+            checked={multipleReservations}
+            label={'Multiple reservations'}
+          />
+        </div>
+        {multipleReservations && (
+          <Button
+            disabled={!multipleReservations}
+            onClick={handleMultipleReservations}
+          >
+            Confirm
+          </Button>
+        )}
+      </div>
       <Office
         office={currentOffice}
         currentDate={selectedDay}
@@ -131,17 +153,6 @@ const OfficePage = () => {
         to={to}
         loading={isLoading.length > 0}
       />
-      <Toggle
-        handleChangeToggle={handleToggleMultipleReservations}
-        checked={multipleReservations}
-        label={'Multiple reservations'}
-      />
-      <Button
-        disabled={!multipleReservations}
-        onClick={handleMultipleReservations}
-      >
-        Confirm reservations
-      </Button>
     </div>
   );
 };

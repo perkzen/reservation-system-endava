@@ -2,5 +2,9 @@
   area:hover {
     cursor: pointer;
   }
+}
 
+.Heading {
+  font-size: 1rem;
+  @apply font-semibold text-primary mb-1;
 }

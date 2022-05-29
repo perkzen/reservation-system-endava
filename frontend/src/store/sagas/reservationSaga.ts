@@ -14,6 +14,7 @@ import { AxiosError, AxiosResponse } from 'axios';
 import { toast } from 'react-toastify';
 import { Reservation, ReservationHistory } from '../models/Reservation';
 import { fetchOffice } from '../actions/officeActions';
+import { removeAllWorkspaceFromReservations } from '../features/reservationsSlice';
 
 export function* createReservationSaga(
   action: ReturnType<typeof createReservation>
@@ -32,6 +33,7 @@ export function* createReservationSaga(
         to: action.payload.to,
       })
     );
+    yield put(removeAllWorkspaceFromReservations());
   } catch (e) {
     const error = e as AxiosError;
     // @ts-ignore

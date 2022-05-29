@@ -1,11 +1,11 @@
 .Container {
   @apply flex items-center;
 
-  svg {
-    @apply flex-shrink-0 h-5 w-5 text-gray-400;
+  .Icon {
+    @apply flex-shrink-0 h-3 w-3 text-gray-400;
   }
 
   .Link {
-    @apply ml-4 text-sm font-medium text-gray-500 hover:text-gray-700;
+    @apply ml-1 md:ml-3 text-sm font-medium text-gray-500 hover:text-gray-700 xs:text-xs;
   }
 }

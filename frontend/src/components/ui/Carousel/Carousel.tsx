@@ -3,7 +3,7 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { sliderSettings } from '../../../utils/slider';
-import classes from './Carousel.module.css';
+import classes from './Carousel.module.scss';
 
 interface CarouselPros {
   children: ReactNode;
@@ -11,9 +11,11 @@ interface CarouselPros {
 
 const Carousel: FC<CarouselPros> = (props) => {
   return (
-    <Slider {...sliderSettings} className={classes.Container}>
-      {props.children}
-    </Slider>
+    <div className={classes.Container}>
+      <Slider {...sliderSettings} className={classes.WidthFull}>
+        {props.children}
+      </Slider>
+    </div>
   );
 };
 

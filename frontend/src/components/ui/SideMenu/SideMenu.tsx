@@ -8,7 +8,7 @@ import NavItems from './NavItems/NavItems';
 
 const SideMenu: FC = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  //selected item in menu aka. office must be displayed in Breadcrumbs component
+
   return (
     <>
       <div>

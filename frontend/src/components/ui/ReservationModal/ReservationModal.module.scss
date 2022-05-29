@@ -1,23 +1,21 @@
 .Container {
   @apply relative my-6 mx-auto max-w-3xl z-10;
-  width: fit-content;
+  width: 360px;
 
   .Content {
     @apply bg-white border-0 rounded-lg shadow-lg relative flex flex-col w-full  outline-none focus:outline-none p-2;
 
-
-    .Body {
-      @apply text-sm text-gray-700 relative py-2 px-6 flex-auto m-auto
+    .Title {
+      @apply relative py-2 px-6 m-auto;
     }
 
-    .Header {
-      display: flex;
-      flex-direction: row;
+    .Body {
+      @apply text-sm text-gray-700 relative py-2 px-6;
 
-      .Title {
-        @apply relative py-2  m-auto font-bold;
+      p {
+        text-align: left;
+        padding-left: 3.75rem;
       }
-
     }
 
     .Icon {
@@ -27,36 +25,31 @@
       }
     }
 
-    .Body {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      @apply text-black;
-
-      form {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-
-        button {
-          @apply bg-green-500;
-        }
-      }
-    }
-
     .ButtonContainer {
       display: flex;
       flex-direction: row;
       justify-content: flex-end;
-      @apply mt-5;
+      @apply mt-3;
 
-      button {
-        @apply hover:bg-graySecondary;
+      button:first-of-type {
+        @apply border-[1px] border-primary hover:bg-gray-100 bg-transparent text-black;
       }
 
       button:nth-child(2) {
         @apply ml-5;
       }
     }
+
+    form {
+      margin-top: 0.5rem;
+    }
+
+    .Input {
+      margin: auto;
+      width: 70%;
+      padding: 0.625rem;
+      text-align: left;
+    }
+
   }
 }

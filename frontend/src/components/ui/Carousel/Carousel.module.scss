@@ -1,0 +1,21 @@
+.Container {
+    @apply mx-5 ;
+}
+.WidthFull {
+    @apply  w-full
+}
+.Arrow {
+    font-size: 3.75rem;
+    position: absolute;
+    cursor: pointer;
+    z-index: 10;
+}
+.Next {
+    right: -1.5rem;
+    top: 45%;
+}
+.Prev {
+    left: -1.5rem;
+    top: 45%;
+    transform: rotate(180deg);
+}

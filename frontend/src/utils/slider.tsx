@@ -1,9 +1,34 @@
+import React from 'react';
+import { classNames } from './classNames';
+import classes from '../components/ui/Carousel/Carousel.module.scss';
+import Arrow from '../assets/arrow.svg';
+
+// @ts-ignore
+const NextArrow = ({ onClick }) => {
+  return (
+    <div className={classNames(classes.Arrow, classes.Next)} onClick={onClick}>
+      <img src={Arrow} alt={'arrow right'} />
+    </div>
+  );
+};
+
+// @ts-ignore
+const PrevArrow = ({ onClick }) => {
+  return (
+    <div className={classNames(classes.Arrow, classes.Prev)} onClick={onClick}>
+      <img src={Arrow} alt={'arrow left'} />
+    </div>
+  );
+};
+
 export const sliderSettings = {
   infinite: false,
-  arrows: false,
+  arrows: true,
   speed: 500,
   slidesToShow: 12,
   slidesToScroll: 12,
+  nextArrow: <NextArrow onClick={undefined} />,
+  prevArrow: <PrevArrow onClick={undefined} />,
   responsive: [
     {
       breakpoint: 1900,
