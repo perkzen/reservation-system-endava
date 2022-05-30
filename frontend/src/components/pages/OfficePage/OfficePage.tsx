@@ -8,7 +8,7 @@ import { workingHours } from '../../../constants/timeConstants';
 import Office from '../../ui/Office/Office';
 import { useAppDispatch, useAppSelector } from '../../../store/app/hooks';
 import { fetchOffice } from '../../../store/actions/officeActions';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import Carousel from '../../ui/Carousel/Carousel';
 import Card from '../../ui/Card/Card';
 import Toggle from '../../ui/Toggle/Toggle';
@@ -36,22 +36,30 @@ const OfficePage = () => {
   const [selectedDay, setSelectedDay] = useState<Date>(new Date());
   const [fullDay, setFullDay] = useState<boolean>(true);
   const { id } = useParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
     dispatch(removeAllWorkspaceFromReservations());
-  }, [selectedDay, from, to, dispatch]);
+  }, [searchParams, dispatch]);
+
+  useEffect(() => {
+    setSearchParams({
+      from: dateToUTC(selectedDay, from).toString(),
+      to: dateToUTC(selectedDay, to).toString(),
+    });
+  }, [from, selectedDay, setSearchParams, to]);
 
   useEffect(() => {
     if (id) {
       dispatch(
         fetchOffice({
           _id: id,
-          from: dateToUTC(selectedDay, from),
-          to: dateToUTC(selectedDay, to),
+          from: Number(searchParams.get('from')),
+          to: Number(searchParams.get('to')),
         })
       );
     }
-  }, [dispatch, selectedDay, from, to, id]);
+  }, [dispatch, id, searchParams]);
 
   const handleChangeSlider = (value: number | number[]) => {
     if (value instanceof Array) {
