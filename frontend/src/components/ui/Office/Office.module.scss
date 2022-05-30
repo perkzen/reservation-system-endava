@@ -10,6 +10,8 @@
   justify-content: center;
   align-items: center;
   min-height: 45vh;
+  width: 53vh;
+  pointer-events: none;
   @apply font-medium text-textLight;
 
   svg {
@@ -17,7 +19,6 @@
     height: 15%;
     @apply text-primary py-10;
   }
-
 
   h1 {
     font-size: 1rem;

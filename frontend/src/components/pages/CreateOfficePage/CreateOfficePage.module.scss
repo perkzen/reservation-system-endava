@@ -4,10 +4,9 @@
   align-items: center;
   gap: 2rem;
   width: 100%;
-  height: 85vh;
 
   .Title {
-    font-size: 2rem;
+    font-size: 1.25rem;
     @apply font-semibold;
   }
 
@@ -16,15 +15,18 @@
     width: 100%;
     @apply xs:flex-col xs:gap-4;
     @apply sm:flex-col sm:gap-4;
-    @apply md:flex-row lg:flex-row;
-    @apply md:justify-between lg:justify-between;
+    align-items: center;
 
     .FileInput {
-      @apply sm:w-full md:w-1/2 lg:w-1/4;
+      @apply w-full sm:w-2/4 md:w-2/3 lg:w-2/5 xl:w-1/4;
+    }
+
+    input {
+      @apply text-sm;
     }
 
     button {
-      @apply sm:w-full md:w-1/2 lg:w-1/4;
+      @apply w-full sm:w-2/4 md:w-2/3 lg:w-2/5  xl:w-1/4 text-sm;
     }
   }
 
