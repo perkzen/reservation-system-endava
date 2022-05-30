@@ -22,6 +22,8 @@ export class Office {
     orientation: string;
     position: number;
     reserved: boolean;
+    from?: number;
+    to?: number;
   }[];
 }
 

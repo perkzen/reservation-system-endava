@@ -4,6 +4,7 @@ export enum ApiRoutes {
   RESERVATIONS = '/reservations',
   OFFICE_RESERVATIONS = '/reservations/office',
   HISTORY = '/reservations/history',
+  SETTINGS = '/settings',
 }
 
 export interface SuccessResponse {
