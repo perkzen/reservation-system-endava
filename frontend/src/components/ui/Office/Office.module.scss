@@ -10,9 +10,8 @@
   justify-content: center;
   align-items: center;
   min-height: 45vh;
-  width: 53vh;
   pointer-events: none;
-  @apply font-medium text-textLight;
+  @apply font-medium text-textLight mx-10 sm:mx-48;
 
   svg {
     width: 15%;

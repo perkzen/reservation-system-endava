@@ -18,15 +18,15 @@
     align-items: center;
 
     .FileInput {
-      @apply w-full sm:w-2/4 md:w-2/3 lg:w-2/5 xl:w-1/4;
+      @apply w-full sm:w-2/4 md:w-2/4 lg:w-2/5 xl:w-1/4;
     }
 
     input {
-      @apply text-sm;
+      @apply w-52 text-sm;
     }
 
     button {
-      @apply w-full sm:w-2/4 md:w-2/3 lg:w-2/5  xl:w-1/4 text-sm;
+      @apply sm:w-2/4 md:w-2/4 lg:w-2/5 xl:w-1/4 text-sm;
     }
   }
 
