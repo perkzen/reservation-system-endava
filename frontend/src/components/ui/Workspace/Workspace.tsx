@@ -12,6 +12,9 @@ import {
   addWorkspaceToReservation,
   removeWorkspaceFromReservation,
 } from '../../../store/features/reservationsSlice';
+import { addModal, removeModal } from '../../../store/features/globalSlice';
+import { ModalType } from '../../../store/models/Modal';
+import { deleteReservation } from '../../../store/actions/reservationActions';
 
 interface WorkspaceProps {
   workspace: WorkspaceModel;
@@ -38,6 +41,21 @@ const Workspace: FC<WorkspaceProps> = ({ workspace, onClick }) => {
       onClick(workspace.id);
       return;
     }
+    if (!multipleReservations && workspace.userId === user?.uid) {
+      dispatch(
+        addModal({
+          type: ModalType.DELETE,
+          title: 'Delete reservation',
+          body: 'Are you sure you want to delete your reservation?',
+          primaryActionText: 'Delete',
+          primaryAction: () =>
+            dispatch(deleteReservation(workspace.reservationId as string)),
+          secondaryButtonText: 'Close',
+          secondaryAction: () => dispatch(removeModal()),
+        })
+      );
+      return;
+    }
     if (reservedWorkspaces.includes(workspace.id) && !workspace.reserved) {
       dispatch(removeWorkspaceFromReservation(workspace.id));
     } else if (
@@ -53,7 +71,9 @@ const Workspace: FC<WorkspaceProps> = ({ workspace, onClick }) => {
       className={classNames(
         workspaceOrientation(workspace.orientation),
         classes.Table,
-        workspace.reserved ? 'hover:cursor-not-allowed' : ''
+        workspace.reserved && workspace.userId !== user?.uid
+          ? 'hover:cursor-not-allowed'
+          : ''
       )}
       src={showWorkspace()}
       alt="workspace"
