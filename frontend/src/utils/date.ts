@@ -1,6 +1,7 @@
 import { addMinutes, eachDayOfInterval, format } from 'date-fns';
 import add from 'date-fns/add';
 import getHours from 'date-fns/getHours';
+import subMonths from 'date-fns/subMonths';
 import { DATE } from '../constants/dateFormats';
 
 export const generateDates = (): Date[] => {
@@ -34,6 +35,6 @@ export const getTime = (unix: number) => {
 };
 
 export const getDate = (unix: number) => {
-  const date = new Date(unix);
+  const date = subMonths(new Date(unix), 1);
   return format(date, DATE);
 };

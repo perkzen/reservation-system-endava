@@ -6,7 +6,10 @@ import WorkspaceReservedSvg from '../../../assets/workspace-reserved.svg';
 import WorkspaceMySvg from '../../../assets/workspace-my.svg';
 import WorkspaceSelectedSvg from '../../../assets/workspace-selected.svg';
 import { Workspace as WorkspaceModel } from '../../../store/models/Office';
-import { workspaceOrientation } from '../../../utils/workspace';
+import {
+  workspaceOrientation,
+  workspaceTimeOrientation,
+} from '../../../utils/workspace';
 import { useAppDispatch, useAppSelector } from '../../../store/app/hooks';
 import {
   addWorkspaceToReservation,
@@ -15,6 +18,7 @@ import {
 import { addModal, removeModal } from '../../../store/features/globalSlice';
 import { ModalType } from '../../../store/models/Modal';
 import { deleteReservation } from '../../../store/actions/reservationActions';
+import { getTime } from '../../../utils/date';
 
 interface WorkspaceProps {
   workspace: WorkspaceModel;
@@ -67,18 +71,30 @@ const Workspace: FC<WorkspaceProps> = ({ workspace, onClick }) => {
   };
 
   return (
-    <img
-      className={classNames(
-        workspaceOrientation(workspace.orientation),
-        classes.Table,
-        workspace.reserved && workspace.userId !== user?.uid
-          ? 'hover:cursor-not-allowed'
-          : ''
+    <div className={classes.Container}>
+      {workspace.reserved && (
+        <p
+          className={classNames(
+            classes.Time,
+            workspaceTimeOrientation(workspace.orientation)
+          )}
+        >{`${getTime(workspace.from as number)}h - ${getTime(
+          workspace.to as number
+        )}h`}</p>
       )}
-      src={showWorkspace()}
-      alt="workspace"
-      onClick={handleOnClick}
-    />
+      <img
+        className={classNames(
+          workspaceOrientation(workspace.orientation),
+          classes.Table,
+          workspace.reserved && workspace.userId !== user?.uid
+            ? 'hover:cursor-not-allowed'
+            : ''
+        )}
+        src={showWorkspace()}
+        alt="workspace"
+        onClick={handleOnClick}
+      />
+    </div>
   );
 };
 export default Workspace;
