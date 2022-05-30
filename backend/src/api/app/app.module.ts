@@ -6,9 +6,11 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { UsersModule } from '../users/users.module';
 import { OfficesModule } from '../offices/offices.module';
 import { ReservationsModule } from '../reservations/reservations.module';
+import { SettingsModule } from '../settings/settings.module';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
@@ -19,6 +21,7 @@ import { ReservationsModule } from '../reservations/reservations.module';
     UsersModule,
     OfficesModule,
     ReservationsModule,
+    SettingsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -4,6 +4,7 @@ import globalReducer from '../features/globalSlice';
 import userReducer from '../features/userSlice';
 import officeReducer from '../features/officeSlice';
 import reservationReducer from '../features/reservationsSlice';
+import settingsReducer from '../features/settingsSlice';
 import { watchOffice, watchReservation, watchUser } from '../sagas';
 import { createReduxHistoryContext } from 'redux-first-history';
 import { createBrowserHistory } from 'history';
@@ -19,6 +20,7 @@ export const store = configureStore({
     user: userReducer,
     office: officeReducer,
     reservation: reservationReducer,
+    settings: settingsReducer,
     router: routerReducer,
   },
   middleware: (defaultMiddleware) => [
