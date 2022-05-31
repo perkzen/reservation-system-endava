@@ -22,6 +22,7 @@ export class SettingsService implements OnModuleInit {
   }
 
   async updateSettings(data: UpdateSettingsDto): Promise<SuccessResponse> {
+    console.log(data);
     await this.settingsRepository.findOneAndUpdate(
       { _id: this.SETTINGS_ID },
       data,
