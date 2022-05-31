@@ -17,8 +17,9 @@ import {
 } from '../../../store/features/reservationsSlice';
 import { addModal, removeModal } from '../../../store/features/globalSlice';
 import { ModalType } from '../../../store/models/Modal';
-import { deleteReservation } from '../../../store/actions/reservationActions';
+import { deleteReservationAndFetchOffice } from '../../../store/actions/reservationActions';
 import { getTime } from '../../../utils/date';
+import { useSearchParams } from 'react-router-dom';
 
 interface WorkspaceProps {
   workspace: WorkspaceModel;
@@ -27,10 +28,12 @@ interface WorkspaceProps {
 
 const Workspace: FC<WorkspaceProps> = ({ workspace, onClick }) => {
   const { user } = useAppSelector((state) => state.user);
+  const { currentOffice } = useAppSelector((state) => state.office);
   const { multipleReservations, reservedWorkspaces } = useAppSelector(
     (state) => state.reservation
   );
   const dispatch = useAppDispatch();
+  const [searchParams] = useSearchParams();
 
   const showWorkspace = (): string => {
     if (reservedWorkspaces.includes(workspace.id) && !workspace.reserved)
@@ -53,7 +56,16 @@ const Workspace: FC<WorkspaceProps> = ({ workspace, onClick }) => {
           body: 'Are you sure you want to delete your reservation?',
           primaryActionText: 'Delete',
           primaryAction: () =>
-            dispatch(deleteReservation(workspace.reservationId as string)),
+            dispatch(
+              deleteReservationAndFetchOffice({
+                reservationId: workspace.reservationId as string,
+                query: {
+                  _id: currentOffice?._id as string,
+                  from: Number(searchParams.get('from')),
+                  to: Number(searchParams.get('to')),
+                },
+              })
+            ),
           secondaryButtonText: 'Close',
           secondaryAction: () => dispatch(removeModal()),
         })
