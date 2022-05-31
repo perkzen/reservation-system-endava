@@ -31,7 +31,7 @@ const Home: FC = () => {
   const data: ReservationTable[] = history.map((reservation) => {
     return {
       ...reservation,
-      id: reservation.office._id,
+      officeId: reservation.office._id,
       location: reservation.office.location,
       office: reservation.office.name,
       date: getDate(reservation.from),
@@ -72,7 +72,7 @@ const Home: FC = () => {
         headers={headers}
         title={'My reservations'}
         isLoading={isLoading.length > 0}
-        itemIdAccessor={'id'}
+        itemIdAccessor={'officeId'}
         itemFromAccessor={'from'}
         itemToAccessor={'to'}
         itemLocationAccessor={'location'}
