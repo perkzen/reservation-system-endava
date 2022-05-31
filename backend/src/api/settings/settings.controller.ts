@@ -1,4 +1,4 @@
-import { Controller, Get, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Put, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '../../guards/auth.guard';
 import { SettingsService } from './settings.service';
@@ -24,7 +24,7 @@ export class SettingsController {
   @Roles(Role.ADMIN)
   @UseGuards(RoleGuard)
   @Put()
-  async updateSettings(settings: Settings): Promise<SuccessResponse> {
+  async updateSettings(@Body() settings: Settings): Promise<SuccessResponse> {
     return await this.settingsService.updateSettings(settings);
   }
 }
