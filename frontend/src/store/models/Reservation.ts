@@ -27,7 +27,7 @@ export interface ReservationHistory extends ReservationModel, Reservation {
 
 export interface ReservationTable {
   _id: string;
-  id: string | undefined;
+  officeId?: string;
   office: string;
   workspaceId: string[];
   comment?: string;
