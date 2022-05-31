@@ -3,11 +3,16 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { SETTINGS_SLICE } from '../actions/settingsActions';
 
 export interface SettingsState {
-  settings: Settings | null;
+  settings: Settings;
 }
 
 const initialState: SettingsState = {
-  settings: null,
+  settings: {
+    activeReservations: 3,
+    numOfDaysDisplayed: 13,
+    numOfExpiredReservations: 7,
+    showWeekends: true,
+  },
 };
 
 const settingsSlice = createSlice({

@@ -24,6 +24,7 @@ import {
 const OfficePage = () => {
   const dispatch = useAppDispatch();
   const { currentOffice } = useAppSelector((state) => state.office);
+  const { settings } = useAppSelector((state) => state.settings);
   const { reservedWorkspaces, multipleReservations } = useAppSelector(
     (state) => state.reservation
   );
@@ -32,7 +33,9 @@ const OfficePage = () => {
 
   const [from, setFrom] = useState<number>(8);
   const [to, setTo] = useState<number>(17);
-  const [dates] = useState<Date[]>(generateDates());
+  const [dates] = useState<Date[]>(
+    generateDates(settings.numOfDaysDisplayed, settings.showWeekends)
+  );
   const [selectedDay, setSelectedDay] = useState<Date>(new Date());
   const [fullDay, setFullDay] = useState<boolean>(true);
   const { id } = useParams();

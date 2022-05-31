@@ -6,6 +6,7 @@ import { useAppDispatch } from '../../../store/app/hooks';
 import { FirebaseUser } from '../../../store/models/User';
 import LoadingPage from '../../pages/LoadingPage/LoadingPage';
 import { fetchUserDetails } from '../../../store/actions/userActions';
+import { fetchSettings } from '../../../store/actions/settingsActions';
 
 interface AuthProviderProps {
   children: ReactNode;
@@ -23,6 +24,7 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
         dispatch(setUser(user));
         dispatch(setAccessToken(accessToken));
         dispatch(fetchUserDetails());
+        dispatch(fetchSettings());
       }
       setLoading(false);
     });

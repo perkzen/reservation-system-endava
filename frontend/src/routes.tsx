@@ -4,6 +4,7 @@ import ProfilePage from './components/pages/ProfilePage/ProfilePage';
 import OfficePage from './components/pages/OfficePage/OfficePage';
 import CreateOfficePage from './components/pages/CreateOfficePage/CreateOfficePage';
 import FloorPlanPage from './components/pages/FloorPlanPage/FloorPlanPage';
+import SettingsPage from './components/pages/SettingsPage/SettingsPage';
 
 export enum routes {
   LOGIN = '/sign-in',
@@ -15,6 +16,7 @@ export enum routes {
   PROFILE = '/Profile',
   OFFICE = ':location/:id',
   CREATE_OFFICE = '/create-office',
+  SETTINGS = '/settings',
   FLOOR_PLAN = '/:location',
 }
 
@@ -33,4 +35,5 @@ export const protectedRoutes: Route[] = [
 
 export const adminRoutes: Route[] = [
   { path: routes.CREATE_OFFICE, element: <CreateOfficePage /> },
+  { path: routes.SETTINGS, element: <SettingsPage /> },
 ];

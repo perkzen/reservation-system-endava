@@ -33,7 +33,7 @@ const ProfileMenu = () => {
   const adminNavigation: UserNavigation[] = [
     { name: 'Your Profile', path: routes.PROFILE },
     { name: 'Create new office', path: routes.CREATE_OFFICE },
-    { name: 'Settings', path: routes.PAGE_NOT_FOUND },
+    { name: 'Settings', path: routes.SETTINGS },
     { name: 'Logout', onClick: logout },
   ];
 

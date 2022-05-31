@@ -1,0 +1,32 @@
+.Container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  width: 100%;
+
+  .Title {
+    font-size: 1.25rem;
+    @apply font-semibold;
+  }
+
+  p {
+    @apply text-textLight;
+  }
+
+  form {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+    width: 25%;
+    min-width: 200px;
+    @apply pt-10;
+  }
+
+  .CustomLabel {
+    @apply text-xs ml-2;
+  }
+}

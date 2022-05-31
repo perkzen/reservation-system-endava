@@ -29,5 +29,8 @@
   "reset": "Reset",
   "reset_password": "Reset password",
   "email_sent": "Email was sent",
-  "reset_success": "Password reset successful"
+  "reset_success": "Password reset successful",
+  "active_reservations": "Active reservations",
+  "num_of_days_displayed": "Days to display",
+  "num_of_expired_reservations": "Expired reservations"
 }
