@@ -1,13 +1,13 @@
 import React from 'react';
 import { classNames } from './classNames';
 import classes from '../components/ui/Carousel/Carousel.module.scss';
-import Arrow from '../assets/arrow.svg';
+import { ChevronRightIcon } from '@heroicons/react/outline';
 
 // @ts-ignore
 const NextArrow = ({ onClick }) => {
   return (
     <div className={classNames(classes.Arrow, classes.Next)} onClick={onClick}>
-      <img src={Arrow} alt={'arrow right'} />
+      <ChevronRightIcon />
     </div>
   );
 };
@@ -16,7 +16,7 @@ const NextArrow = ({ onClick }) => {
 const PrevArrow = ({ onClick }) => {
   return (
     <div className={classNames(classes.Arrow, classes.Prev)} onClick={onClick}>
-      <img src={Arrow} alt={'arrow left'} />
+      <ChevronRightIcon />
     </div>
   );
 };

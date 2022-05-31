@@ -52,6 +52,8 @@ export class OfficesService {
                 reserved: true,
                 userId: reservation.userId,
                 reservationId: reservation._id,
+                from: reservation.from,
+                to: reservation.to,
               };
             }
           }

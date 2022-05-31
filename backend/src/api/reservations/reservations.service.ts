@@ -4,10 +4,15 @@ import { Reservation } from './Schemas/reservation.schema';
 import { ReservationRepository } from './repository/reservation.repository';
 import { Errors } from '../../utils/errors';
 import { ReservationQuery, SuccessResponse } from '../../utils/interfaces';
+import { SettingsService } from '../settings/settings.service';
+import { ReservationLimitReached } from '../../exceptions/reservation-limit-reached';
 
 @Injectable()
 export class ReservationsService {
-  constructor(private readonly reservationRepository: ReservationRepository) {}
+  constructor(
+    private readonly reservationRepository: ReservationRepository,
+    private readonly settingsService: SettingsService,
+  ) {}
 
   async create(data: CreateReservationDto): Promise<SuccessResponse> {
     if (data.workspaceId.length === 0) {
@@ -20,10 +25,11 @@ export class ReservationsService {
     // active reservations from user
     const active = await this.findAllByUser(data.userId);
 
-    if (active.length >= 3) {
-      throw new HttpException(
-        Errors.RESERVATION_LIMIT,
-        HttpStatus.PRECONDITION_FAILED,
+    if (
+      active.length >= this.settingsService.getSettings().activeReservations
+    ) {
+      throw new ReservationLimitReached(
+        this.settingsService.getSettings().activeReservations,
       );
     }
 

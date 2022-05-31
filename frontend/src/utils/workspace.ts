@@ -37,3 +37,16 @@ export const findWorkspace = (
 ): Workspace => {
   return workspaces.find((w) => w.position === pos)!;
 };
+
+export const workspaceTimeOrientation = (orientation: Orientation): string => {
+  switch (orientation) {
+    case Orientation.TOP:
+      return classes.TimeTop;
+    case Orientation.BOTTOM:
+      return classes.TimeBottom;
+    case Orientation.LEFT:
+      return classes.TimeLeft;
+    case Orientation.RIGHT:
+      return '';
+  }
+};

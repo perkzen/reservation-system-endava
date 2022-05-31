@@ -1,6 +1,7 @@
 import {
   createReservation,
   deleteReservation,
+  deleteReservationAndFetchOffice,
   fetchReservationHistory,
   fetchReservationHistorySuccess,
   fetchReservations,
@@ -92,6 +93,26 @@ export function* deleteReservationsSaga(
     )) as AxiosResponse<SuccessResponse>;
     yield toast.success(data.success);
     yield put(fetchReservationHistory());
+  } catch (e) {
+    const error = e as AxiosError;
+    // @ts-ignore
+    const message = error.response?.data?.message;
+    toast.error(message);
+  } finally {
+    yield put(stopLoading({ actionType: action.type }));
+  }
+}
+
+export function* deleteReservationAndFetchOfficeSaga(
+  action: ReturnType<typeof deleteReservationAndFetchOffice>
+): Generator {
+  try {
+    yield put(startLoading({ actionType: action.type }));
+    const { data } = (yield instance.delete(
+      `${ApiRoutes.RESERVATIONS}/${action.payload.reservationId}`
+    )) as AxiosResponse<SuccessResponse>;
+    yield toast.success(data.success);
+    yield put(fetchOffice(action.payload.query));
   } catch (e) {
     const error = e as AxiosError;
     // @ts-ignore

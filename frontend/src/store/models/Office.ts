@@ -16,6 +16,8 @@ export interface Workspace {
   reserved: boolean;
   userId?: string;
   reservationId?: string;
+  from?: number;
+  to?: number;
 }
 
 export interface OfficeQuery {

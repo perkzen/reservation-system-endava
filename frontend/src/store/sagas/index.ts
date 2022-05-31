@@ -16,15 +16,19 @@ import {
 import {
   createReservation,
   deleteReservation,
+  deleteReservationAndFetchOffice,
   fetchReservationHistory,
   fetchReservations,
 } from '../actions/reservationActions';
 import {
   createReservationSaga,
+  deleteReservationAndFetchOfficeSaga,
   deleteReservationsSaga,
   fetchReservationHistorySaga,
   fetchReservationsSaga,
 } from './reservationSaga';
+import { fetchSettings, saveSettings } from '../actions/settingsActions';
+import { fetchSettingsSaga, saveSettingsSaga } from './settingsSaga';
 
 export function* watchUser(): Generator {
   yield takeLatest(saveUserDetails.type, saveUserDetailsSaga);
@@ -41,6 +45,15 @@ export function* watchOffice(): Generator {
 export function* watchReservation(): Generator {
   yield takeLatest(createReservation.type, createReservationSaga);
   yield takeLatest(fetchReservations.type, fetchReservationsSaga);
-  yield takeLatest(deleteReservation.type, deleteReservationsSaga);
   yield takeLatest(fetchReservationHistory.type, fetchReservationHistorySaga);
+  yield takeLatest(deleteReservation.type, deleteReservationsSaga);
+  yield takeLatest(
+    deleteReservationAndFetchOffice.type,
+    deleteReservationAndFetchOfficeSaga
+  );
+}
+
+export function* watchSettings(): Generator {
+  yield takeLatest(fetchSettings.type, fetchSettingsSaga);
+  yield takeLatest(saveSettings.type, saveSettingsSaga);
 }

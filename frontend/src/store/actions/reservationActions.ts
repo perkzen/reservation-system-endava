@@ -4,6 +4,7 @@ import {
   Reservation,
   ReservationHistory,
 } from '../models/Reservation';
+import { OfficeQuery } from '../models/Office';
 
 export const RESERVATION_SLICE = 'reservation';
 
@@ -30,3 +31,8 @@ export const fetchReservationHistorySuccess = createAction<
 export const deleteReservation = createAction<string>(
   `${RESERVATION_SLICE}/cancelReservation`
 );
+
+export const deleteReservationAndFetchOffice = createAction<{
+  reservationId: string;
+  query: OfficeQuery;
+}>(`${RESERVATION_SLICE}/cancelReservationAndFetchOffice`);

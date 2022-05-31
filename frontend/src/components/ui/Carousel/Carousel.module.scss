@@ -1,11 +1,14 @@
 .Container {
     @apply mx-5 ;
+
+    svg {
+        @apply w-5 cursor-pointer;
+    }
 }
 .WidthFull {
     @apply  w-full
 }
 .Arrow {
-    font-size: 3.75rem;
     position: absolute;
     cursor: pointer;
     z-index: 10;

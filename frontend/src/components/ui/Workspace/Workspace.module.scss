@@ -10,4 +10,39 @@
 .Table {
   border: 1px solid #EEEEEE;
   cursor: pointer;
+  position: relative;
 }
+
+.Container {
+  position: relative;
+}
+
+.Time {
+  position: absolute;
+  right: 25%;
+  bottom: 5%;
+  transform: translate(-25%,-5%);
+  z-index: 20;
+  font-size: 0.6rem;
+  @apply text-textLight
+}
+
+.TimeTop {
+  right: 5%;
+  bottom: 5%;
+  transform: translate(-5%,-5%);
+}
+
+.TimeBottom {
+  right: 5%;
+  bottom: 25%;
+  transform: translate(-5%,-25%);
+}
+
+.TimeLeft {
+  right: 5%;
+  bottom: 5%;
+  transform: translate(-5%,-5%);
+}
+
+
