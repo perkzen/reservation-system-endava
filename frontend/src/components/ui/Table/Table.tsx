@@ -19,11 +19,18 @@ interface TableProps<T> {
   isLoading?: boolean;
   emptyTableComponent: ReactNode;
   onActionClick: (id: string) => void;
+  itemId: keyof T;
   itemIdAccessor: keyof T;
   itemFromAccessor: keyof T;
   itemLocationAccessor: keyof T;
   itemToAccessor: keyof T;
-  onRowClick?: (id: string, from: number, to: number, location: string) => void;
+  onRowClick?: (
+    id: string,
+    from: number,
+    to: number,
+    location: string,
+    e: any
+  ) => void;
   showStatus?: boolean;
   statusData?: boolean[];
 }
@@ -37,6 +44,7 @@ const Table = <T,>({
   emptyTableComponent,
   isLoading,
   onActionClick,
+  itemId,
   itemIdAccessor,
   itemFromAccessor,
   itemToAccessor,
@@ -62,16 +70,16 @@ const Table = <T,>({
               <table>
                 <thead>
                   <tr>
-                    {showStatus && (
-                      <th>
-                        <span>Status</span>
-                      </th>
-                    )}
                     {headers.map((header) => (
                       <th key={v4()}>
                         <span>{header.label}</span>
                       </th>
                     ))}
+                    {showStatus && (
+                      <th>
+                        <span>Status</span>
+                      </th>
+                    )}
                     <th scope="col" className="sr-only" colSpan={1} />
                   </tr>
                 </thead>
@@ -90,7 +98,7 @@ const Table = <T,>({
                             <tr
                               key={v4()}
                               className={onRowClick && classes.Clickable}
-                              onClick={() =>
+                              onClick={(e) =>
                                 onRowClick &&
                                 onRowClick(
                                   dataItem[itemIdAccessor] as unknown as string,
@@ -100,10 +108,20 @@ const Table = <T,>({
                                   dataItem[itemToAccessor] as unknown as number,
                                   dataItem[
                                     itemLocationAccessor
-                                  ] as unknown as string
+                                  ] as unknown as string,
+                                  e
                                 )
                               }
                             >
+                              {headers.map((header) => (
+                                <td key={v4()}>
+                                  {
+                                    dataItem[
+                                      header.accessor
+                                    ] as unknown as string
+                                  }
+                                </td>
+                              ))}
                               {statusData && (
                                 <td>
                                   {statusData[index] ? (
@@ -117,22 +135,12 @@ const Table = <T,>({
                                   )}
                                 </td>
                               )}
-                              {headers.map((header) => (
-                                <td key={v4()}>
-                                  {
-                                    dataItem[
-                                      header.accessor
-                                    ] as unknown as string
-                                  }
-                                </td>
-                              ))}
                               <td colSpan={1}>
                                 <button
+                                  type={'button'}
                                   onClick={() =>
                                     onActionClick(
-                                      dataItem[
-                                        itemIdAccessor
-                                      ] as unknown as string
+                                      dataItem[itemId] as unknown as string
                                     )
                                   }
                                 >
