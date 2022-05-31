@@ -15,10 +15,9 @@ import { useNavigate } from 'react-router-dom';
 
 const headers: TableHeader<ReservationTable>[] = [
   { accessor: 'office', label: 'Office' },
-  { accessor: 'workspaceId', label: 'Workspace' },
-  { accessor: 'comment', label: 'Comment' },
-  { accessor: 'date', label: 'Date' },
   { accessor: 'time', label: 'Time' },
+  { accessor: 'date', label: 'Date' },
+  { accessor: 'comment', label: 'Comment' },
 ];
 
 const Home: FC = () => {
@@ -31,6 +30,7 @@ const Home: FC = () => {
   const data: ReservationTable[] = history.map((reservation) => {
     return {
       ...reservation,
+      id_: reservation._id,
       officeId: reservation.office._id,
       location: reservation.office.location,
       office: reservation.office.name,
@@ -48,8 +48,6 @@ const Home: FC = () => {
   const isLoading = loading.filter(
     (l) => l.actionType === fetchReservationHistory.type
   );
-
-  console.log(data);
 
   const openDeleteModal = (id: string) => {
     dispatch(
@@ -70,19 +68,20 @@ const Home: FC = () => {
       <Table
         data={data}
         headers={headers}
-        title={'My reservations'}
+        title={'Your reservations'}
         isLoading={isLoading.length > 0}
         itemIdAccessor={'officeId'}
         itemFromAccessor={'from'}
         itemToAccessor={'to'}
         itemLocationAccessor={'location'}
+        itemId={'_id'}
         emptyTableComponent={<EmptyTable title={'No data to display'} />}
         onActionClick={openDeleteModal}
         showStatus
         statusData={data.map((d) => d.active)}
-        onRowClick={(id, from, to, location) => {
-          console.log(id, from, to, location);
-          navigate(`/${location}/${id}?from=${from}&to=${to}`);
+        onRowClick={(id, from, to, location, e: any) => {
+          e.target.type !== 'button' &&
+            navigate(`/${location}/${id}?from=${from}&to=${to}`);
         }}
       />
     </div>
