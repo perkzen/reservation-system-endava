@@ -11,6 +11,7 @@ import EmptyTable from '../../ui/Table/EmptyTable/EmptyTable';
 import { addModal, removeModal } from '../../../store/features/globalSlice';
 import { ModalType } from '../../../store/models/Modal';
 import { getDate, getTime } from '../../../utils/date';
+import { useNavigate } from 'react-router-dom';
 
 const headers: TableHeader<ReservationTable>[] = [
   { accessor: 'office', label: 'Office' },
@@ -24,14 +25,19 @@ const Home: FC = () => {
   const dispatch = useAppDispatch();
   const { history } = useAppSelector((state) => state.reservation);
   const { loading } = useAppSelector((state) => state.global);
+  const navigate = useNavigate();
 
   // convert Reservation to ReservationTable
   const data: ReservationTable[] = history.map((reservation) => {
     return {
       ...reservation,
+      id: reservation.office._id,
+      location: reservation.office.location,
       office: reservation.office.name,
       date: getDate(reservation.from),
       time: getTime(reservation.from) + 'h - ' + getTime(reservation.to) + 'h',
+      from: reservation.from,
+      to: reservation.to,
     };
   });
 
@@ -42,6 +48,8 @@ const Home: FC = () => {
   const isLoading = loading.filter(
     (l) => l.actionType === fetchReservationHistory.type
   );
+
+  console.log(data);
 
   const openDeleteModal = (id: string) => {
     dispatch(
@@ -64,11 +72,18 @@ const Home: FC = () => {
         headers={headers}
         title={'My reservations'}
         isLoading={isLoading.length > 0}
-        itemIdAccessor={'_id'}
+        itemIdAccessor={'id'}
+        itemFromAccessor={'from'}
+        itemToAccessor={'to'}
+        itemLocationAccessor={'location'}
         emptyTableComponent={<EmptyTable title={'No data to display'} />}
         onActionClick={openDeleteModal}
         showStatus
         statusData={data.map((d) => d.active)}
+        onRowClick={(id, from, to, location) => {
+          console.log(id, from, to, location);
+          navigate(`/${location}/${id}?from=${from}&to=${to}`);
+        }}
       />
     </div>
   );

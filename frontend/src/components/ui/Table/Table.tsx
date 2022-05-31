@@ -20,7 +20,10 @@ interface TableProps<T> {
   emptyTableComponent: ReactNode;
   onActionClick: (id: string) => void;
   itemIdAccessor: keyof T;
-  onRowClick?: (id: string) => void;
+  itemFromAccessor: keyof T;
+  itemLocationAccessor: keyof T;
+  itemToAccessor: keyof T;
+  onRowClick?: (id: string, from: number, to: number, location: string) => void;
   showStatus?: boolean;
   statusData?: boolean[];
 }
@@ -35,6 +38,9 @@ const Table = <T,>({
   isLoading,
   onActionClick,
   itemIdAccessor,
+  itemFromAccessor,
+  itemToAccessor,
+  itemLocationAccessor,
   onRowClick,
   showStatus,
   statusData,
@@ -87,7 +93,14 @@ const Table = <T,>({
                               onClick={() =>
                                 onRowClick &&
                                 onRowClick(
-                                  dataItem[itemIdAccessor] as unknown as string
+                                  dataItem[itemIdAccessor] as unknown as string,
+                                  dataItem[
+                                    itemFromAccessor
+                                  ] as unknown as number,
+                                  dataItem[itemToAccessor] as unknown as number,
+                                  dataItem[
+                                    itemLocationAccessor
+                                  ] as unknown as string
                                 )
                               }
                             >
