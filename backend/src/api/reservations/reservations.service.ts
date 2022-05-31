@@ -5,6 +5,7 @@ import { ReservationRepository } from './repository/reservation.repository';
 import { Errors } from '../../utils/errors';
 import { ReservationQuery, SuccessResponse } from '../../utils/interfaces';
 import { SettingsService } from '../settings/settings.service';
+import { ReservationLimitReached } from '../../exceptions/reservation-limit-reached';
 
 @Injectable()
 export class ReservationsService {
@@ -27,9 +28,8 @@ export class ReservationsService {
     if (
       active.length >= this.settingsService.getSettings().activeReservations
     ) {
-      throw new HttpException(
-        Errors.RESERVATION_LIMIT,
-        HttpStatus.PRECONDITION_FAILED,
+      throw new ReservationLimitReached(
+        this.settingsService.getSettings().activeReservations,
       );
     }
 
