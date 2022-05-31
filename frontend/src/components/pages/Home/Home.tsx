@@ -15,7 +15,6 @@ import { useNavigate } from 'react-router-dom';
 
 const headers: TableHeader<ReservationTable>[] = [
   { accessor: 'office', label: 'Office' },
-  { accessor: 'workspaceId', label: 'Workspace' },
   { accessor: 'time', label: 'Time' },
   { accessor: 'date', label: 'Date' },
   { accessor: 'comment', label: 'Comment' },
@@ -49,8 +48,6 @@ const Home: FC = () => {
   const isLoading = loading.filter(
     (l) => l.actionType === fetchReservationHistory.type
   );
-
-  console.log(data);
 
   const openDeleteModal = (id: string) => {
     dispatch(
