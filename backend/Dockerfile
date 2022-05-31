@@ -12,8 +12,8 @@ RUN npm run build
 
 ENV PORT=8000
 
-ENV DATABASE_URI=<database-uri>
+ENV NODE_ENV=production
 
 EXPOSE 8000
 
-CMD ["node", "dist/main.js"]
+CMD ["node", "dist/src/main.js"]
