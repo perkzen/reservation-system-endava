@@ -5,7 +5,12 @@ import userReducer from '../features/userSlice';
 import officeReducer from '../features/officeSlice';
 import reservationReducer from '../features/reservationsSlice';
 import settingsReducer from '../features/settingsSlice';
-import { watchOffice, watchReservation, watchUser } from '../sagas';
+import {
+  watchOffice,
+  watchReservation,
+  watchSettings,
+  watchUser,
+} from '../sagas';
 import { createReduxHistoryContext } from 'redux-first-history';
 import { createBrowserHistory } from 'history';
 
@@ -33,6 +38,7 @@ export const store = configureStore({
 sagaMiddleware.run(watchUser);
 sagaMiddleware.run(watchOffice);
 sagaMiddleware.run(watchReservation);
+sagaMiddleware.run(watchSettings);
 
 export const history = createReduxHistory(store);
 export type RootState = ReturnType<typeof store.getState>;

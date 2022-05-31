@@ -25,6 +25,8 @@ import {
   fetchReservationHistorySaga,
   fetchReservationsSaga,
 } from './reservationSaga';
+import { fetchSettings, saveSettings } from '../actions/settingsActions';
+import { fetchSettingsSaga, saveSettingsSaga } from './settingsSaga';
 
 export function* watchUser(): Generator {
   yield takeLatest(saveUserDetails.type, saveUserDetailsSaga);
@@ -43,4 +45,9 @@ export function* watchReservation(): Generator {
   yield takeLatest(fetchReservations.type, fetchReservationsSaga);
   yield takeLatest(deleteReservation.type, deleteReservationsSaga);
   yield takeLatest(fetchReservationHistory.type, fetchReservationHistorySaga);
+}
+
+export function* watchSettings(): Generator {
+  yield takeLatest(fetchSettings.type, fetchSettingsSaga);
+  yield takeLatest(saveSettings.type, saveSettingsSaga);
 }
