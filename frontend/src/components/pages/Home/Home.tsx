@@ -102,7 +102,6 @@ const Home: FC = () => {
       headers={headers}
       title={'Your reservations'}
       isLoading={isLoading.length > 0}
-      itemIdAccessor={'_id'}
       emptyTableComponent={<EmptyTable title={'No data to display'} />}
       onActionClick={handleActionClick}
       showStatus
