@@ -18,7 +18,7 @@ const NavItems = () => {
   const dispatch = useAppDispatch();
   const [treeData, setTreeData] = useState<NodeModel[]>(defaultNavigation);
   const { offices, currentOffice } = useAppSelector((state) => state.office);
-  const [active, setActive] = useState('');
+  const [active, setActive] = useState<string>('');
 
   useEffect(() => {
     dispatch(fetchOffices());
