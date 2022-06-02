@@ -56,7 +56,7 @@ const OfficePage = () => {
       dispatch(clearQuery());
       dispatch(removeAllWorkspaceFromReservations());
     };
-  }, [id, dispatch]);
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(
