@@ -1,7 +1,9 @@
 import { Office } from '../store/models/Office';
 
+let data: any;
+
 export const generateMenu = (offices: Office[]) => {
-  const data = [];
+  data = [];
   let locations: string[] = [];
 
   for (let i = 0; i < offices.length; i++) {
@@ -35,4 +37,12 @@ export const generateMenu = (offices: Office[]) => {
   }
 
   return data;
+};
+
+export const activeItem = (currentOffice?: Office) => {
+  for (let i = 0; i < data.length; i++) {
+    if (data[i].text === currentOffice?.name) {
+      return data[i].text;
+    }
+  }
 };

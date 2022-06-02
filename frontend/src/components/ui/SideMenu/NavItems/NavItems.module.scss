@@ -4,4 +4,8 @@
   svg {
     @apply w-5 m-1 inline cursor-pointer;
   }
+
+  .Active {
+    @apply text-textLight;
+  }
 }
