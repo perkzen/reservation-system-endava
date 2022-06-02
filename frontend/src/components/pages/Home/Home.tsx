@@ -1,7 +1,10 @@
 import React, { FC, useEffect } from 'react';
 import 'rc-slider/assets/index.css';
 import Table, { TableHeader } from '../../ui/Table/Table';
-import { ReservationTable } from '../../../store/models/Reservation';
+import {
+  ReservationTable,
+  ReservationType,
+} from '../../../store/models/Reservation';
 import { useAppDispatch, useAppSelector } from '../../../store/app/hooks';
 import {
   deleteReservation,
@@ -47,18 +50,39 @@ const Home: FC = () => {
     (l) => l.actionType === fetchReservationHistory.type
   );
 
-  const openDeleteModal = (id: string) => {
-    dispatch(
-      addModal({
-        type: ModalType.DELETE,
-        title: 'Delete reservation',
-        body: 'Are you sure you want to delete your reservation?',
-        primaryActionText: 'Delete',
-        primaryAction: () => dispatch(deleteReservation(id)),
-        secondaryButtonText: 'Close',
-        secondaryAction: () => dispatch(removeModal()),
-      })
-    );
+  const handleActionClick = (item: ReservationTable, active?: boolean) => {
+    if (active) {
+      dispatch(
+        addModal({
+          type: ModalType.DELETE,
+          title: 'Delete reservation',
+          body: 'Are you sure you want to delete your reservation?',
+          primaryActionText: 'Delete',
+          primaryAction: () => dispatch(deleteReservation(item._id)),
+          secondaryButtonText: 'Close',
+          secondaryAction: () => dispatch(removeModal()),
+        })
+      );
+    } else {
+      const nextDay = new Date();
+      nextDay.setDate(nextDay.getDate() + 1);
+
+      dispatch(
+        addModal({
+          type: ModalType.RESERVATION,
+          title: 'Confirm reservation',
+          data: {
+            _id: item._id,
+            date: nextDay,
+            from: getTime(item.from),
+            to: getTime(item.to),
+            workspaceId: item.workspaceId,
+            office: item.officeId,
+            type: ReservationType.RENEW,
+          },
+        })
+      );
+    }
   };
 
   const handleRowClick = (item: ReservationTable) => {
@@ -80,7 +104,7 @@ const Home: FC = () => {
       isLoading={isLoading.length > 0}
       itemIdAccessor={'_id'}
       emptyTableComponent={<EmptyTable title={'No data to display'} />}
-      onActionClick={openDeleteModal}
+      onActionClick={handleActionClick}
       showStatus
       statusData={data.map((d) => d.active)}
       onRowClick={handleRowClick}

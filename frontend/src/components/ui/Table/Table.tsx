@@ -18,8 +18,7 @@ interface TableProps<T> {
   buttonLabel?: string;
   isLoading?: boolean;
   emptyTableComponent: ReactNode;
-  onActionClick: (id: string) => void;
-  itemIdAccessor: keyof T;
+  onActionClick: (item: T, status?: boolean) => void;
   onRowClick?: (item: T) => void;
   showStatus?: boolean;
   statusData?: boolean[];
@@ -34,7 +33,6 @@ const Table = <T,>({
   emptyTableComponent,
   isLoading,
   onActionClick,
-  itemIdAccessor,
   onRowClick,
   showStatus,
   statusData,
@@ -115,11 +113,15 @@ const Table = <T,>({
                               <td colSpan={1}>
                                 <button
                                   type={'button'}
+                                  className={
+                                    !statusData || statusData[index]
+                                      ? 'text-red-600'
+                                      : 'text-green-600'
+                                  }
                                   onClick={() =>
                                     onActionClick(
-                                      dataItem[
-                                        itemIdAccessor
-                                      ] as unknown as string
+                                      dataItem,
+                                      statusData && statusData[index]
                                     )
                                   }
                                 >

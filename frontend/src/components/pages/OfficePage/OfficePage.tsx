@@ -21,6 +21,7 @@ import {
   toggleMultipleReservations,
 } from '../../../store/features/reservationsSlice';
 import { clearQuery, updateQuery } from '../../../store/features/officeSlice';
+import { ReservationType } from '../../../store/models/Reservation';
 
 const OfficePage = () => {
   const dispatch = useAppDispatch();
@@ -113,6 +114,7 @@ const OfficePage = () => {
             to: to,
             workspaceId: reservedWorkspaces,
             office: currentOffice?._id,
+            type: ReservationType.NEW,
           },
         })
       );

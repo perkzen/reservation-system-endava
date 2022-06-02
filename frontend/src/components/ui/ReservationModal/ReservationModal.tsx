@@ -6,10 +6,16 @@ import Input from '../Input/Input';
 import Button from '../Button/Button';
 import { format } from 'date-fns';
 import { dateToUTC } from '../../../utils/date';
-import { ReservationModalData } from '../../../store/models/Reservation';
+import {
+  ReservationModalData,
+  ReservationType,
+} from '../../../store/models/Reservation';
 import { useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from '../../../store/app/hooks';
-import { createReservation } from '../../../store/actions/reservationActions';
+import {
+  createReservation,
+  renewReservation,
+} from '../../../store/actions/reservationActions';
 import { removeModal } from '../../../store/features/globalSlice';
 
 interface ReservationModalProps {
@@ -42,7 +48,9 @@ const ReservationModal: FC<ReservationModalProps> = ({
   });
 
   const onSubmit = (formData: ReservationFormData) => {
-    if (user) {
+    if (!user) return;
+
+    if (reservationData.type === ReservationType.NEW) {
       dispatch(
         createReservation({
           ...reservation,
@@ -50,8 +58,19 @@ const ReservationModal: FC<ReservationModalProps> = ({
           comment: formData.comment,
         })
       );
-      dispatch(removeModal());
     }
+
+    if (reservationData.type === ReservationType.RENEW) {
+      dispatch(
+        renewReservation({
+          ...reservation,
+          userId: user?.uid,
+          comment: formData.comment,
+        })
+      );
+    }
+
+    dispatch(removeModal());
   };
 
   return (
