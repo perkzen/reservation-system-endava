@@ -88,8 +88,6 @@ export class OfficesService {
       updateOfficeDto,
     );
 
-    console.log(updateOfficeDto);
-
     if (!found) {
       throw new HttpException(Errors.OFFICE_NOT_FOUND, HttpStatus.NOT_FOUND);
     }
