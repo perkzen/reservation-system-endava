@@ -30,14 +30,11 @@ const Home: FC = () => {
   const data: ReservationTable[] = history.map((reservation) => {
     return {
       ...reservation,
-      _id: reservation._id,
       officeId: reservation.office._id,
       location: reservation.office.location,
       office: reservation.office.name,
       date: getDate(reservation.from),
       time: getTime(reservation.from) + 'h - ' + getTime(reservation.to) + 'h',
-      from: reservation.from,
-      to: reservation.to,
     };
   });
 
@@ -70,20 +67,18 @@ const Home: FC = () => {
   };
 
   return (
-    <div>
-      <Table
-        data={data}
-        headers={headers}
-        title={'Your reservations'}
-        isLoading={isLoading.length > 0}
-        itemIdAccessor={'_id'}
-        emptyTableComponent={<EmptyTable title={'No data to display'} />}
-        onActionClick={openDeleteModal}
-        showStatus
-        statusData={data.map((d) => d.active)}
-        onRowClick={handleRowClick}
-      />
-    </div>
+    <Table
+      data={data}
+      headers={headers}
+      title={'Your reservations'}
+      isLoading={isLoading.length > 0}
+      itemIdAccessor={'_id'}
+      emptyTableComponent={<EmptyTable title={'No data to display'} />}
+      onActionClick={openDeleteModal}
+      showStatus
+      statusData={data.map((d) => d.active)}
+      onRowClick={handleRowClick}
+    />
   );
 };
 
