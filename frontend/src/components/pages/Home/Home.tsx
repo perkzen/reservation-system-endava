@@ -30,14 +30,11 @@ const Home: FC = () => {
   const data: ReservationTable[] = history.map((reservation) => {
     return {
       ...reservation,
-      id_: reservation._id,
       officeId: reservation.office._id,
       location: reservation.office.location,
       office: reservation.office.name,
       date: getDate(reservation.from),
       time: getTime(reservation.from) + 'h - ' + getTime(reservation.to) + 'h',
-      from: reservation.from,
-      to: reservation.to,
     };
   });
 
@@ -63,28 +60,25 @@ const Home: FC = () => {
     );
   };
 
+  const handleRowClick = (item: ReservationTable) => {
+    navigate(
+      `/${item.location}/${item.officeId}?from=${item.from}&to=${item.to}`
+    );
+  };
+
   return (
-    <div>
-      <Table
-        data={data}
-        headers={headers}
-        title={'Your reservations'}
-        isLoading={isLoading.length > 0}
-        itemIdAccessor={'officeId'}
-        itemFromAccessor={'from'}
-        itemToAccessor={'to'}
-        itemLocationAccessor={'location'}
-        itemId={'_id'}
-        emptyTableComponent={<EmptyTable title={'No data to display'} />}
-        onActionClick={openDeleteModal}
-        showStatus
-        statusData={data.map((d) => d.active)}
-        onRowClick={(id, from, to, location, e: any) => {
-          e.target.type !== 'button' &&
-            navigate(`/${location}/${id}?from=${from}&to=${to}`);
-        }}
-      />
-    </div>
+    <Table
+      data={data}
+      headers={headers}
+      title={'Your reservations'}
+      isLoading={isLoading.length > 0}
+      itemIdAccessor={'_id'}
+      emptyTableComponent={<EmptyTable title={'No data to display'} />}
+      onActionClick={openDeleteModal}
+      showStatus
+      statusData={data.map((d) => d.active)}
+      onRowClick={handleRowClick}
+    />
   );
 };
 
