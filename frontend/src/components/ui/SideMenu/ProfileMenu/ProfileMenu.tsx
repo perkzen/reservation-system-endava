@@ -31,14 +31,14 @@ const ProfileMenu = () => {
   };
 
   const adminNavigation: UserNavigation[] = [
-    { name: 'Your Profile', path: routes.PROFILE },
-    { name: 'Create new office', path: routes.CREATE_OFFICE },
+    { name: 'Your profile', path: routes.PROFILE },
+    { name: 'Admin dashboard', path: routes.DASHBOARD },
     { name: 'Settings', path: routes.SETTINGS },
     { name: 'Logout', onClick: logout },
   ];
 
   const userNavigation: UserNavigation[] = [
-    { name: 'Your Profile', path: routes.PROFILE },
+    { name: 'Your profile', path: routes.PROFILE },
     { name: 'My reservations', path: routes.HOME },
     { name: 'Logout', onClick: logout },
   ];

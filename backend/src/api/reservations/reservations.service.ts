@@ -6,10 +6,7 @@ import { Errors } from '../../utils/errors';
 import { ReservationQuery, SuccessResponse } from '../../utils/interfaces';
 import { SettingsService } from '../settings/settings.service';
 import { ReservationLimitReached } from '../../exceptions/reservation-limit-reached';
-import {
-  NINE_HOURS_IN_MILLISECONDS,
-  ONE_MONTH_IN_MILLISECONDS,
-} from '../../utils/dates';
+import { NINE_HOURS_IN_MILLISECONDS } from '../../utils/dates';
 
 @Injectable()
 export class ReservationsService {
@@ -111,8 +108,7 @@ export class ReservationsService {
     const currentDate = Date.now();
     return reservations.map((reservation) => {
       const updateReservation = reservation;
-      updateReservation.active =
-        reservation.to - ONE_MONTH_IN_MILLISECONDS >= currentDate;
+      updateReservation.active = reservation.to >= currentDate;
       return updateReservation;
     });
   }
