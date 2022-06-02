@@ -26,6 +26,8 @@ interface TableProps<T> {
   onRowClick?: (item: T) => void;
   showStatus?: boolean;
   statusData?: boolean[];
+  statusActiveText?: string;
+  statusInactiveText?: string;
 }
 
 const Table = <T,>({
@@ -44,6 +46,8 @@ const Table = <T,>({
   onSecondaryActionClick,
   primaryActionText,
   secondaryActionText,
+  statusActiveText,
+  statusInactiveText,
 }: TableProps<T>) => {
   return (
     <div className={classes.Container}>
@@ -72,13 +76,13 @@ const Table = <T,>({
                         <span>Status</span>
                       </th>
                     )}
-                    {onActionClick && (
-                      <th scope="col" className="sr-only" colSpan={1} />
-                    )}
                     {onPrimaryActionClick && (
                       <th scope="col" className="sr-only" colSpan={1} />
                     )}
                     {onSecondaryActionClick && (
+                      <th scope="col" className="sr-only" colSpan={1} />
+                    )}
+                    {onActionClick && (
                       <th scope="col" className="sr-only" colSpan={1} />
                     )}
                   </tr>
@@ -126,28 +130,7 @@ const Table = <T,>({
                                   )}
                                 </td>
                               )}
-                              {onActionClick && (
-                                <td>
-                                  <button
-                                    type={'button'}
-                                    className={
-                                      !statusData || statusData[index]
-                                        ? 'text-red-600'
-                                        : 'text-green-600'
-                                    }
-                                    onClick={() =>
-                                      onActionClick(
-                                        dataItem,
-                                        statusData && statusData[index]
-                                      )
-                                    }
-                                  >
-                                    {!statusData || statusData[index]
-                                      ? 'Cancel'
-                                      : 'Renew'}
-                                  </button>
-                                </td>
-                              )}
+
                               {onPrimaryActionClick && (
                                 <td>
                                   <button
@@ -171,6 +154,28 @@ const Table = <T,>({
                                     }
                                   >
                                     {secondaryActionText}
+                                  </button>
+                                </td>
+                              )}
+                              {onActionClick && (
+                                <td colSpan={1}>
+                                  <button
+                                    type={'button'}
+                                    className={
+                                      !statusData || statusData[index]
+                                        ? 'text-red-600'
+                                        : 'text-green-600'
+                                    }
+                                    onClick={() =>
+                                      onActionClick(
+                                        dataItem,
+                                        statusData && statusData[index]
+                                      )
+                                    }
+                                  >
+                                    {!statusData || statusData[index]
+                                      ? statusActiveText
+                                      : statusInactiveText}
                                   </button>
                                 </td>
                               )}

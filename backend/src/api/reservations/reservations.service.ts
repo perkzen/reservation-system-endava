@@ -6,7 +6,7 @@ import { Errors } from '../../utils/errors';
 import { ReservationQuery, SuccessResponse } from '../../utils/interfaces';
 import { SettingsService } from '../settings/settings.service';
 import { ReservationLimitReached } from '../../exceptions/reservation-limit-reached';
-import { NINE_HOURS_IN_MILLISECONDS } from '../../utils/dates';
+import { NINE_HOURS_IN_MILLISECONDS } from '../../utils/constants';
 
 @Injectable()
 export class ReservationsService {

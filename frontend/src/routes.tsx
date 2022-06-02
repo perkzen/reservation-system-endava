@@ -17,7 +17,8 @@ export enum routes {
   OFFICE_NOT_FOUND = '/office-not-found',
   PROFILE = '/profile',
   OFFICE = ':location/:id',
-  CREATE_OFFICE = '/create-office',
+  CREATE_OFFICE = '/dashboard/office',
+  EDIT_OFFICE = '/dashboard/office',
   SETTINGS = '/settings',
   FLOOR_PLAN = '/:location',
   DASHBOARD = '/dashboard',
@@ -37,7 +38,8 @@ export const protectedRoutes: Route[] = [
 ];
 
 export const adminRoutes: Route[] = [
-  { path: routes.CREATE_OFFICE, element: <CreateOfficePage /> },
+  { path: `${routes.CREATE_OFFICE}`, element: <CreateOfficePage /> },
+  { path: `${routes.EDIT_OFFICE}/:id`, element: <CreateOfficePage /> },
   { path: routes.SETTINGS, element: <SettingsPage /> },
   { path: routes.DASHBOARD, element: <AdminDashboard /> },
 ];

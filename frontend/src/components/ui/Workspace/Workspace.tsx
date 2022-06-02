@@ -23,7 +23,7 @@ import { useSearchParams } from 'react-router-dom';
 
 interface WorkspaceProps {
   workspace: WorkspaceModel;
-  onClick: (workspaceId: string) => void;
+  onClick?: (workspaceId: string) => void;
 }
 
 const Workspace: FC<WorkspaceProps> = ({ workspace, onClick }) => {
@@ -44,6 +44,7 @@ const Workspace: FC<WorkspaceProps> = ({ workspace, onClick }) => {
   };
 
   const handleOnClick = () => {
+    if (!onClick) return;
     if (!multipleReservations && !workspace.reserved) {
       onClick(workspace.id);
       return;

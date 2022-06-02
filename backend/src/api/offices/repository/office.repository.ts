@@ -31,6 +31,13 @@ export class OfficeRepository {
     return this.officeModel.findOneAndUpdate(officeFilterQuery, office);
   }
 
+  async updateOne(
+    officeFilterQuery: FilterQuery<Office>,
+    office: Partial<Office>,
+  ) {
+    return this.officeModel.updateOne(officeFilterQuery, office);
+  }
+
   async deleteOne(officeFilterQuery: FilterQuery<Office>) {
     return this.officeModel.deleteOne(officeFilterQuery);
   }
