@@ -30,7 +30,7 @@ export const dateToUTC = (date: Date, hours: number): number => {
 };
 
 export const getTime = (unix: number) => {
-  const date = new Date(unix);
+  const date = subMonths(new Date(unix), 1);
   return getHours(addMinutes(date, date.getTimezoneOffset()));
 };
 
