@@ -19,18 +19,8 @@ interface TableProps<T> {
   isLoading?: boolean;
   emptyTableComponent: ReactNode;
   onActionClick: (id: string) => void;
-  itemId: keyof T;
   itemIdAccessor: keyof T;
-  itemFromAccessor: keyof T;
-  itemLocationAccessor: keyof T;
-  itemToAccessor: keyof T;
-  onRowClick?: (
-    id: string,
-    from: number,
-    to: number,
-    location: string,
-    e: any
-  ) => void;
+  onRowClick?: (item: T) => void;
   showStatus?: boolean;
   statusData?: boolean[];
 }
@@ -44,11 +34,7 @@ const Table = <T,>({
   emptyTableComponent,
   isLoading,
   onActionClick,
-  itemId,
   itemIdAccessor,
-  itemFromAccessor,
-  itemToAccessor,
-  itemLocationAccessor,
   onRowClick,
   showStatus,
   statusData,
@@ -98,19 +84,10 @@ const Table = <T,>({
                             <tr
                               key={v4()}
                               className={onRowClick && classes.Clickable}
-                              onClick={(e) =>
+                              onClick={(e: any) =>
                                 onRowClick &&
-                                onRowClick(
-                                  dataItem[itemIdAccessor] as unknown as string,
-                                  dataItem[
-                                    itemFromAccessor
-                                  ] as unknown as number,
-                                  dataItem[itemToAccessor] as unknown as number,
-                                  dataItem[
-                                    itemLocationAccessor
-                                  ] as unknown as string,
-                                  e
-                                )
+                                e.target.type !== 'button' &&
+                                onRowClick(dataItem)
                               }
                             >
                               {headers.map((header) => (
@@ -140,7 +117,9 @@ const Table = <T,>({
                                   type={'button'}
                                   onClick={() =>
                                     onActionClick(
-                                      dataItem[itemId] as unknown as string
+                                      dataItem[
+                                        itemIdAccessor
+                                      ] as unknown as string
                                     )
                                   }
                                 >

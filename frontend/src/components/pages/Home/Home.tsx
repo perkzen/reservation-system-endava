@@ -30,7 +30,7 @@ const Home: FC = () => {
   const data: ReservationTable[] = history.map((reservation) => {
     return {
       ...reservation,
-      id_: reservation._id,
+      _id: reservation._id,
       officeId: reservation.office._id,
       location: reservation.office.location,
       office: reservation.office.name,
@@ -63,6 +63,12 @@ const Home: FC = () => {
     );
   };
 
+  const handleRowClick = (item: ReservationTable) => {
+    navigate(
+      `/${item.location}/${item.officeId}?from=${item.from}&to=${item.to}`
+    );
+  };
+
   return (
     <div>
       <Table
@@ -70,19 +76,12 @@ const Home: FC = () => {
         headers={headers}
         title={'Your reservations'}
         isLoading={isLoading.length > 0}
-        itemIdAccessor={'officeId'}
-        itemFromAccessor={'from'}
-        itemToAccessor={'to'}
-        itemLocationAccessor={'location'}
-        itemId={'_id'}
+        itemIdAccessor={'_id'}
         emptyTableComponent={<EmptyTable title={'No data to display'} />}
         onActionClick={openDeleteModal}
         showStatus
         statusData={data.map((d) => d.active)}
-        onRowClick={(id, from, to, location, e: any) => {
-          e.target.type !== 'button' &&
-            navigate(`/${location}/${id}?from=${from}&to=${to}`);
-        }}
+        onRowClick={handleRowClick}
       />
     </div>
   );
