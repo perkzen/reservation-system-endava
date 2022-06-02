@@ -2,11 +2,15 @@ import { AxiosError, AxiosResponse } from 'axios';
 import { put } from 'redux-saga/effects';
 import {
   deleteOffice,
+  fetchAllOffices,
+  fetchAllOfficesSuccess,
   fetchOffice,
+  fetchOfficeJSON,
   fetchOffices,
   fetchOfficesSuccess,
   fetchOfficeSuccess,
   saveOffice,
+  toggleOffice,
 } from '../actions/officeActions';
 import { startLoading, stopLoading } from '../features/globalSlice';
 import instance from '../../axios';
@@ -22,11 +26,11 @@ export function* saveOfficeSaga(
   try {
     yield put(startLoading({ actionType: action.type }));
     const { data } = (yield instance({
-      method: action.payload._id ? 'PUT' : 'POST',
-      url: action.payload._id
-        ? `${ApiRoutes.OFFICES}/${action.payload._id}`
+      method: action.payload.id ? 'PUT' : 'POST',
+      url: action.payload.id
+        ? `${ApiRoutes.OFFICES}/${action.payload.id}`
         : ApiRoutes.OFFICES,
-      data: action.payload,
+      data: action.payload.office,
     })) as AxiosResponse<SuccessResponse>;
     toast.success(data.success);
     yield put(fetchOffices());
@@ -34,7 +38,7 @@ export function* saveOfficeSaga(
     const error = e as AxiosError;
     // @ts-ignore
     const message = error.response?.data?.message;
-    toast.error(message);
+    toast.error(message || message[0] || 'Something went wrong');
   } finally {
     yield put(stopLoading({ actionType: action.type }));
   }
@@ -85,7 +89,63 @@ export function* fetchOfficeSaga(
     )) as AxiosResponse<Office>;
     yield put(fetchOfficeSuccess(data));
   } catch (e) {
-    yield put(push(`${routes.OFFICE}/office-not-found`));
+    yield put(push(routes.OFFICE_NOT_FOUND));
+  } finally {
+    yield put(stopLoading({ actionType: action.type }));
+  }
+}
+
+export function* fetchAllOfficesSaga(
+  action: ReturnType<typeof fetchAllOffices>
+): Generator {
+  try {
+    yield put(startLoading({ actionType: action.type }));
+    const { data } = (yield instance.get(
+      `${ApiRoutes.OFFICES}/all`
+    )) as AxiosResponse<Office[]>;
+    yield put(fetchAllOfficesSuccess(data));
+  } catch (e) {
+    const error = e as AxiosError;
+    // @ts-ignore
+    const message = error.response?.data?.message;
+    toast.error(message);
+  } finally {
+    yield put(stopLoading({ actionType: action.type }));
+  }
+}
+
+export function* toggleOfficeSaga(
+  action: ReturnType<typeof toggleOffice>
+): Generator {
+  try {
+    yield put(startLoading({ actionType: action.type }));
+    yield instance.put(`${ApiRoutes.OFFICES}/toggle/${action.payload}`);
+    yield put(fetchAllOffices());
+    yield put(fetchOffices());
+  } catch (e) {
+    const error = e as AxiosError;
+    // @ts-ignore
+    const message = error.response?.data?.message;
+    toast.error(message);
+  } finally {
+    yield put(stopLoading({ actionType: action.type }));
+  }
+}
+
+export function* fetchOfficeJSONSaga(
+  action: ReturnType<typeof fetchOfficeJSON>
+): Generator {
+  try {
+    yield put(startLoading({ actionType: action.type }));
+    const { data } = (yield instance.get(
+      `${ApiRoutes.OFFICES}/json/${action.payload}`
+    )) as AxiosResponse<Office>;
+    yield put(fetchOfficeSuccess(data));
+  } catch (e) {
+    const error = e as AxiosError;
+    // @ts-ignore
+    const message = error.response?.data?.message;
+    toast.error(message);
   } finally {
     yield put(stopLoading({ actionType: action.type }));
   }

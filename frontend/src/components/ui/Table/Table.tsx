@@ -18,14 +18,16 @@ interface TableProps<T> {
   buttonLabel?: string;
   isLoading?: boolean;
   emptyTableComponent: ReactNode;
-  onActionClick: (id: string) => void;
-  itemIdAccessor: keyof T;
-  itemFromAccessor: keyof T;
-  itemLocationAccessor: keyof T;
-  itemToAccessor: keyof T;
-  onRowClick?: (id: string, from: number, to: number, location: string) => void;
+  onActionClick?: (item: T, status?: boolean) => void;
+  onPrimaryActionClick?: (item: T) => void;
+  onSecondaryActionClick?: (item: T) => void;
+  primaryActionText?: string;
+  secondaryActionText?: string;
+  onRowClick?: (item: T) => void;
   showStatus?: boolean;
   statusData?: boolean[];
+  statusActiveText?: string;
+  statusInactiveText?: string;
 }
 
 const Table = <T,>({
@@ -37,13 +39,15 @@ const Table = <T,>({
   emptyTableComponent,
   isLoading,
   onActionClick,
-  itemIdAccessor,
-  itemFromAccessor,
-  itemToAccessor,
-  itemLocationAccessor,
   onRowClick,
   showStatus,
   statusData,
+  onPrimaryActionClick,
+  onSecondaryActionClick,
+  primaryActionText,
+  secondaryActionText,
+  statusActiveText,
+  statusInactiveText,
 }: TableProps<T>) => {
   return (
     <div className={classes.Container}>
@@ -62,17 +66,25 @@ const Table = <T,>({
               <table>
                 <thead>
                   <tr>
-                    {showStatus && (
-                      <th>
-                        <span>Status</span>
-                      </th>
-                    )}
                     {headers.map((header) => (
                       <th key={v4()}>
                         <span>{header.label}</span>
                       </th>
                     ))}
-                    <th scope="col" className="sr-only" colSpan={1} />
+                    {showStatus && (
+                      <th>
+                        <span>Status</span>
+                      </th>
+                    )}
+                    {onPrimaryActionClick && (
+                      <th scope="col" className="sr-only" colSpan={1} />
+                    )}
+                    {onSecondaryActionClick && (
+                      <th scope="col" className="sr-only" colSpan={1} />
+                    )}
+                    {onActionClick && (
+                      <th scope="col" className="sr-only" colSpan={1} />
+                    )}
                   </tr>
                 </thead>
                 <tbody>
@@ -90,20 +102,21 @@ const Table = <T,>({
                             <tr
                               key={v4()}
                               className={onRowClick && classes.Clickable}
-                              onClick={() =>
+                              onClick={(e: any) =>
                                 onRowClick &&
-                                onRowClick(
-                                  dataItem[itemIdAccessor] as unknown as string,
-                                  dataItem[
-                                    itemFromAccessor
-                                  ] as unknown as number,
-                                  dataItem[itemToAccessor] as unknown as number,
-                                  dataItem[
-                                    itemLocationAccessor
-                                  ] as unknown as string
-                                )
+                                e.target.type !== 'button' &&
+                                onRowClick(dataItem)
                               }
                             >
+                              {headers.map((header) => (
+                                <td key={v4()}>
+                                  {
+                                    dataItem[
+                                      header.accessor
+                                    ] as unknown as string
+                                  }
+                                </td>
+                              ))}
                               {statusData && (
                                 <td>
                                   {statusData[index] ? (
@@ -117,30 +130,55 @@ const Table = <T,>({
                                   )}
                                 </td>
                               )}
-                              {headers.map((header) => (
-                                <td key={v4()}>
-                                  {
-                                    dataItem[
-                                      header.accessor
-                                    ] as unknown as string
-                                  }
+
+                              {onPrimaryActionClick && (
+                                <td>
+                                  <button
+                                    type={'button'}
+                                    className={'text-primary'}
+                                    onClick={() =>
+                                      onPrimaryActionClick(dataItem)
+                                    }
+                                  >
+                                    {primaryActionText}
+                                  </button>
                                 </td>
-                              ))}
-                              <td colSpan={1}>
-                                <button
-                                  onClick={() =>
-                                    onActionClick(
-                                      dataItem[
-                                        itemIdAccessor
-                                      ] as unknown as string
-                                    )
-                                  }
-                                >
-                                  {!statusData || statusData[index]
-                                    ? 'Cancel'
-                                    : 'Renew'}
-                                </button>
-                              </td>
+                              )}
+                              {onSecondaryActionClick && (
+                                <td>
+                                  <button
+                                    type={'button'}
+                                    className={'text-accent'}
+                                    onClick={() =>
+                                      onSecondaryActionClick(dataItem)
+                                    }
+                                  >
+                                    {secondaryActionText}
+                                  </button>
+                                </td>
+                              )}
+                              {onActionClick && (
+                                <td colSpan={1}>
+                                  <button
+                                    type={'button'}
+                                    className={
+                                      !statusData || statusData[index]
+                                        ? 'text-red-600'
+                                        : 'text-green-600'
+                                    }
+                                    onClick={() =>
+                                      onActionClick(
+                                        dataItem,
+                                        statusData && statusData[index]
+                                      )
+                                    }
+                                  >
+                                    {!statusData || statusData[index]
+                                      ? statusActiveText
+                                      : statusInactiveText}
+                                  </button>
+                                </td>
+                              )}
                             </tr>
                           ))}
                         </>

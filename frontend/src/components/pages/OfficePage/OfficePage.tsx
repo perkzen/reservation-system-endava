@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { dateToUTC, generateDates } from '../../../utils/date';
+import { dateToUTC, generateDates, getTime } from '../../../utils/date';
 import classes from './OfficePage.module.scss';
 import DateCard from '../../ui/DateCard/DateCard';
 import { format } from 'date-fns';
@@ -8,9 +8,8 @@ import { workingHours } from '../../../constants/timeConstants';
 import Office from '../../ui/Office/Office';
 import { useAppDispatch, useAppSelector } from '../../../store/app/hooks';
 import { fetchOffice } from '../../../store/actions/officeActions';
-import { useParams, useSearchParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Carousel from '../../ui/Carousel/Carousel';
-import Card from '../../ui/Card/Card';
 import Toggle from '../../ui/Toggle/Toggle';
 import { DATE, WEEK_DAY } from '../../../constants/dateFormats';
 import Button from '../../ui/Button/Button';
@@ -20,46 +19,70 @@ import {
   removeAllWorkspaceFromReservations,
   toggleMultipleReservations,
 } from '../../../store/features/reservationsSlice';
+import { ReservationType } from '../../../store/models/Reservation';
+import {
+  clearOffice,
+  clearQuery,
+  updateQuery,
+} from '../../../store/features/officeSlice';
 
 const OfficePage = () => {
   const dispatch = useAppDispatch();
-  const { currentOffice } = useAppSelector((state) => state.office);
+  const { currentOffice, query } = useAppSelector((state) => state.office);
+  const { settings } = useAppSelector((state) => state.settings);
   const { reservedWorkspaces, multipleReservations } = useAppSelector(
     (state) => state.reservation
   );
+
   const { loading } = useAppSelector((state) => state.global);
   const isLoading = loading.filter((l) => l.actionType === fetchOffice.type);
 
-  const [from, setFrom] = useState<number>(8);
-  const [to, setTo] = useState<number>(17);
-  const [dates] = useState<Date[]>(generateDates());
-  const [selectedDay, setSelectedDay] = useState<Date>(new Date());
-  const [fullDay, setFullDay] = useState<boolean>(true);
+  const [dates] = useState<Date[]>(
+    generateDates(settings.numOfDaysDisplayed, settings.showWeekends)
+  );
+
   const { id } = useParams();
-  const [searchParams, setSearchParams] = useSearchParams();
+
+  const [fullDay, setFullDay] = useState<boolean>(true);
+  const [selectedDay, setSelectedDay] = useState<Date>(query.date);
+  const [from, setFrom] = useState<number>(getTime(query.from));
+  const [to, setTo] = useState<number>(getTime(query.to));
 
   useEffect(() => {
     dispatch(removeAllWorkspaceFromReservations());
-  }, [searchParams, dispatch]);
+    setFrom(getTime(query.from));
+    setTo(getTime(query.to));
+    setSelectedDay(query.date);
+  }, [query, dispatch]);
 
   useEffect(() => {
-    setSearchParams({
-      from: dateToUTC(selectedDay, from).toString(),
-      to: dateToUTC(selectedDay, to).toString(),
-    });
-  }, [from, selectedDay, setSearchParams, to]);
+    return () => {
+      dispatch(clearQuery());
+      dispatch(removeAllWorkspaceFromReservations());
+      dispatch(clearOffice());
+    };
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(
+      updateQuery({
+        date: selectedDay,
+        from: dateToUTC(selectedDay, from),
+        to: dateToUTC(selectedDay, to),
+      })
+    );
+  }, [dispatch, selectedDay, from, to]);
 
   useEffect(() => {
     if (id) {
       dispatch(
         fetchOffice({
+          ...query,
           _id: id,
-          from: Number(searchParams.get('from')),
-          to: Number(searchParams.get('to')),
         })
       );
     }
-  }, [dispatch, id, searchParams]);
+  }, [dispatch, id, query]);
 
   const handleChangeSlider = (value: number | number[]) => {
     if (value instanceof Array) {
@@ -95,6 +118,7 @@ const OfficePage = () => {
             to: to,
             workspaceId: reservedWorkspaces,
             office: currentOffice?._id,
+            type: ReservationType.NEW,
           },
         })
       );
@@ -119,18 +143,16 @@ const OfficePage = () => {
           );
         })}
       </Carousel>
-      <Card>
-        <TimeSlider
-          min={8}
-          max={17}
-          marks={workingHours}
-          defaultValue={[from, to]}
-          value={[from, to]}
-          tipFormatter={(value) => `${value}`}
-          tipProps={{}}
-          onChange={handleChangeSlider}
-        />
-      </Card>
+      <TimeSlider
+        min={8}
+        max={17}
+        marks={workingHours}
+        defaultValue={[from, to]}
+        value={[from, to]}
+        tipFormatter={(value) => `${value}`}
+        tipProps={{}}
+        onChange={handleChangeSlider}
+      />
       <div className={classes.MultipleReservation}>
         <div>
           <Toggle

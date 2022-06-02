@@ -17,6 +17,9 @@ export class Office {
   rows: number;
 
   @Prop()
+  disabled: boolean;
+
+  @Prop()
   workspaces: {
     id: string;
     orientation: string;

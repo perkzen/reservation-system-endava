@@ -12,6 +12,7 @@
   "sign_up": "Sign up",
   "sign_in": "Sign in",
   "page_not_found": "Page not found",
+  "office_not_found": "Office not found",
   "please_check_url": "Please check the URL in the address bar and try again.",
   "go_back_home": "Go back home",
   "logout": "Logout",
@@ -29,5 +30,8 @@
   "reset": "Reset",
   "reset_password": "Reset password",
   "email_sent": "Email was sent",
-  "reset_success": "Password reset successful"
+  "reset_success": "Password reset successful",
+  "active_reservations": "Active reservations",
+  "num_of_days_displayed": "Days to display",
+  "num_of_expired_reservations": "Expired reservations"
 }

@@ -1,29 +1,28 @@
-import { addMinutes, eachDayOfInterval, format } from 'date-fns';
+import { addMinutes, eachDayOfInterval, format, isWeekend } from 'date-fns';
 import add from 'date-fns/add';
 import getHours from 'date-fns/getHours';
-import subMonths from 'date-fns/subMonths';
 import { DATE } from '../constants/dateFormats';
 
-export const generateDates = (): Date[] => {
+export const generateDates = (
+  numOfDaysDisplayed: number,
+  showWeekends: boolean
+): Date[] => {
   const currentDate = new Date();
-  const dates = [];
-  const result = eachDayOfInterval({
+  let result = eachDayOfInterval({
     start: currentDate,
-    end: add(currentDate, { days: 13 }),
+    end: add(currentDate, { days: numOfDaysDisplayed }),
   });
-  for (const date of result) {
-    dates.push(date);
-  }
+  if (!showWeekends) result = result.filter((date) => !isWeekend(date));
 
-  return dates;
+  return result;
 };
 
-export const dateToUTC = (date: Date, hours: number): number => {
+export const dateToUTC = (date: Date, hours?: number): number => {
   date.setHours(0, 0, 0, 0);
   let myDate = add(date, { hours: hours });
   return Date.UTC(
     myDate.getFullYear(),
-    myDate.getMonth() + 1,
+    myDate.getMonth(),
     myDate.getDate(),
     myDate.getHours()
   );
@@ -35,6 +34,10 @@ export const getTime = (unix: number) => {
 };
 
 export const getDate = (unix: number) => {
-  const date = subMonths(new Date(unix), 1);
+  const date = new Date(unix);
   return format(date, DATE);
+};
+
+export const getDateFromUnix = (unix: number) => {
+  return new Date(unix);
 };

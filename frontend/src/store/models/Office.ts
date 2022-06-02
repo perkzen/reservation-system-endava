@@ -7,6 +7,7 @@ export interface Office {
   cols: number;
   rows: number;
   workspaces: Workspace[];
+  disabled: boolean;
 }
 
 export interface Workspace {
@@ -18,6 +19,12 @@ export interface Workspace {
   reservationId?: string;
   from?: number;
   to?: number;
+}
+
+export interface Query {
+  date: Date;
+  from: number;
+  to: number;
 }
 
 export interface OfficeQuery {

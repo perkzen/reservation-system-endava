@@ -10,6 +10,7 @@ import { addModal } from '../../../store/features/globalSlice';
 import { ModalType } from '../../../store/models/Modal';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 import OfficeLegend from '../OfficeLegend/OfficeLegend';
+import { ReservationType } from '../../../store/models/Reservation';
 
 interface OfficeProps {
   office?: OfficeModel;
@@ -18,6 +19,7 @@ interface OfficeProps {
   to?: number;
   loading?: boolean;
   emptyText?: string;
+  edit?: boolean;
 }
 
 const Office: FC<OfficeProps> = ({
@@ -27,6 +29,7 @@ const Office: FC<OfficeProps> = ({
   to,
   loading,
   emptyText,
+  edit,
 }) => {
   const dispatch = useAppDispatch();
 
@@ -41,6 +44,7 @@ const Office: FC<OfficeProps> = ({
           to: to,
           workspaceId: [workspaceId],
           office: office?._id,
+          type: ReservationType.NEW,
         },
       })
     );
@@ -67,7 +71,7 @@ const Office: FC<OfficeProps> = ({
                       <Workspace
                         key={v4()}
                         workspace={findWorkspace(pos, office.workspaces)}
-                        onClick={handleClick}
+                        onClick={!edit ? handleClick : undefined}
                       />
                     ) : (
                       <div key={v4()} />

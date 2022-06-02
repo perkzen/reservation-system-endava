@@ -1,7 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
   IsArray,
+  IsBoolean,
   IsNumber,
+  IsOptional,
   IsPositive,
   IsString,
   MinLength,
@@ -29,6 +31,11 @@ export class CreateOfficeDto {
   @IsNumber()
   @IsPositive()
   rows: number;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsBoolean()
+  disabled: boolean;
 
   @ApiProperty({ required: true })
   @ValidateNested({ each: true })

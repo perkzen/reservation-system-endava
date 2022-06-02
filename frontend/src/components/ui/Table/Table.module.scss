@@ -16,7 +16,7 @@
     div:first-child {
       @apply sm:flex-auto;
       h1 {
-        @apply text-xl font-semibold text-gray-900;
+        @apply text-lg font-semibold text-gray-900;
       }
     }
 
@@ -55,10 +55,6 @@
 
       td:last-of-type {
         @apply relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6;
-
-        button {
-          @apply text-accent;
-        }
       }
     }
   }

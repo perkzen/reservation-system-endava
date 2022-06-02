@@ -17,7 +17,7 @@ import { defaultNavigation } from '../nav_data';
 const NavItems = () => {
   const dispatch = useAppDispatch();
   const [treeData, setTreeData] = useState<NodeModel[]>(defaultNavigation);
-  const { offices } = useAppSelector((state) => state.office);
+  const { offices, currentOffice } = useAppSelector((state) => state.office);
 
   useEffect(() => {
     dispatch(fetchOffices());
@@ -36,21 +36,25 @@ const NavItems = () => {
           render={(node, { depth, isOpen, onToggle }) => (
             <div style={{ marginInlineStart: depth * 10 }}>
               {node.data ? (
-                <>
+                <div className={classes.Link}>
                   <Link
                     to={node.data as unknown as string}
                     state={node.text}
                     key={node.id}
                     onClick={onToggle}
                   >
-                    {node.text}
+                    {currentOffice?.name === node.text ? (
+                      <div className={classes.Active}>{node.text}</div>
+                    ) : (
+                      node.text
+                    )}
                     {node.droppable && (
                       <span>
                         {isOpen ? <ChevronDownIcon /> : <ChevronRightIcon />}
                       </span>
                     )}
                   </Link>
-                </>
+                </div>
               ) : (
                 node.text
               )}
