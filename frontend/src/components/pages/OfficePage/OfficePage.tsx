@@ -20,7 +20,11 @@ import {
   removeAllWorkspaceFromReservations,
   toggleMultipleReservations,
 } from '../../../store/features/reservationsSlice';
-import { clearQuery, updateQuery } from '../../../store/features/officeSlice';
+import {
+  clearOffice,
+  clearQuery,
+  updateQuery,
+} from '../../../store/features/officeSlice';
 
 const OfficePage = () => {
   const dispatch = useAppDispatch();
@@ -55,6 +59,7 @@ const OfficePage = () => {
     return () => {
       dispatch(clearQuery());
       dispatch(removeAllWorkspaceFromReservations());
+      dispatch(clearOffice());
     };
   }, [dispatch]);
 
