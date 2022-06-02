@@ -1,5 +1,10 @@
 import { Office } from './Office';
 
+export enum ReservationType {
+  NEW = 'NEW',
+  RENEW = 'RENEW',
+}
+
 interface ReservationModel {
   _id: string;
   workspaceId: string[];
@@ -13,12 +18,17 @@ export interface CreateReservation extends ReservationModel {
   office: string;
 }
 
+export interface UpdateReservation extends ReservationModel {
+  _id: string;
+}
+
 export interface Reservation extends ReservationModel {
   office: Office;
 }
 
 export interface ReservationModalData extends CreateReservation {
   date: Date;
+  type: ReservationType;
 }
 
 export interface ReservationHistory extends ReservationModel, Reservation {

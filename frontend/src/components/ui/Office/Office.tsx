@@ -10,6 +10,7 @@ import { addModal } from '../../../store/features/globalSlice';
 import { ModalType } from '../../../store/models/Modal';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 import OfficeLegend from '../OfficeLegend/OfficeLegend';
+import { ReservationType } from '../../../store/models/Reservation';
 
 interface OfficeProps {
   office?: OfficeModel;
@@ -41,6 +42,7 @@ const Office: FC<OfficeProps> = ({
           to: to,
           workspaceId: [workspaceId],
           office: office?._id,
+          type: ReservationType.NEW,
         },
       })
     );

@@ -6,6 +6,7 @@ import {
   Param,
   Delete,
   UseGuards,
+  Put,
 } from '@nestjs/common';
 import { ReservationsService } from './reservations.service';
 import { CreateReservationDto } from './dto/create-reservation.dto';
@@ -46,6 +47,15 @@ export class ReservationsController {
     @User('uid') userId: string,
   ): Promise<Reservation[]> {
     return await this.reservationsService.findAllReservationsByUser(userId);
+  }
+
+  @ApiOkResponse({ description: 'Renews reservation' })
+  @Put('renew')
+  async renew(
+    @Body() data: Reservation,
+    @User('uid') userId: string,
+  ): Promise<SuccessResponse> {
+    return await this.reservationsService.renewReservation(data, userId);
   }
 
   @ApiOkResponse({ description: 'Cancel reservation ' })

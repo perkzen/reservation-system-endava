@@ -20,6 +20,7 @@ import {
   removeAllWorkspaceFromReservations,
   toggleMultipleReservations,
 } from '../../../store/features/reservationsSlice';
+import { ReservationType } from '../../../store/models/Reservation';
 import {
   clearOffice,
   clearQuery,
@@ -118,6 +119,7 @@ const OfficePage = () => {
             to: to,
             workspaceId: reservedWorkspaces,
             office: currentOffice?._id,
+            type: ReservationType.NEW,
           },
         })
       );
