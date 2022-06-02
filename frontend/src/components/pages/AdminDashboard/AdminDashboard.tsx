@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import { routes } from '../../../routes';
 import { addModal, removeModal } from '../../../store/features/globalSlice';
 import { ModalType } from '../../../store/models/Modal';
+import { useTranslation } from 'react-i18next';
 
 const headers: TableHeader<Office>[] = [
   { accessor: 'name', label: 'Name' },
@@ -22,6 +23,7 @@ const AdminDashboard: FC = () => {
   const dispatch = useAppDispatch();
   const { dashboardOffices } = useAppSelector((state) => state.office);
   const { loading } = useAppSelector((state) => state.global);
+  const { t } = useTranslation();
 
   const navigate = useNavigate();
 
@@ -42,15 +44,15 @@ const AdminDashboard: FC = () => {
       dispatch(
         addModal({
           type: ModalType.DELETE,
-          title: 'Disable office',
+          title: t('disable_office'),
           body: (
             <>
-              Are you sure, you want to disable office <b>{office.name}</b> ?
+              {t('office_delete_warning')} <b>{office.name}</b> ?
             </>
           ),
-          primaryActionText: 'Disable',
+          primaryActionText: t('disable'),
           primaryAction: () => dispatch(toggleOffice(office._id as string)),
-          secondaryButtonText: 'Close',
+          secondaryButtonText: t('close'),
           secondaryAction: () => dispatch(removeModal()),
         })
       );
@@ -69,16 +71,16 @@ const AdminDashboard: FC = () => {
     <Table
       data={dashboardOffices}
       headers={headers}
-      title={'Dashboard'}
+      title={t('dashboard')}
       isLoading={isLoading.length > 0}
-      emptyTableComponent={<EmptyTable title={'No offices to show'} />}
+      emptyTableComponent={<EmptyTable title={t('no_offices')} />}
       onPrimaryActionClick={handleEditClick}
-      primaryActionText={'Edit'}
-      buttonLabel={'Add office'}
+      primaryActionText={t('edit')}
+      buttonLabel={t('add_office')}
       buttonAction={() => navigate(routes.CREATE_OFFICE)}
       showStatus
-      statusActiveText={'Disable'}
-      statusInactiveText={'Enable'}
+      statusActiveText={t('disable')}
+      statusInactiveText={t('enable')}
       onActionClick={handleActionClick}
       statusData={dashboardOffices.map((office) => !office.disabled)}
       onRowClick={handleRowClick}
