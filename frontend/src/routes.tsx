@@ -14,7 +14,7 @@ export enum routes {
   HOME = '/',
   PAGE_NOT_FOUND = '*',
   OFFICE_NOT_FOUND = '/office-not-found',
-  PROFILE = '/Profile',
+  PROFILE = '/profile',
   OFFICE = ':location/:id',
   CREATE_OFFICE = '/create-office',
   SETTINGS = '/settings',

@@ -20,6 +20,12 @@ export interface Workspace {
   to?: number;
 }
 
+export interface Query {
+  date: Date;
+  from: number;
+  to: number;
+}
+
 export interface OfficeQuery {
   _id: string;
   from: number;

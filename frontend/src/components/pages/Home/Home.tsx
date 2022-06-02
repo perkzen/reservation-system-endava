@@ -10,8 +10,9 @@ import {
 import EmptyTable from '../../ui/Table/EmptyTable/EmptyTable';
 import { addModal, removeModal } from '../../../store/features/globalSlice';
 import { ModalType } from '../../../store/models/Modal';
-import { getDate, getTime } from '../../../utils/date';
+import { getDate, getDateFromUnix, getTime } from '../../../utils/date';
 import { useNavigate } from 'react-router-dom';
+import { updateQuery } from '../../../store/features/officeSlice';
 
 const headers: TableHeader<ReservationTable>[] = [
   { accessor: 'office', label: 'Office' },
@@ -61,8 +62,13 @@ const Home: FC = () => {
   };
 
   const handleRowClick = (item: ReservationTable) => {
-    navigate(
-      `/${item.location}/${item.officeId}?from=${item.from}&to=${item.to}`
+    navigate(`/${item.location}/${item.officeId}`, { state: item.office });
+    dispatch(
+      updateQuery({
+        date: getDateFromUnix(item.from),
+        from: item.from,
+        to: item.to,
+      })
     );
   };
 
