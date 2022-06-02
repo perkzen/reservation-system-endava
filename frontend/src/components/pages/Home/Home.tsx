@@ -16,6 +16,7 @@ import { ModalType } from '../../../store/models/Modal';
 import { getDate, getDateFromUnix, getTime } from '../../../utils/date';
 import { useNavigate } from 'react-router-dom';
 import { updateQuery } from '../../../store/features/officeSlice';
+import { useTranslation } from 'react-i18next';
 
 const headers: TableHeader<ReservationTable>[] = [
   { accessor: 'office', label: 'Office' },
@@ -29,6 +30,7 @@ const Home: FC = () => {
   const { history } = useAppSelector((state) => state.reservation);
   const { loading } = useAppSelector((state) => state.global);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   // convert Reservation to ReservationTable
   const data: ReservationTable[] = history.map((reservation) => {
@@ -100,9 +102,9 @@ const Home: FC = () => {
     <Table
       data={data}
       headers={headers}
-      title={'Your reservations'}
+      title={t('your_reservations')}
       isLoading={isLoading.length > 0}
-      emptyTableComponent={<EmptyTable title={'No data to display'} />}
+      emptyTableComponent={<EmptyTable title={t('empty_table')} />}
       onActionClick={handleActionClick}
       showStatus
       statusActiveText={'Cancel'}

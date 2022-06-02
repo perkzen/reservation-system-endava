@@ -12,6 +12,9 @@ import Office from '../../ui/Office/Office';
 import { Office as OfficeModel } from '../../../store/models/Office';
 import { useAppDispatch, useAppSelector } from '../../../store/app/hooks';
 import Button from '../../ui/Button/Button';
+import { saveOffice } from '../../../store/actions/officeActions';
+import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import {
   fetchOfficeJSON,
   saveOffice,
@@ -22,6 +25,7 @@ const CreateOfficePage: FC = () => {
   const dispatch = useAppDispatch();
   const [office, setOffice] = useState<OfficeModel | undefined>();
   const { loading } = useAppSelector((state) => state.global);
+  const { t } = useTranslation();
   const { currentOffice } = useAppSelector((state) => state.office);
   const { id } = useParams();
 
@@ -75,6 +79,10 @@ const CreateOfficePage: FC = () => {
           Save office
         </Button>
       </div>
+      <Office office={office} emptyText={'Upload file to see office preview'} />
+      <Link to={'/files/office_example.json'} target="_blank">
+        {t('download_office_json')}
+      </Link>
       <Office
         office={office}
         emptyText={'Upload file to see office preview'}

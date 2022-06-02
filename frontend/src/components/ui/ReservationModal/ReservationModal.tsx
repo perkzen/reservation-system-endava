@@ -17,6 +17,7 @@ import {
   renewReservation,
 } from '../../../store/actions/reservationActions';
 import { removeModal } from '../../../store/features/globalSlice';
+import { useTranslation } from 'react-i18next';
 
 interface ReservationModalProps {
   modal: Modal;
@@ -34,6 +35,7 @@ const ReservationModal: FC<ReservationModalProps> = ({
   modal: { title, data },
 }) => {
   const dispatch = useAppDispatch();
+  const { t } = useTranslation();
   const { user } = useAppSelector((state) => state.user);
   const reservationData = data as ReservationModalData;
   const reservation = {
@@ -86,20 +88,27 @@ const ReservationModal: FC<ReservationModalProps> = ({
 
         <div className={classes.Body}>
           <p>
-            Selected day: <b>{format(reservationData.date, 'dd.MM.yyyy')}</b>
+            {t('selected_day')}
+            <b>{format(reservationData.date, t('time_format'))}</b>
             <br />
-            Selected time:{' '}
-            <b>{reservationData.from + 'h - ' + reservationData.to + 'h'}</b>
+            {t('selected_time')}
+            <b>
+              {reservationData.from +
+                t('h_format') +
+                '-' +
+                reservationData.to +
+                t('h_format')}
+            </b>
           </p>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className={classes.Input}>
-              <Input {...register('comment')} label={'Comment'} />
+              <Input {...register('comment')} label={t('comment')} />
             </div>
             <div className={classes.ButtonContainer}>
               <Button type={'button'} onClick={() => dispatch(removeModal())}>
-                Close
+                {t('close')}
               </Button>
-              <Button>Confirm</Button>
+              <Button>{t('confirm')}</Button>
             </div>
           </form>
         </div>

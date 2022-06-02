@@ -25,6 +25,7 @@ import {
   clearQuery,
   updateQuery,
 } from '../../../store/features/officeSlice';
+import { useTranslation } from 'react-i18next';
 
 const OfficePage = () => {
   const dispatch = useAppDispatch();
@@ -33,6 +34,7 @@ const OfficePage = () => {
   const { reservedWorkspaces, multipleReservations } = useAppSelector(
     (state) => state.reservation
   );
+  const { t } = useTranslation();
 
   const { loading } = useAppSelector((state) => state.global);
   const isLoading = loading.filter((l) => l.actionType === fetchOffice.type);
@@ -111,7 +113,7 @@ const OfficePage = () => {
       dispatch(
         addModal({
           type: ModalType.RESERVATION,
-          title: 'Confirm reservation',
+          title: t('confirm_reservation'),
           data: {
             date: selectedDay,
             from: from,
@@ -128,7 +130,7 @@ const OfficePage = () => {
   return (
     <div className={classes.Container}>
       <div className={classes.Flex}>
-        <h1>Pick your workspace</h1>
+        <h1>{t('pick_workspace')}</h1>
       </div>
       <Carousel>
         {dates.map((date: Date, index: number) => {
@@ -158,13 +160,13 @@ const OfficePage = () => {
           <Toggle
             handleChangeToggle={toggleFullDay}
             checked={fullDay}
-            label={'Full day'}
+            label={t('full_day')}
           />
           <br />
           <Toggle
             handleChangeToggle={handleToggleMultipleReservations}
             checked={multipleReservations}
-            label={'Multiple reservations'}
+            label={t('multiple_reservations')}
           />
         </div>
         {multipleReservations && (
@@ -172,7 +174,7 @@ const OfficePage = () => {
             disabled={!multipleReservations}
             onClick={handleMultipleReservations}
           >
-            Confirm
+            {t('confirm')}
           </Button>
         )}
       </div>

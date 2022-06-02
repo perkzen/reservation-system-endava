@@ -3,6 +3,7 @@ import classes from './FileInput.module.scss';
 import { toast } from 'react-toastify';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 import { classNames } from '../../../utils/classNames';
+import { useTranslation } from 'react-i18next';
 
 type AcceptType = 'application/json';
 
@@ -21,6 +22,7 @@ const FileInput = <T,>({
 }: FileInputProps<T>) => {
   const [file, setFile] = useState<File | null>();
   const [loading, setLoading] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (!data) {
@@ -71,7 +73,7 @@ const FileInput = <T,>({
         {loading ? (
           <span>
             <LoadingSpinner />
-            Loading
+            {t('loading')}
           </span>
         ) : (
           <>
@@ -80,14 +82,14 @@ const FileInput = <T,>({
             ) : (
               <span>
                 <input type="file" accept={accept} onChange={readFile} />
-                Select file
+                {t('selectFile')}
               </span>
             )}
           </>
         )}
         <input
           type="text"
-          value={file?.name ? file?.name : 'No file uploaded yet'}
+          value={file?.name ? file?.name : t('noFileSelected')}
           readOnly
         />
       </label>

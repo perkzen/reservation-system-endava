@@ -4,10 +4,12 @@ import FloorPlan from '../../../assets/endava-mb-floor-plan.png';
 import classes from './FloorPlanPage.module.scss';
 // @ts-ignore
 import ImageMap from 'image-map';
+import { useTranslation } from 'react-i18next';
 
 const FloorPlanPage: FC = () => {
   const navigate = useNavigate();
   const { location } = useParams();
+  const { t } = useTranslation();
   ImageMap('img[usemap]');
 
   return (
@@ -68,7 +70,7 @@ const FloorPlanPage: FC = () => {
           </map>
         </>
       ) : (
-        <h1 className={classes.Heading}>No floor plane available.</h1>
+        <h1 className={classes.Heading}>{t('no_floor_plan_available')}</h1>
       )}
     </>
   );

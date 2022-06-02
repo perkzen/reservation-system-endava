@@ -80,7 +80,7 @@ const SettingsPage = () => {
         <div>
           <Toggle
             checked={showWeekends}
-            label={'Show weekends'}
+            label={t('show_weekends')}
             handleChangeToggle={toggleShowWeekends}
           />
         </div>
