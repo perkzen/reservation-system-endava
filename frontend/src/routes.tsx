@@ -13,6 +13,7 @@ export enum routes {
   RESET_PASSWORD = '/reset-password',
   HOME = '/',
   PAGE_NOT_FOUND = '*',
+  OFFICE_NOT_FOUND = '/office-not-found',
   PROFILE = '/Profile',
   OFFICE = ':location/:id',
   CREATE_OFFICE = '/create-office',
