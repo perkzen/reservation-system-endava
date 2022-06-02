@@ -19,10 +19,16 @@ interface TableProps<T> {
   buttonLabel?: string;
   isLoading?: boolean;
   emptyTableComponent: ReactNode;
-  onActionClick: (item: T, status?: boolean) => void;
+  onActionClick?: (item: T, status?: boolean) => void;
+  onPrimaryActionClick?: (item: T) => void;
+  onSecondaryActionClick?: (item: T) => void;
+  primaryActionText?: string;
+  secondaryActionText?: string;
   onRowClick?: (item: T) => void;
   showStatus?: boolean;
   statusData?: boolean[];
+  statusActiveText?: string;
+  statusInactiveText?: string;
 }
 
 const Table = <T,>({
@@ -37,6 +43,12 @@ const Table = <T,>({
   onRowClick,
   showStatus,
   statusData,
+  onPrimaryActionClick,
+  onSecondaryActionClick,
+  primaryActionText,
+  secondaryActionText,
+  statusActiveText,
+  statusInactiveText,
 }: TableProps<T>) => {
   const { t } = useTranslation();
 
@@ -67,7 +79,15 @@ const Table = <T,>({
                         <span>Status</span>
                       </th>
                     )}
-                    <th scope="col" className="sr-only" colSpan={1} />
+                    {onPrimaryActionClick && (
+                      <th scope="col" className="sr-only" colSpan={1} />
+                    )}
+                    {onSecondaryActionClick && (
+                      <th scope="col" className="sr-only" colSpan={1} />
+                    )}
+                    {onActionClick && (
+                      <th scope="col" className="sr-only" colSpan={1} />
+                    )}
                   </tr>
                 </thead>
                 <tbody>
@@ -133,6 +153,55 @@ const Table = <T,>({
                                     : t('renew')}
                                 </button>
                               </td>
+
+                              {onPrimaryActionClick && (
+                                <td>
+                                  <button
+                                    type={'button'}
+                                    className={'text-primary'}
+                                    onClick={() =>
+                                      onPrimaryActionClick(dataItem)
+                                    }
+                                  >
+                                    {primaryActionText}
+                                  </button>
+                                </td>
+                              )}
+                              {onSecondaryActionClick && (
+                                <td>
+                                  <button
+                                    type={'button'}
+                                    className={'text-accent'}
+                                    onClick={() =>
+                                      onSecondaryActionClick(dataItem)
+                                    }
+                                  >
+                                    {secondaryActionText}
+                                  </button>
+                                </td>
+                              )}
+                              {onActionClick && (
+                                <td colSpan={1}>
+                                  <button
+                                    type={'button'}
+                                    className={
+                                      !statusData || statusData[index]
+                                        ? 'text-red-600'
+                                        : 'text-green-600'
+                                    }
+                                    onClick={() =>
+                                      onActionClick(
+                                        dataItem,
+                                        statusData && statusData[index]
+                                      )
+                                    }
+                                  >
+                                    {!statusData || statusData[index]
+                                      ? statusActiveText
+                                      : statusInactiveText}
+                                  </button>
+                                </td>
+                              )}
                             </tr>
                           ))}
                         </>

@@ -3,15 +3,21 @@ import { fetchUserDetails, saveUserDetails } from '../actions/userActions';
 import { fetchUserDetailsSaga, saveUserDetailsSaga } from './userSaga';
 import {
   deleteOfficeSaga,
+  fetchAllOfficesSaga,
+  fetchOfficeJSONSaga,
   fetchOfficeSaga,
   fetchOfficesSaga,
   saveOfficeSaga,
+  toggleOfficeSaga,
 } from './officeSaga';
 import {
   deleteOffice,
+  fetchAllOffices,
   fetchOffice,
+  fetchOfficeJSON,
   fetchOffices,
   saveOffice,
+  toggleOffice,
 } from '../actions/officeActions';
 import {
   createReservation,
@@ -42,6 +48,9 @@ export function* watchOffice(): Generator {
   yield takeLatest(deleteOffice.type, deleteOfficeSaga);
   yield takeLatest(fetchOffices.type, fetchOfficesSaga);
   yield takeLatest(fetchOffice.type, fetchOfficeSaga);
+  yield takeLatest(fetchAllOffices.type, fetchAllOfficesSaga);
+  yield takeLatest(toggleOffice.type, toggleOfficeSaga);
+  yield takeLatest(fetchOfficeJSON.type, fetchOfficeJSONSaga);
 }
 
 export function* watchReservation(): Generator {

@@ -107,6 +107,8 @@ const Home: FC = () => {
       emptyTableComponent={<EmptyTable title={t('empty_table')} />}
       onActionClick={handleActionClick}
       showStatus
+      statusActiveText={'Cancel'}
+      statusInactiveText={'Renew'}
       statusData={data.map((d) => d.active)}
       onRowClick={handleRowClick}
     />

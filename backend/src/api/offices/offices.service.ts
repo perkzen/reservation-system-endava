@@ -26,8 +26,22 @@ export class OfficesService {
     return { success: 'Office was created successfully' };
   }
 
+  async findAllActive(): Promise<Office[]> {
+    const offices = await this.officeRepository.find({});
+    return offices.filter((office) => !office.disabled);
+  }
+
   async findAll(): Promise<Office[]> {
     return await this.officeRepository.find({});
+  }
+
+  async findOfficeJSON(id: string): Promise<Office> {
+    const office = await this.officeRepository.findOne({ _id: id });
+    if (!office) {
+      throw new HttpException(Errors.OFFICE_NOT_FOUND, HttpStatus.NOT_FOUND);
+    }
+
+    return office;
   }
 
   async findOne(id: string, { from, to }: ReservationQuery): Promise<Office> {
@@ -65,7 +79,10 @@ export class OfficesService {
     return found;
   }
 
-  async update(id: string, updateOfficeDto: UpdateOfficeDto) {
+  async update(
+    id: string,
+    updateOfficeDto: UpdateOfficeDto,
+  ): Promise<SuccessResponse> {
     const found = await this.officeRepository.findOneAndUpdate(
       { _id: id },
       updateOfficeDto,
@@ -74,6 +91,20 @@ export class OfficesService {
     if (!found) {
       throw new HttpException(Errors.OFFICE_NOT_FOUND, HttpStatus.NOT_FOUND);
     }
+
+    return { success: 'Office was updated successfully' };
+  }
+
+  async toggleOffice(id: string) {
+    const office = await this.officeRepository.findOne({ _id: id });
+    if (!office) {
+      throw new HttpException(Errors.OFFICE_NOT_FOUND, HttpStatus.NOT_FOUND);
+    }
+
+    await this.officeRepository.updateOne(
+      { _id: id },
+      { disabled: !office.disabled },
+    );
   }
 
   async remove(id: string) {

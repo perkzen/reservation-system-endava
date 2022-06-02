@@ -5,6 +5,7 @@ import OfficePage from './components/pages/OfficePage/OfficePage';
 import CreateOfficePage from './components/pages/CreateOfficePage/CreateOfficePage';
 import FloorPlanPage from './components/pages/FloorPlanPage/FloorPlanPage';
 import SettingsPage from './components/pages/SettingsPage/SettingsPage';
+import AdminDashboard from './components/pages/AdminDashboard/AdminDashboard';
 
 export enum routes {
   LOGIN = '/sign-in',
@@ -16,9 +17,11 @@ export enum routes {
   OFFICE_NOT_FOUND = '/office-not-found',
   PROFILE = '/profile',
   OFFICE = ':location/:id',
-  CREATE_OFFICE = '/create-office',
+  CREATE_OFFICE = '/dashboard/office',
+  EDIT_OFFICE = '/dashboard/office',
   SETTINGS = '/settings',
   FLOOR_PLAN = '/:location',
+  DASHBOARD = '/dashboard',
 }
 
 interface Route {
@@ -35,6 +38,8 @@ export const protectedRoutes: Route[] = [
 ];
 
 export const adminRoutes: Route[] = [
-  { path: routes.CREATE_OFFICE, element: <CreateOfficePage /> },
+  { path: `${routes.CREATE_OFFICE}`, element: <CreateOfficePage /> },
+  { path: `${routes.EDIT_OFFICE}/:id`, element: <CreateOfficePage /> },
   { path: routes.SETTINGS, element: <SettingsPage /> },
+  { path: routes.DASHBOARD, element: <AdminDashboard /> },
 ];

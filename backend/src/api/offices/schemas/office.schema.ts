@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
-@Schema()
+@Schema({ timestamps: true })
 export class Office {
   _id: string;
 
@@ -15,6 +15,9 @@ export class Office {
 
   @Prop()
   rows: number;
+
+  @Prop()
+  disabled: boolean;
 
   @Prop()
   workspaces: {
