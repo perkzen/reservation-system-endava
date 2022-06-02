@@ -8,15 +8,15 @@ const OfficeLegend: FC = () => {
   return (
     <div className={classes.Container}>
       <div>
-        <div className={classes.Available}></div>
+        <div className={classes.Available} />
         <p>{t('available')}</p>
       </div>
       <div>
-        <div className={classes.Unavailable}></div>
+        <div className={classes.Unavailable} />
         <p>{t('unavailable')}</p>
       </div>
       <div>
-        <div className={classes.Yours}></div>
+        <div className={classes.Yours} />
         <p>{t('your_desk')}</p>
       </div>
     </div>

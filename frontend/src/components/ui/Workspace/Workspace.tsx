@@ -20,6 +20,7 @@ import { ModalType } from '../../../store/models/Modal';
 import { deleteReservationAndFetchOffice } from '../../../store/actions/reservationActions';
 import { getTime } from '../../../utils/date';
 import { useSearchParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 interface WorkspaceProps {
   workspace: WorkspaceModel;
@@ -34,6 +35,7 @@ const Workspace: FC<WorkspaceProps> = ({ workspace, onClick }) => {
   );
   const dispatch = useAppDispatch();
   const [searchParams] = useSearchParams();
+  const { t } = useTranslation();
 
   const showWorkspace = (): string => {
     if (reservedWorkspaces.includes(workspace.id) && !workspace.reserved)
@@ -52,9 +54,9 @@ const Workspace: FC<WorkspaceProps> = ({ workspace, onClick }) => {
       dispatch(
         addModal({
           type: ModalType.DELETE,
-          title: 'Delete reservation',
-          body: 'Are you sure you want to delete your reservation?',
-          primaryActionText: 'Delete',
+          title: t('delete_reservation'),
+          body: t('reservation_delete_warning'),
+          primaryActionText: t('delete'),
           primaryAction: () =>
             dispatch(
               deleteReservationAndFetchOffice({
@@ -66,7 +68,7 @@ const Workspace: FC<WorkspaceProps> = ({ workspace, onClick }) => {
                 },
               })
             ),
-          secondaryButtonText: 'Close',
+          secondaryButtonText: t('close'),
           secondaryAction: () => dispatch(removeModal()),
         })
       );
@@ -90,9 +92,9 @@ const Workspace: FC<WorkspaceProps> = ({ workspace, onClick }) => {
             classes.Time,
             workspaceTimeOrientation(workspace.orientation)
           )}
-        >{`${getTime(workspace.from as number)}h - ${getTime(
+        >{`${getTime(workspace.from as number)}${t('h_format')} - ${getTime(
           workspace.to as number
-        )}h`}</p>
+        )}${t('h_format')}`}</p>
       )}
       <img
         className={classNames(
@@ -103,7 +105,7 @@ const Workspace: FC<WorkspaceProps> = ({ workspace, onClick }) => {
             : ''
         )}
         src={showWorkspace()}
-        alt="workspace"
+        alt={t('workspace')}
         onClick={handleOnClick}
       />
     </div>

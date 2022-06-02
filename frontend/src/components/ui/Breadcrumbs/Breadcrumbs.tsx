@@ -5,9 +5,11 @@ import { routes } from '../../../routes';
 import { Link, useLocation } from 'react-router-dom';
 import BreadcrumbItem, { Breadcrumb } from './BreadcrumbItem/BreadcrumbItem';
 import { v4 } from 'uuid';
+import { useTranslation } from 'react-i18next';
 
 const Breadcrumbs: FC = () => {
   const { pathname, state } = useLocation();
+  const { t } = useTranslation();
   const paths = pathname.split('/').slice(1, pathname.length);
 
   const pages: Breadcrumb[] = paths.map((item, index) => {
@@ -23,7 +25,7 @@ const Breadcrumbs: FC = () => {
           <div>
             <Link to={routes.HOME} className={classes.Link}>
               <HomeIcon aria-hidden="true" />
-              <span className="sr-only">Home</span>
+              <span className="sr-only">{t('home')}</span>
             </Link>
           </div>
         </li>

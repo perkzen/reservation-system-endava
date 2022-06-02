@@ -7,11 +7,13 @@ import { useAppDispatch, useAppSelector } from '../../../store/app/hooks';
 import Button from '../../ui/Button/Button';
 import { saveOffice } from '../../../store/actions/officeActions';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const CreateOfficePage: FC = () => {
   const dispatch = useAppDispatch();
   const [office, setOffice] = useState<OfficeModel | undefined>();
   const { loading } = useAppSelector((state) => state.global);
+  const { t } = useTranslation();
 
   const isLoading = loading.filter((l) => l.actionType === saveOffice.type);
 
@@ -37,7 +39,7 @@ const CreateOfficePage: FC = () => {
       </div>
       <Office office={office} emptyText={'Upload file to see office preview'} />
       <Link to={'/files/office_example.json'} target="_blank">
-        Download example of a office.json file
+        {t('download_office_json')}
       </Link>
     </div>
   );
