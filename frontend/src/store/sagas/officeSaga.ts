@@ -85,7 +85,7 @@ export function* fetchOfficeSaga(
     )) as AxiosResponse<Office>;
     yield put(fetchOfficeSuccess(data));
   } catch (e) {
-    yield put(push(`${routes.OFFICE}/office-not-found`));
+    yield put(push(routes.OFFICE_NOT_FOUND));
   } finally {
     yield put(stopLoading({ actionType: action.type }));
   }

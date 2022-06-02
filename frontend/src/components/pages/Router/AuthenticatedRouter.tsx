@@ -7,9 +7,11 @@ import { v4 } from 'uuid';
 import ProtectedRoute from '../../ui/ProtectedRoute/ProtectedRoute';
 import { useAppSelector } from '../../../store/app/hooks';
 import { Role } from '../../../store/models/User';
+import { useTranslation } from 'react-i18next';
 
 const AuthenticatedRouter: FC = () => {
   const { details } = useAppSelector((state) => state.user);
+  const { t } = useTranslation();
 
   return (
     <>
@@ -40,7 +42,24 @@ const AuthenticatedRouter: FC = () => {
             ))}
           </>
         )}
-        <Route path={routes.PAGE_NOT_FOUND} element={<PageNotFound />} />
+        <Route
+          path={routes.OFFICE_NOT_FOUND}
+          element={
+            <PageNotFound
+              heading={t('office_not_found')}
+              info={t('please_check_url')}
+            />
+          }
+        />
+        <Route
+          path={routes.PAGE_NOT_FOUND}
+          element={
+            <PageNotFound
+              heading={t('page_not_found')}
+              info={t('please_check_url')}
+            />
+          }
+        />
       </Routes>
     </>
   );

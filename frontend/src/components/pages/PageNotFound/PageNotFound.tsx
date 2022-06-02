@@ -1,11 +1,16 @@
 import React, { FC } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useAppSelector } from '../../../store/app/hooks';
 import classes from './PageNotFound.module.scss';
 import { Link } from 'react-router-dom';
 import { routes } from '../../../routes';
-import { useTranslation } from 'react-i18next';
-import { useAppSelector } from '../../../store/app/hooks';
 
-const PageNotFound: FC = () => {
+interface NotFoundProps {
+  heading: string;
+  info: string;
+}
+
+const PageNotFound: FC<NotFoundProps> = ({ heading, info }) => {
   const { t } = useTranslation();
   const { user } = useAppSelector((state) => state.user);
   const isAuthenticated = !!user;
@@ -17,8 +22,8 @@ const PageNotFound: FC = () => {
           <p className={classes.ErrorCode}>404</p>
           <div className={classes.TextContainer}>
             <div className={classes.Divider}>
-              <h1>{t('page_not_found')}</h1>
-              <p className={classes.InfoText}>{t('please_check_url')}</p>
+              <h1>{heading}</h1>
+              <p className={classes.InfoText}>{info}</p>
             </div>
             <div className={classes.LinkContainer}>
               <Link
