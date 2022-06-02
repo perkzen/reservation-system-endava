@@ -34,7 +34,10 @@ const NavItems = () => {
           tree={treeData}
           rootId={0}
           render={(node, { depth, isOpen, onToggle }) => (
-            <div style={{ marginInlineStart: depth * 10 }}>
+            <div
+              style={{ marginInlineStart: depth * 10 }}
+              className={classes.Link}
+            >
               {node.data ? (
                 <>
                   <Link

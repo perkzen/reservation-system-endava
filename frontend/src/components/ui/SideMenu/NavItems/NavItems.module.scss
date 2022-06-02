@@ -8,4 +8,8 @@
   .Active {
     @apply text-accent font-semibold;
   }
+
+  .Link {
+    @apply hover:scale-105 ease-in-out duration-150;
+  }
 }
