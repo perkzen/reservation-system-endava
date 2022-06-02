@@ -38,3 +38,7 @@ export const getDate = (unix: number) => {
   const date = subMonths(new Date(unix), 1);
   return format(date, DATE);
 };
+
+export const getDateFromUnix = (unix: number) => {
+  return subMonths(new Date(unix), 1);
+};
