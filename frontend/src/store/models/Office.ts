@@ -7,6 +7,7 @@ export interface Office {
   cols: number;
   rows: number;
   workspaces: Workspace[];
+  disabled: boolean;
 }
 
 export interface Workspace {

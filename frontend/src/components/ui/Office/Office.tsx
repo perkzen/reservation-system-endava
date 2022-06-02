@@ -19,6 +19,7 @@ interface OfficeProps {
   to?: number;
   loading?: boolean;
   emptyText?: string;
+  edit?: boolean;
 }
 
 const Office: FC<OfficeProps> = ({
@@ -28,6 +29,7 @@ const Office: FC<OfficeProps> = ({
   to,
   loading,
   emptyText,
+  edit,
 }) => {
   const dispatch = useAppDispatch();
 
@@ -69,7 +71,7 @@ const Office: FC<OfficeProps> = ({
                       <Workspace
                         key={v4()}
                         workspace={findWorkspace(pos, office.workspaces)}
-                        onClick={handleClick}
+                        onClick={!edit ? handleClick : undefined}
                       />
                     ) : (
                       <div key={v4()} />

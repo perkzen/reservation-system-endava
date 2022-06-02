@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 export enum ModalType {
   DELETE = 'DELETE',
   RESERVATION = 'RESERVATION',
@@ -9,7 +11,7 @@ export interface Modal {
   data?: unknown;
   primaryActionText?: string;
   secondaryButtonText?: string;
-  body?: string;
+  body?: ReactNode;
   onBackdropClose?: () => void;
   primaryAction?: () => void;
   secondaryAction?: () => void;

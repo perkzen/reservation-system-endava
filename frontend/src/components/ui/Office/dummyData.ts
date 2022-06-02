@@ -6,6 +6,7 @@ export const dummyOffice: Office = {
   cols: 5,
   location: 'Maribor',
   rows: 5,
+  disabled: false,
   workspaces: [
     {
       id: '1',

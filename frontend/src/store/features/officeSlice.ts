@@ -6,12 +6,14 @@ import { dateToUTC } from '../../utils/date';
 
 interface OfficeState {
   offices: Office[];
+  dashboardOffices: Office[];
   currentOffice?: Office;
   query: Query;
 }
 
 const initialState: OfficeState = {
   offices: [],
+  dashboardOffices: [],
   currentOffice: undefined,
   query: {
     date: new Date(),
@@ -30,6 +32,9 @@ export const officeSlice = createSlice({
     fetchOfficeSuccess: (state, action: PayloadAction<Office>) => {
       state.currentOffice = action.payload;
     },
+    fetchAllOfficesSuccess: (state, action: PayloadAction<Office[]>) => {
+      state.dashboardOffices = action.payload;
+    },
     updateQuery: (state, action: PayloadAction<Query>) => {
       state.query = action.payload;
     },
@@ -47,6 +52,7 @@ export const officeSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(removeUser, (state) => {
       state.offices = [];
+      state.dashboardOffices = [];
       state.currentOffice = undefined;
       state.query = {
         date: new Date(),
