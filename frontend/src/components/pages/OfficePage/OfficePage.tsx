@@ -10,7 +10,6 @@ import { useAppDispatch, useAppSelector } from '../../../store/app/hooks';
 import { fetchOffice } from '../../../store/actions/officeActions';
 import { useParams } from 'react-router-dom';
 import Carousel from '../../ui/Carousel/Carousel';
-import Card from '../../ui/Card/Card';
 import Toggle from '../../ui/Toggle/Toggle';
 import { DATE, WEEK_DAY } from '../../../constants/dateFormats';
 import Button from '../../ui/Button/Button';
@@ -144,18 +143,16 @@ const OfficePage = () => {
           );
         })}
       </Carousel>
-      <Card>
-        <TimeSlider
-          min={8}
-          max={17}
-          marks={workingHours}
-          defaultValue={[from, to]}
-          value={[from, to]}
-          tipFormatter={(value) => `${value}`}
-          tipProps={{}}
-          onChange={handleChangeSlider}
-        />
-      </Card>
+      <TimeSlider
+        min={8}
+        max={17}
+        marks={workingHours}
+        defaultValue={[from, to]}
+        value={[from, to]}
+        tipFormatter={(value) => `${value}`}
+        tipProps={{}}
+        onChange={handleChangeSlider}
+      />
       <div className={classes.MultipleReservation}>
         <div>
           <Toggle
