@@ -9,7 +9,7 @@ import {
 import { ChevronDownIcon, ChevronRightIcon } from '@heroicons/react/solid';
 import classes from './NavItems.module.scss';
 import { Link } from 'react-router-dom';
-import { activeItem, generateMenu } from '../../../../utils/menuList';
+import { generateMenu } from '../../../../utils/menuList';
 import { useAppDispatch, useAppSelector } from '../../../../store/app/hooks';
 import { fetchOffices } from '../../../../store/actions/officeActions';
 import { defaultNavigation } from '../nav_data';
@@ -18,7 +18,6 @@ const NavItems = () => {
   const dispatch = useAppDispatch();
   const [treeData, setTreeData] = useState<NodeModel[]>(defaultNavigation);
   const { offices, currentOffice } = useAppSelector((state) => state.office);
-  const [active, setActive] = useState<string>('');
 
   useEffect(() => {
     dispatch(fetchOffices());
@@ -27,10 +26,6 @@ const NavItems = () => {
   useEffect(() => {
     setTreeData(generateMenu(offices));
   }, [offices]);
-
-  useEffect(() => {
-    setActive(activeItem(currentOffice));
-  }, [currentOffice]);
 
   return (
     <div className={classes.Container}>
@@ -48,7 +43,7 @@ const NavItems = () => {
                     key={node.id}
                     onClick={onToggle}
                   >
-                    {active === node.text ? (
+                    {currentOffice?.name === node.text ? (
                       <div className={classes.Active}>{node.text}</div>
                     ) : (
                       node.text
