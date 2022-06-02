@@ -73,5 +73,11 @@
   "no_offices": "No offices to show",
   "edit": "Edit",
   "add_office": "Add office",
-  "enable": "Enable"
+  "enable": "Enable",
+  "update_office": "Update office",
+  "create_office": "Create office",
+  "save_office": "Save office",
+  "download_JSON": "Download JSON"
+
+
 }

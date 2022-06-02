@@ -64,7 +64,7 @@ const CreateOfficePage: FC = () => {
   return (
     <div className={classes.Container}>
       <h1 className={classes.Title}>
-        {id ? 'Update office' : 'Create office'}
+        {id ? t('update_office') : t('create_office')}
       </h1>
       <div className={classes.ButtonContainer}>
         <FileInput
@@ -74,13 +74,9 @@ const CreateOfficePage: FC = () => {
           setData={setOffice}
         />
         <Button onClick={handleSave} loading={buttonLoading.length > 0}>
-          Save office
+          {t('save_office')}
         </Button>
       </div>
-      <Office office={office} emptyText={'Upload file to see office preview'} />
-      <Link to={'/files/office_example.json'} target="_blank">
-        {t('download_office_json')}
-      </Link>
       <Office
         office={office}
         emptyText={'Upload file to see office preview'}
@@ -90,11 +86,11 @@ const CreateOfficePage: FC = () => {
       {id ? (
         // eslint-disable-next-line jsx-a11y/anchor-is-valid
         <a ref={ref as unknown as Ref<HTMLAnchorElement> | undefined} href={''}>
-          Download JSON
+          {t('download_JSON')}
         </a>
       ) : (
         <Link to={'/files/office_example.json'} target="_blank">
-          Example of a office.json file
+          {t('download_office_json')}
         </Link>
       )}
     </div>
