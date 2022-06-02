@@ -10,7 +10,6 @@ import { useAppDispatch, useAppSelector } from '../../../store/app/hooks';
 import { fetchOffice } from '../../../store/actions/officeActions';
 import { useParams } from 'react-router-dom';
 import Carousel from '../../ui/Carousel/Carousel';
-import Card from '../../ui/Card/Card';
 import Toggle from '../../ui/Toggle/Toggle';
 import { DATE, WEEK_DAY } from '../../../constants/dateFormats';
 import Button from '../../ui/Button/Button';
@@ -20,7 +19,12 @@ import {
   removeAllWorkspaceFromReservations,
   toggleMultipleReservations,
 } from '../../../store/features/reservationsSlice';
-import { clearQuery, updateQuery } from '../../../store/features/officeSlice';
+import { ReservationType } from '../../../store/models/Reservation';
+import {
+  clearOffice,
+  clearQuery,
+  updateQuery,
+} from '../../../store/features/officeSlice';
 
 const OfficePage = () => {
   const dispatch = useAppDispatch();
@@ -55,6 +59,7 @@ const OfficePage = () => {
     return () => {
       dispatch(clearQuery());
       dispatch(removeAllWorkspaceFromReservations());
+      dispatch(clearOffice());
     };
   }, [dispatch]);
 
@@ -113,6 +118,7 @@ const OfficePage = () => {
             to: to,
             workspaceId: reservedWorkspaces,
             office: currentOffice?._id,
+            type: ReservationType.NEW,
           },
         })
       );
@@ -137,18 +143,16 @@ const OfficePage = () => {
           );
         })}
       </Carousel>
-      <Card>
-        <TimeSlider
-          min={8}
-          max={17}
-          marks={workingHours}
-          defaultValue={[from, to]}
-          value={[from, to]}
-          tipFormatter={(value) => `${value}`}
-          tipProps={{}}
-          onChange={handleChangeSlider}
-        />
-      </Card>
+      <TimeSlider
+        min={8}
+        max={17}
+        marks={workingHours}
+        defaultValue={[from, to]}
+        value={[from, to]}
+        tipFormatter={(value) => `${value}`}
+        tipProps={{}}
+        onChange={handleChangeSlider}
+      />
       <div className={classes.MultipleReservation}>
         <div>
           <Toggle

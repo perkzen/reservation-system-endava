@@ -6,7 +6,7 @@ export enum Errors {
   TOKEN_MISSING = 'Access token missing',
   AUTHORIZATION_HEADERS_MISSING = 'Authorization headers missing',
   WORKSPACE_TAKEN = 'This workspace is already taken for this date and time',
-  RESERVATION_LIMIT = 'You can only have 3 active reservations',
   TO_LONG_RESERVATION_TIME = 'You can only reserve this workspace for a maximum of 9 hours',
   PLEASE_SELECT_WORKSPACE = 'Please select at least one workspace',
+  RESERVATION_NOT_FOUND = 'Reservation not found',
 }

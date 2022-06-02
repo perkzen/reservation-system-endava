@@ -6,6 +6,10 @@ import { Errors } from '../../utils/errors';
 import { ReservationQuery, SuccessResponse } from '../../utils/interfaces';
 import { SettingsService } from '../settings/settings.service';
 import { ReservationLimitReached } from '../../exceptions/reservation-limit-reached';
+import {
+  NINE_HOURS_IN_MILLISECONDS,
+  ONE_MONTH_IN_MILLISECONDS,
+} from '../../utils/dates';
 
 @Injectable()
 export class ReservationsService {
@@ -33,9 +37,7 @@ export class ReservationsService {
       );
     }
 
-    const NINE_HOURS = 32400000;
-
-    if (data.to - data.from > NINE_HOURS) {
+    if (data.to - data.from > NINE_HOURS_IN_MILLISECONDS) {
       throw new HttpException(
         Errors.TO_LONG_RESERVATION_TIME,
         HttpStatus.PRECONDITION_FAILED,
@@ -105,12 +107,33 @@ export class ReservationsService {
     const reservations = await this.reservationRepository.find({
       userId: userId,
     });
+
     const currentDate = Date.now();
     return reservations.map((reservation) => {
       const updateReservation = reservation;
-      updateReservation.active = reservation.to >= currentDate;
+      updateReservation.active =
+        reservation.to - ONE_MONTH_IN_MILLISECONDS >= currentDate;
       return updateReservation;
     });
+  }
+
+  async renewReservation(
+    data: Reservation,
+    userId: string,
+  ): Promise<SuccessResponse> {
+    const reservation = await this.reservationRepository.findOneAndUpdate(
+      { _id: data._id, userId: userId },
+      data,
+    );
+
+    if (!reservation) {
+      throw new HttpException(
+        Errors.RESERVATION_NOT_FOUND,
+        HttpStatus.NOT_FOUND,
+      );
+    }
+
+    return { success: 'Reservation renewed successfully' };
   }
 
   async remove(id: string, userId: string): Promise<SuccessResponse> {

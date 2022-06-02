@@ -40,6 +40,9 @@ export const officeSlice = createSlice({
         to: dateToUTC(new Date(), 17),
       };
     },
+    clearOffice: (state) => {
+      state.currentOffice = undefined;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(removeUser, (state) => {
@@ -54,5 +57,5 @@ export const officeSlice = createSlice({
   },
 });
 
-export const { updateQuery, clearQuery } = officeSlice.actions;
+export const { updateQuery, clearQuery, clearOffice } = officeSlice.actions;
 export default officeSlice.reducer;

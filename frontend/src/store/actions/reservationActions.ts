@@ -3,6 +3,7 @@ import {
   CreateReservation,
   Reservation,
   ReservationHistory,
+  UpdateReservation,
 } from '../models/Reservation';
 import { OfficeQuery } from '../models/Office';
 
@@ -36,3 +37,7 @@ export const deleteReservationAndFetchOffice = createAction<{
   reservationId: string;
   query: OfficeQuery;
 }>(`${RESERVATION_SLICE}/cancelReservationAndFetchOffice`);
+
+export const renewReservation = createAction<UpdateReservation>(
+  `${RESERVATION_SLICE}/renewReservation`
+);

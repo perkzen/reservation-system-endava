@@ -6,6 +6,7 @@ import {
   fetchReservationHistorySuccess,
   fetchReservations,
   fetchReservationsSuccess,
+  renewReservation,
 } from '../actions/reservationActions';
 import { startLoading, stopLoading } from '../features/globalSlice';
 import { put } from 'redux-saga/effects';
@@ -113,6 +114,27 @@ export function* deleteReservationAndFetchOfficeSaga(
     )) as AxiosResponse<SuccessResponse>;
     yield toast.success(data.success);
     yield put(fetchOffice(action.payload.query));
+  } catch (e) {
+    const error = e as AxiosError;
+    // @ts-ignore
+    const message = error.response?.data?.message;
+    toast.error(message);
+  } finally {
+    yield put(stopLoading({ actionType: action.type }));
+  }
+}
+
+export function* renewReservationSaga(
+  action: ReturnType<typeof renewReservation>
+): Generator {
+  try {
+    yield put(startLoading({ actionType: action.type }));
+    const { data } = (yield instance.put(
+      `${ApiRoutes.RESERVATIONS}/renew`,
+      action.payload
+    )) as AxiosResponse<SuccessResponse>;
+    yield toast.success(data.success);
+    yield put(fetchReservationHistory());
   } catch (e) {
     const error = e as AxiosError;
     // @ts-ignore

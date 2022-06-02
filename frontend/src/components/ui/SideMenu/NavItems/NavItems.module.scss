@@ -4,4 +4,12 @@
   svg {
     @apply w-5 m-1 inline cursor-pointer;
   }
+
+  .Active {
+    @apply text-accent font-semibold;
+  }
+
+  .Link {
+    @apply hover:scale-105 ease-in-out duration-150;
+  }
 }

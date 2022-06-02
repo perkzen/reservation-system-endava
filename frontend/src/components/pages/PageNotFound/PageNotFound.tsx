@@ -5,12 +5,12 @@ import classes from './PageNotFound.module.scss';
 import { Link } from 'react-router-dom';
 import { routes } from '../../../routes';
 
-interface NotFoundProps {
+interface PageNotFoundProps {
   heading: string;
   info: string;
 }
 
-const PageNotFound: FC<NotFoundProps> = ({ heading, info }) => {
+const PageNotFound: FC<PageNotFoundProps> = ({ heading, info }) => {
   const { t } = useTranslation();
   const { user } = useAppSelector((state) => state.user);
   const isAuthenticated = !!user;
