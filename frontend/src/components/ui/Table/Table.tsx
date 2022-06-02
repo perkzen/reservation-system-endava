@@ -52,6 +52,7 @@ const Table = <T,>({
 }: TableProps<T>) => {
   const { t } = useTranslation();
 
+  // @ts-ignore
   return (
     <div className={classes.Container}>
       <div className={classes.Header}>
@@ -133,26 +134,27 @@ const Table = <T,>({
                                   )}
                                 </td>
                               )}
-                              <td colSpan={1}>
-                                <button
-                                  type={'button'}
-                                  className={
-                                    !statusData || statusData[index]
-                                      ? 'text-red-600'
-                                      : 'text-green-600'
-                                  }
-                                  onClick={() =>
-                                    onActionClick(
-                                      dataItem,
-                                      statusData && statusData[index]
-                                    )
-                                  }
-                                >
-                                  {!statusData || statusData[index]
-                                    ? t('cancel')
-                                    : t('renew')}
-                                </button>
-                              </td>
+                              {/*TO JE TREBA FIXAT*/}
+                              {/*<td colSpan={1}>*/}
+                              {/*  <button*/}
+                              {/*    type={'button'}*/}
+                              {/*    className={*/}
+                              {/*      !statusData || statusData[index]*/}
+                              {/*        ? 'text-red-600'*/}
+                              {/*        : 'text-green-600'*/}
+                              {/*    }*/}
+                              {/*    onClick={() =>*/}
+                              {/*      onActionClick(*/}
+                              {/*        dataItem,*/}
+                              {/*        statusData && statusData[index]*/}
+                              {/*      )*/}
+                              {/*    }*/}
+                              {/*  >*/}
+                              {/*    {!statusData || statusData[index]*/}
+                              {/*      ? t('cancel')*/}
+                              {/*      : t('renew')}*/}
+                              {/*  </button>*/}
+                              {/*</td>*/}
 
                               {onPrimaryActionClick && (
                                 <td>
