@@ -1,7 +1,6 @@
 import { addMinutes, eachDayOfInterval, format, isWeekend } from 'date-fns';
 import add from 'date-fns/add';
 import getHours from 'date-fns/getHours';
-import subMonths from 'date-fns/subMonths';
 import { DATE } from '../constants/dateFormats';
 
 export const generateDates = (
@@ -18,27 +17,27 @@ export const generateDates = (
   return result;
 };
 
-export const dateToUTC = (date: Date, hours: number): number => {
+export const dateToUTC = (date: Date, hours?: number): number => {
   date.setHours(0, 0, 0, 0);
   let myDate = add(date, { hours: hours });
   return Date.UTC(
     myDate.getFullYear(),
-    myDate.getMonth() + 1,
+    myDate.getMonth(),
     myDate.getDate(),
     myDate.getHours()
   );
 };
 
 export const getTime = (unix: number) => {
-  const date = subMonths(new Date(unix), 1);
+  const date = new Date(unix);
   return getHours(addMinutes(date, date.getTimezoneOffset()));
 };
 
 export const getDate = (unix: number) => {
-  const date = subMonths(new Date(unix), 1);
+  const date = new Date(unix);
   return format(date, DATE);
 };
 
 export const getDateFromUnix = (unix: number) => {
-  return subMonths(new Date(unix), 1);
+  return new Date(unix);
 };
