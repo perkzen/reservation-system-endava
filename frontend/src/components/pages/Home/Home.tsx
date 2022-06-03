@@ -20,8 +20,8 @@ import { useTranslation } from 'react-i18next';
 
 const headers: TableHeader<ReservationTable>[] = [
   { accessor: 'office', label: 'Office' },
-  { accessor: 'time', label: 'Time' },
   { accessor: 'date', label: 'Date' },
+  { accessor: 'time', label: 'Time' },
   { accessor: 'comment', label: 'Comment' },
 ];
 
