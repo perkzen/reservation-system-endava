@@ -57,11 +57,11 @@ const Home: FC = () => {
       dispatch(
         addModal({
           type: ModalType.DELETE,
-          title: 'Delete reservation',
-          body: 'Are you sure you want to delete your reservation?',
-          primaryActionText: 'Delete',
+          title: t('delete_reservation'),
+          body: t('reservation_delete_warning'),
+          primaryActionText: t('delete'),
           primaryAction: () => dispatch(deleteReservation(item._id)),
-          secondaryButtonText: 'Close',
+          secondaryButtonText: t('close'),
           secondaryAction: () => dispatch(removeModal()),
         })
       );
@@ -72,7 +72,7 @@ const Home: FC = () => {
       dispatch(
         addModal({
           type: ModalType.RESERVATION,
-          title: 'Confirm reservation',
+          title: t('confirm_reservation'),
           data: {
             _id: item._id,
             date: nextDay,
