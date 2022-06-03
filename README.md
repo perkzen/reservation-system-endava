@@ -5,7 +5,7 @@
 # Seat reservation system
 This is a seat reservation web application for company Endava. Where you can dynamically choose your workspace or reserve it for a few days in advance. It's simple and easy to use. Save time and optimize workflow with our app. 
 
-Application is available at: [Seat reservation system](https://workspace-reservation-endava.herokuapp.com/sign-in)
+Application is available at: [Seat reservation system](https://workspace-reservation-endava.herokuapp.com/sign-in)<br/>
 Note: This may not be the final version.
 
 ## Getting started with Docker
