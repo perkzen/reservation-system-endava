@@ -16,11 +16,12 @@ import { ModalType } from '../../../store/models/Modal';
 import { getDate, getDateFromUnix, getTime } from '../../../utils/date';
 import { useNavigate } from 'react-router-dom';
 import { updateQuery } from '../../../store/features/officeSlice';
+import { useTranslation } from 'react-i18next';
 
 const headers: TableHeader<ReservationTable>[] = [
   { accessor: 'office', label: 'Office' },
-  { accessor: 'time', label: 'Time' },
   { accessor: 'date', label: 'Date' },
+  { accessor: 'time', label: 'Time' },
   { accessor: 'comment', label: 'Comment' },
 ];
 
@@ -29,6 +30,7 @@ const Home: FC = () => {
   const { history } = useAppSelector((state) => state.reservation);
   const { loading } = useAppSelector((state) => state.global);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   // convert Reservation to ReservationTable
   const data: ReservationTable[] = history.map((reservation) => {
@@ -55,11 +57,11 @@ const Home: FC = () => {
       dispatch(
         addModal({
           type: ModalType.DELETE,
-          title: 'Delete reservation',
-          body: 'Are you sure you want to delete your reservation?',
-          primaryActionText: 'Delete',
+          title: t('delete_reservation'),
+          body: t('reservation_delete_warning'),
+          primaryActionText: t('delete'),
           primaryAction: () => dispatch(deleteReservation(item._id)),
-          secondaryButtonText: 'Close',
+          secondaryButtonText: t('close'),
           secondaryAction: () => dispatch(removeModal()),
         })
       );
@@ -70,7 +72,7 @@ const Home: FC = () => {
       dispatch(
         addModal({
           type: ModalType.RESERVATION,
-          title: 'Confirm reservation',
+          title: t('confirm_reservation'),
           data: {
             _id: item._id,
             date: nextDay,
@@ -100,13 +102,13 @@ const Home: FC = () => {
     <Table
       data={data}
       headers={headers}
-      title={'Your reservations'}
+      title={t('your_reservations')}
       isLoading={isLoading.length > 0}
-      emptyTableComponent={<EmptyTable title={'No data to display'} />}
+      emptyTableComponent={<EmptyTable title={t('empty_table')} />}
       onActionClick={handleActionClick}
       showStatus
-      statusActiveText={'Cancel'}
-      statusInactiveText={'Renew'}
+      statusActiveText={t('cancel')}
+      statusInactiveText={t('renew')}
       statusData={data.map((d) => d.active)}
       onRowClick={handleRowClick}
     />

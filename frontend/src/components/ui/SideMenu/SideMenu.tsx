@@ -5,9 +5,11 @@ import Logo from './Logo/Logo';
 import ProfileMenu from './ProfileMenu/ProfileMenu';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 import NavItems from './NavItems/NavItems';
+import { useTranslation } from 'react-i18next';
 
 const SideMenu: FC = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const { t } = useTranslation();
 
   return (
     <>
@@ -56,7 +58,7 @@ const SideMenu: FC = () => {
                         className="ml-1 flex items-center justify-center h-10 w-10 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
                         onClick={() => setSidebarOpen(false)}
                       >
-                        <span className="sr-only">Close sidebar</span>
+                        <span className="sr-only">{t('close_side_menu')}</span>
                         <XIcon
                           className="h-6 w-6 text-white"
                           aria-hidden="true"
@@ -98,7 +100,7 @@ const SideMenu: FC = () => {
               className="px-4 border-r border-gray-200 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 md:hidden"
               onClick={() => setSidebarOpen(true)}
             >
-              <span className="sr-only">Open sidebar</span>
+              <span className="sr-only">{t('open_sidebar')}</span>
               <MenuAlt2Icon className="h-6 w-6" aria-hidden="true" />
             </button>
             <Breadcrumbs />

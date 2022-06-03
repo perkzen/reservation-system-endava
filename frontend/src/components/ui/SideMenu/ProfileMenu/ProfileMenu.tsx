@@ -11,6 +11,7 @@ import { v4 } from 'uuid';
 import { Role } from '../../../../store/models/User';
 import LoadingSpinner from '../../LoadingSpinner/LoadingSpinner';
 import { UserIcon } from '@heroicons/react/solid';
+import { useTranslation } from 'react-i18next';
 
 interface UserNavigation {
   name: string;
@@ -22,6 +23,7 @@ const ProfileMenu = () => {
   const dispatch = useAppDispatch();
   const { details, user } = useAppSelector((state) => state.user);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const logout = () => {
     signOut(auth).then(() => {
@@ -31,16 +33,16 @@ const ProfileMenu = () => {
   };
 
   const adminNavigation: UserNavigation[] = [
-    { name: 'Your profile', path: routes.PROFILE },
-    { name: 'Admin dashboard', path: routes.DASHBOARD },
-    { name: 'Settings', path: routes.SETTINGS },
-    { name: 'Logout', onClick: logout },
+    { name: t('your_profile'), path: routes.PROFILE },
+    { name: t('dashboard'), path: routes.DASHBOARD },
+    { name: t('settings'), path: routes.SETTINGS },
+    { name: t('logout'), onClick: logout },
   ];
 
   const userNavigation: UserNavigation[] = [
-    { name: 'Your profile', path: routes.PROFILE },
-    { name: 'My reservations', path: routes.HOME },
-    { name: 'Logout', onClick: logout },
+    { name: t('your_profile'), path: routes.PROFILE },
+    { name: t('my_reservations'), path: routes.HOME },
+    { name: t('logout'), onClick: logout },
   ];
 
   return (
@@ -54,7 +56,7 @@ const ProfileMenu = () => {
               <LoadingSpinner />
             ) : (
               <Menu.Button className="max-w-xs bg-white flex items-center text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
-                <span className="sr-only">Open user menu</span>
+                <span className="sr-only">{t('open_user_menu')}</span>
                 {details ? (
                   <img
                     className="w-8 rounded-full"
