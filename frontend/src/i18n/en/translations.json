@@ -77,7 +77,8 @@
   "update_office": "Update office",
   "create_office": "Create office",
   "save_office": "Save office",
-  "download_JSON": "Download JSON"
-
-
+  "download_JSON": "Download JSON",
+  "your_profile": "Your profile",
+  "settings": "Settings",
+  "my_reservations": "My reservations"
 }
