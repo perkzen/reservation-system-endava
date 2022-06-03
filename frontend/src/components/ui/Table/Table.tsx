@@ -52,7 +52,6 @@ const Table = <T,>({
 }: TableProps<T>) => {
   const { t } = useTranslation();
 
-  // @ts-ignore
   return (
     <div className={classes.Container}>
       <div className={classes.Header}>
