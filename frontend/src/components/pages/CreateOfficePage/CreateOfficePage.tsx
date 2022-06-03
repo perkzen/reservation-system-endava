@@ -85,7 +85,7 @@ const CreateOfficePage: FC = () => {
       />
       {id ? (
         // eslint-disable-next-line jsx-a11y/anchor-is-valid
-        <a ref={ref as unknown as Ref<HTMLAnchorElement> | undefined} href={''}>
+        <a ref={ref as unknown as Ref<HTMLAnchorElement> | undefined}>
           {t('download_JSON')}
         </a>
       ) : (
