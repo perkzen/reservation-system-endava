@@ -102,7 +102,7 @@ const Home: FC = () => {
     <Table
       data={data}
       headers={headers}
-      title={t('your_reservations')}
+      title={t('your_reservations') + 'Domen'}
       isLoading={isLoading.length > 0}
       emptyTableComponent={<EmptyTable title={t('empty_table')} />}
       onActionClick={handleActionClick}
