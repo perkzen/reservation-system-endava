@@ -75,7 +75,7 @@ const Register: FC = () => {
       <div className={classes.Header}>
         <img src={companyLogo} alt="Company logo" />
         <h2>{t('create_account')}</h2>
-        <p>{t('seat_reservation_system')}</p>
+        <p>{t('workspace_reservation_system')}</p>
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className={classes.ErrorContainer}>

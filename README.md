@@ -3,9 +3,19 @@
 </p>
 
 # Seat reservation system
-This is a seat reservation web application for company Endava. Where you can dynamically choose your workspace or reserve it for a few days in advance. It's simple and easy to use. Save time and optimize workflow with our app.
+This is a seat reservation web application for company Endava. Where you can dynamically choose your workspace or reserve it for a few days in advance. It's simple and easy to use. Save time and optimize workflow with our app. 
 
-## Getting Started
+Application is available at: [Seat reservation system](https://workspace-reservation-endava.herokuapp.com/sign-in)<br/>
+Note: This may not be the final version.
+
+## Getting started with Docker
+First you need to have Docker Engine and Docker Compose installed on your computer. Then go to the root directory of the application where `docker-compose.yml` is located and open command line. Write the following command which will build and run our application.
+```
+docker-compose up
+```
+After that just enter `http://localhost:3000` in a browser to see the application running.
+
+## Getting started without Docker
 First you need to install all necessary packages on the frontend and backend:
 ```
 cd frontend

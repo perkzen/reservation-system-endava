@@ -6,6 +6,7 @@ export enum Errors {
   INVALID_EMAIL = 'Invalid email!',
   WRONG_CREDENTIALS = 'User with this email or password does not exist!',
   INVALID_ACTION = 'Invalid action',
+  INVALID_NUMBER = 'Number should be positive!',
 }
 
 export enum FirebaseErrors {
