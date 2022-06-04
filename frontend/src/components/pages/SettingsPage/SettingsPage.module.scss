@@ -15,8 +15,14 @@
     @apply text-textLight;
   }
 
+  .ErrorContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
   form {
-    margin-top: 1rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
