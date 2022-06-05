@@ -44,7 +44,7 @@ After that create a `.env` file in the backend folder, it should look something 
  PORT=8000
 ```
 
-You eill also need to create a file `firebase-service-account.json`  and fill in this information.
+You will also need to create a file `firebase-service-account.json`  and fill in this information.
 ```json
 {
   "type": "service_account",
