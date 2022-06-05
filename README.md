@@ -39,6 +39,7 @@ REACT_APP_FIREBASE_MEASUREMENT_ID=<measurement-id>
 After that create a .env file in the backend folder, it should look something like this.
 ```
  DATABASE_URI=mongodb+srv://<username>:<password>@cluster0.g1ftw.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+ PORT=8000
 ```
 To start the application you need to run the frontend and backend server with the following commands.
 ```
