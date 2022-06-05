@@ -14,7 +14,8 @@ First you need to have Docker Engine and Docker Compose installed on your comput
 docker-compose up
 ```
 After that just enter `http://localhost:3000` in a browser to see the application running.
-The API documentaion is available at `http://localhost:8000/swagger`
+
+The API documentaion is available at `http://localhost:8000/swagger`.
 
 ## Getting started without Docker
 First you need to install all necessary packages on the frontend and backend:
