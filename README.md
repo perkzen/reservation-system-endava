@@ -15,6 +15,8 @@ docker-compose up
 ```
 After that just enter `http://localhost:3000` in a browser to see the application running.
 
+The API documentaion is available at `http://localhost:8000/swagger`.
+
 ## Getting started without Docker
 First you need to install all necessary packages on the frontend and backend:
 ```
@@ -24,8 +26,8 @@ npm i
 cd backend
 npm i
 ```
-After that create a .env file in the frontend folder, it should look something like this.
-```
+After that create a `.env` file in the frontend folder, it should look something like this.
+```env
 REACT_APP_BE_BASE_URL=http://localhost:8000/api/
 REACT_APP_API_VERSION=v1
 REACT_APP_FIREBASE_API_KEY=<api-key>
@@ -36,10 +38,29 @@ REACT_APP_FIREBASE_MESSAGING_SENDER_ID=<messaging-sender-id>
 REACT_APP_FIREBASE_APP_ID=<firebase-app-id>
 REACT_APP_FIREBASE_MEASUREMENT_ID=<measurement-id>
 ```
-After that create a .env file in the backend folder, it should look something like this.
-```
+After that create a `.env` file in the backend folder, it should look something like this.
+```env
  DATABASE_URI=mongodb+srv://<username>:<password>@cluster0.g1ftw.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+ PORT=8000
 ```
+
+You will also need to create a file `firebase-service-account.json`  and fill in this information.
+```json
+{
+  "type": "service_account",
+  "project_id": "",
+  "private_key_id": "",
+  "private_key": "",
+  "client_email": "",
+  "client_id": "",
+  "auth_uri": "",
+  "token_uri": "",
+  "auth_provider_x509_cert_url": "",
+  "client_x509_cert_url": ""
+}
+
+```
+
 To start the application you need to run the frontend and backend server with the following commands.
 ```
 cd frontend
