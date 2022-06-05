@@ -13,17 +13,16 @@ import { addModal, removeModal } from '../../../store/features/globalSlice';
 import { ModalType } from '../../../store/models/Modal';
 import { useTranslation } from 'react-i18next';
 
-const headers: TableHeader<Office>[] = [
-  { accessor: 'name', label: 'Name' },
-  { accessor: 'location', label: 'Location' },
-  // active reservations, last updated?, created?
-];
-
 const AdminDashboard: FC = () => {
   const dispatch = useAppDispatch();
   const { dashboardOffices } = useAppSelector((state) => state.office);
   const { loading } = useAppSelector((state) => state.global);
   const { t } = useTranslation();
+
+  const headers: TableHeader<Office>[] = [
+    { accessor: 'name', label: t('name') },
+    { accessor: 'location', label: t('location') },
+  ];
 
   const navigate = useNavigate();
 

@@ -80,5 +80,9 @@
   "download_JSON": "Download JSON",
   "your_profile": "Your profile",
   "settings": "Settings",
-  "my_reservations": "My reservations"
+  "my_reservations": "My reservations",
+  "office": "Office",
+  "date": "Date",
+  "time": "Time",
+  "name": "Name"
 }
