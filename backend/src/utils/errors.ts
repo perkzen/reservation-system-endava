@@ -9,4 +9,5 @@ export enum Errors {
   TO_LONG_RESERVATION_TIME = 'You can only reserve this workspace for a maximum of 9 hours',
   PLEASE_SELECT_WORKSPACE = 'Please select at least one workspace',
   RESERVATION_NOT_FOUND = 'Reservation not found',
+  INVALID_RESERVATION_TIME = 'This time for reservation already passed',
 }

@@ -23,6 +23,15 @@ export class ReservationsService {
       );
     }
 
+    const currentDate = Date.now();
+
+    if (data.to < currentDate) {
+      throw new HttpException(
+        Errors.INVALID_RESERVATION_TIME,
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
     // active reservations from user
     const active = await this.findAllByUser(data.userId);
 
