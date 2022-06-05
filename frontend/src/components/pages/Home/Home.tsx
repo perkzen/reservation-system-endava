@@ -18,19 +18,19 @@ import { useNavigate } from 'react-router-dom';
 import { updateQuery } from '../../../store/features/officeSlice';
 import { useTranslation } from 'react-i18next';
 
-const headers: TableHeader<ReservationTable>[] = [
-  { accessor: 'office', label: 'Office' },
-  { accessor: 'date', label: 'Date' },
-  { accessor: 'time', label: 'Time' },
-  { accessor: 'comment', label: 'Comment' },
-];
-
 const Home: FC = () => {
   const dispatch = useAppDispatch();
   const { history } = useAppSelector((state) => state.reservation);
   const { loading } = useAppSelector((state) => state.global);
   const navigate = useNavigate();
   const { t } = useTranslation();
+
+  const headers: TableHeader<ReservationTable>[] = [
+    { accessor: 'office', label: t('office') },
+    { accessor: 'date', label: t('date') },
+    { accessor: 'time', label: t('time') },
+    { accessor: 'comment', label: t('comment') },
+  ];
 
   // convert Reservation to ReservationTable
   const data: ReservationTable[] = history.map((reservation) => {

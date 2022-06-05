@@ -12,5 +12,4 @@ export interface Settings {
   activeReservations: number;
   numOfDaysDisplayed: number;
   numOfExpiredReservations: number;
-  //from, to, max reservation time
 }
