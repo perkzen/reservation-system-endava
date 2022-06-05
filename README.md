@@ -2,10 +2,10 @@
 <img style="display: block;margin-left: auto;margin-right: auto;" src="https://user-images.githubusercontent.com/78727019/168024641-ef9488f8-f094-4b52-85b4-d2cbf7e68d5d.png" width="146.5" height="50">
 </p>
 
-# Seat reservation system
-This is a seat reservation web application for company Endava. Where you can dynamically choose your workspace or reserve it for a few days in advance. It's simple and easy to use. Save time and optimize workflow with our app. 
+# Workspace reservation system
+This is a workspace reservation web application for company Endava. Where you can dynamically choose your workspace or reserve it for a few days in advance. It's simple and easy to use. Save time and optimize workflow with our app. 
 
-Application is available at: [Seat reservation system](https://workspace-reservation-endava.herokuapp.com/sign-in)<br/>
+Application is available at: [Workspace reservation system](https://workspace-reservation-endava.herokuapp.com/sign-in)<br/>
 Note: This may not be the final version.
 
 ## Getting started with Docker
