@@ -85,5 +85,6 @@
   "date": "Date",
   "time": "Time",
   "name": "Name",
-  "disabled": "Disabled"
+  "disabled": "Disabled",
+  "no_workspace_selected": "No workspace selected."
 }
