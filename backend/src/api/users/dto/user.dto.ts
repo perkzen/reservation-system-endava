@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString } from 'class-validator';
+import { IsBoolean, IsString } from 'class-validator';
 
 export class UserDto {
   @ApiProperty()
@@ -12,5 +12,9 @@ export class UserDto {
 
   @ApiProperty()
   @IsString()
-  location: string;
+  primaryOffice: { name: string; _id: string; location: string };
+
+  @ApiProperty()
+  @IsBoolean()
+  redirectOnLogin: boolean;
 }
