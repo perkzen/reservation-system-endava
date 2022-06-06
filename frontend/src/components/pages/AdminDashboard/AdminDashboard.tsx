@@ -83,6 +83,8 @@ const AdminDashboard: FC = () => {
       onActionClick={handleActionClick}
       statusData={dashboardOffices.map((office) => !office.disabled)}
       onRowClick={handleRowClick}
+      statusPositiveText={t('active')}
+      statusNegativeText={t('disabled')}
     />
   );
 };

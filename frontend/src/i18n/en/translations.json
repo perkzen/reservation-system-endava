@@ -84,5 +84,6 @@
   "office": "Office",
   "date": "Date",
   "time": "Time",
-  "name": "Name"
+  "name": "Name",
+  "disabled": "Disabled"
 }

@@ -3,7 +3,6 @@ import classes from './Table.module.scss';
 import { v4 } from 'uuid';
 import Button from '../Button/Button';
 import TableLoading from './TableLoading/TableLoading';
-import { useTranslation } from 'react-i18next';
 
 export interface TableHeader<T> {
   label: string;
@@ -29,6 +28,8 @@ interface TableProps<T> {
   statusData?: boolean[];
   statusActiveText?: string;
   statusInactiveText?: string;
+  statusPositiveText?: string;
+  statusNegativeText?: string;
 }
 
 const Table = <T,>({
@@ -49,9 +50,9 @@ const Table = <T,>({
   secondaryActionText,
   statusActiveText,
   statusInactiveText,
+  statusPositiveText,
+  statusNegativeText,
 }: TableProps<T>) => {
-  const { t } = useTranslation();
-
   return (
     <div className={classes.Container}>
       <div className={classes.Header}>
@@ -124,11 +125,11 @@ const Table = <T,>({
                                 <td>
                                   {statusData[index] ? (
                                     <span className="inline-flex rounded-full bg-green-100 px-2 text-xs font-semibold leading-5 text-green-800">
-                                      {t('active')}
+                                      {statusPositiveText}
                                     </span>
                                   ) : (
                                     <span className="inline-flex rounded-full bg-red-100 px-2 text-xs font-semibold leading-5 text-red-800">
-                                      {t('expired')}
+                                      {statusNegativeText}
                                     </span>
                                   )}
                                 </td>
