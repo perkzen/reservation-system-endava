@@ -18,7 +18,7 @@ export enum routes {
   PROFILE = '/profile',
   OFFICE = ':location/:id',
   CREATE_OFFICE = '/dashboard/office',
-  EDIT_OFFICE = '/dashboard/office',
+  EDIT_OFFICE = '/dashboard',
   SETTINGS = '/settings',
   FLOOR_PLAN = '/:location',
   DASHBOARD = '/dashboard',
