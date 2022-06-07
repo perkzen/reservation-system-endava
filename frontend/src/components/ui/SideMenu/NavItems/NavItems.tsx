@@ -41,22 +41,21 @@ const NavItems = () => {
                     to={node.data as unknown as string}
                     state={node.text}
                     key={node.id}
-                    onClick={onToggle}
                   >
                     {currentOffice?.name === node.text ? (
                       <div className={classes.Active}>{node.text}</div>
                     ) : (
                       node.text
                     )}
-                    {node.droppable && (
-                      <span>
-                        {isOpen ? <ChevronDownIcon /> : <ChevronRightIcon />}
-                      </span>
-                    )}
                   </Link>
                 </div>
               ) : (
                 node.text
+              )}
+              {node.droppable && (
+                <span onClick={onToggle}>
+                  {isOpen ? <ChevronDownIcon /> : <ChevronRightIcon />}
+                </span>
               )}
             </div>
           )}
