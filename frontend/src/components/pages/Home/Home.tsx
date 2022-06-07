@@ -22,6 +22,7 @@ const Home: FC = () => {
   const dispatch = useAppDispatch();
   const { history } = useAppSelector((state) => state.reservation);
   const { loading } = useAppSelector((state) => state.global);
+  const { details } = useAppSelector((state) => state.user);
   const navigate = useNavigate();
   const { t } = useTranslation();
 
@@ -47,6 +48,15 @@ const Home: FC = () => {
   useEffect(() => {
     dispatch(fetchReservationHistory());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (details && details.redirectOnLogin) {
+      navigate(
+        `/${details!.primaryOffice.location}/${details!.primaryOffice._id}`,
+        { state: details!.primaryOffice.name }
+      );
+    }
+  }, [details]);
 
   const isLoading = loading.filter(
     (l) => l.actionType === fetchReservationHistory.type
