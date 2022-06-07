@@ -19,6 +19,7 @@ export interface UserDetails {
   surname: string;
   primaryOffice: { name?: string; _id?: string; location?: string };
   role?: Role;
+  redirectOnLogin: boolean;
 }
 
 export interface SaveDetails extends UserDetails {

@@ -86,5 +86,6 @@
   "time": "Time",
   "name": "Name",
   "disabled": "Disabled",
-  "no_workspace_selected": "No workspace selected."
+  "no_workspace_selected": "No workspace selected.",
+  "redirect_on_login": "Automatic redirect"
 }
