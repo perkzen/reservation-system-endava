@@ -109,17 +109,23 @@ export class ReservationsService {
     );
   }
 
-  async findAllReservationsByUser(userId: string): Promise<Reservation[]> {
+  async findReservationHistory(userId: string): Promise<Reservation[]> {
+    const settings = this.settingsService.getSettings();
+    const NUM_OF_RESERVATIONS_TO_DISPLAY =
+      settings.numOfExpiredReservations + settings.activeReservations;
+
     const reservations = await this.reservationRepository.find({
       userId: userId,
     });
 
     const currentDate = Date.now();
-    return reservations.map((reservation) => {
-      const updateReservation = reservation;
-      updateReservation.active = reservation.to >= currentDate;
-      return updateReservation;
-    });
+    return reservations
+      .map((reservation) => {
+        const updateReservation = reservation;
+        updateReservation.active = reservation.to >= currentDate;
+        return updateReservation;
+      })
+      .slice(0, NUM_OF_RESERVATIONS_TO_DISPLAY);
   }
 
   async renewReservation(
