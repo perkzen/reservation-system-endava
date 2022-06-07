@@ -4,6 +4,7 @@ import ModalProvider from './components/ui/ModalProvider/ModalProvider';
 import LanguageProvider from './components/ui/LanguageProvider/LanguageProvider';
 import NotificationProvider from './components/ui/NotificationProvider/NotificationProvider';
 import AuthProvider from './components/ui/AuthProvider/AuthProvider';
+import RedirectionProvider from './components/ui/RedirectionProvider/RedirectionProvider';
 
 function App() {
   return (
@@ -11,7 +12,9 @@ function App() {
       <NotificationProvider>
         <ModalProvider>
           <AuthProvider>
-            <Router />
+            <RedirectionProvider>
+              <Router />
+            </RedirectionProvider>
           </AuthProvider>
         </ModalProvider>
       </NotificationProvider>
