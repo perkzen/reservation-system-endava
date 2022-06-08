@@ -84,5 +84,8 @@
   "office": "Office",
   "date": "Date",
   "time": "Time",
-  "name": "Name"
+  "name": "Name",
+  "disabled": "Disabled",
+  "no_workspace_selected": "No workspace selected.",
+  "redirect_on_login": "Automatic redirect"
 }

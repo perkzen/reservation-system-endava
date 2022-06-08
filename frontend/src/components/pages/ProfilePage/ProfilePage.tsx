@@ -15,6 +15,7 @@ import ComboBox from '../../ui/ComboBox/Combobox';
 import LoadingSpinner from '../../ui/LoadingSpinner/LoadingSpinner';
 import { UserIcon } from '@heroicons/react/solid';
 import { initialRedirectToOffice } from '../../../store/features/globalSlice';
+import Toggle from '../../ui/Toggle/Toggle';
 
 interface UserDetailsFormData {
   firstname: string;
@@ -40,6 +41,7 @@ const ProfilePage: FC = () => {
   const primaryOfficeData = offices.find(
     (office) => office.name === primaryOffice
   );
+  const [redirectOnLogin, setRedirectOnLogin] = useState<boolean>(false);
 
   const { register, reset, formState, handleSubmit } =
     useForm<UserDetailsFormData>({
@@ -47,7 +49,7 @@ const ProfilePage: FC = () => {
       reValidateMode: 'onSubmit',
     });
 
-  const { errors, isDirty } = formState;
+  const { errors } = formState;
 
   useEffect(() => {
     dispatch(fetchOffices());
@@ -69,6 +71,7 @@ const ProfilePage: FC = () => {
         firstname: details.firstname,
         surname: details.surname,
       });
+      setRedirectOnLogin(details.redirectOnLogin);
     }
   }, [details, primaryOffice, reset]);
 
@@ -83,13 +86,17 @@ const ProfilePage: FC = () => {
           _id: primaryOfficeData?._id,
           location: primaryOfficeData?.location,
         },
+        redirectOnLogin: redirectOnLogin,
       })
     );
   };
 
   const isDisabled = () => {
-    if (primaryOffice === undefined) return true;
-    return !isDirty;
+    return primaryOffice === undefined;
+  };
+
+  const toggleRedirectOnLogin = () => {
+    setRedirectOnLogin(!redirectOnLogin);
   };
 
   return (
@@ -135,6 +142,13 @@ const ProfilePage: FC = () => {
             label={'Primary office'}
             query={query}
             setQuery={setQuery}
+          />
+        </div>
+        <div>
+          <Toggle
+            checked={redirectOnLogin}
+            label={t('redirect_on_login')}
+            handleChangeToggle={toggleRedirectOnLogin}
           />
         </div>
         <Button disabled={isDisabled()}>{t('save')}</Button>

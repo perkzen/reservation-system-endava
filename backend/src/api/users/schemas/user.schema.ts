@@ -15,6 +15,9 @@ export class User {
   @Prop({ type: { name: String, _id: String, location: String } })
   primaryOffice: { name: string; _id: string; location: string };
 
+  @Prop()
+  redirectOnLogin: boolean;
+
   @Prop({ type: String, enum: Role })
   role: Role;
 }

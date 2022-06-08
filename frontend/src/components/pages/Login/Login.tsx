@@ -53,7 +53,7 @@ const Login: FC = () => {
       const accessToken = await res.user.getIdToken(true);
       dispatch(setUser(user));
       dispatch(setAccessToken(accessToken));
-      navigate(routes.HOME);
+      navigate(routes.HOME, { state: { fromLogin: true } });
     } catch (e) {
       const error = e as firebase.auth.Error;
 

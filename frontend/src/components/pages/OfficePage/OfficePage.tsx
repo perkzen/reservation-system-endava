@@ -26,6 +26,7 @@ import {
   updateQuery,
 } from '../../../store/features/officeSlice';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 
 const OfficePage = () => {
   const dispatch = useAppDispatch();
@@ -124,6 +125,8 @@ const OfficePage = () => {
           },
         })
       );
+    } else {
+      toast.warning(t('no_workspace_selected'));
     }
   };
 

@@ -111,6 +111,8 @@ const Home: FC = () => {
       statusInactiveText={t('renew')}
       statusData={data.map((d) => d.active)}
       onRowClick={handleRowClick}
+      statusPositiveText={t('active')}
+      statusNegativeText={t('expired')}
     />
   );
 };

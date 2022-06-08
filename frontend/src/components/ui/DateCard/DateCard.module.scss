@@ -7,6 +7,7 @@
   border-radius: 25px;
   @apply w-24 h-32 sm:w-28 sm:h-36;
   @apply shadow-md my-2;
+  @apply active:scale-90 ease-in-out duration-150
 }
 
 .Container:hover {

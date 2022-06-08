@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsObject, IsString } from 'class-validator';
+import { IsBoolean, IsObject, IsString } from 'class-validator';
 import { Role } from '../../../utils/role';
 
 export class CreateUserDto {
@@ -17,6 +17,10 @@ export class CreateUserDto {
   @ApiProperty({ required: true })
   @IsObject()
   primaryOffice: { name: string; _id: string; location: string };
+
+  @ApiProperty({ required: true })
+  @IsBoolean()
+  redirectOnLogin: boolean;
 
   @ApiProperty({ required: true })
   role: Role;

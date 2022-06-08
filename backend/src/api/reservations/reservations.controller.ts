@@ -46,7 +46,7 @@ export class ReservationsController {
   async findAllReservations(
     @User('uid') userId: string,
   ): Promise<Reservation[]> {
-    return await this.reservationsService.findAllReservationsByUser(userId);
+    return await this.reservationsService.findReservationHistory(userId);
   }
 
   @ApiOkResponse({ description: 'Renews reservation' })

@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { ForwardedRef, useEffect, useRef, useState } from 'react';
 import { DndProvider } from 'react-dnd';
 import {
   Tree,
   NodeModel,
   MultiBackend,
   getBackendOptions,
+  TreeMethods,
 } from '@minoru/react-dnd-treeview';
 import { ChevronDownIcon, ChevronRightIcon } from '@heroicons/react/solid';
 import classes from './NavItems.module.scss';
@@ -18,6 +19,7 @@ const NavItems = () => {
   const dispatch = useAppDispatch();
   const [treeData, setTreeData] = useState<NodeModel[]>(defaultNavigation);
   const { offices, currentOffice } = useAppSelector((state) => state.office);
+  const treeRef = useRef<TreeMethods>();
 
   useEffect(() => {
     dispatch(fetchOffices());
@@ -27,10 +29,15 @@ const NavItems = () => {
     setTreeData(generateMenu(offices));
   }, [offices]);
 
+  useEffect(() => {
+    treeRef.current?.openAll();
+  }, []);
+
   return (
     <div className={classes.Container}>
       <DndProvider backend={MultiBackend} options={getBackendOptions()}>
         <Tree
+          ref={treeRef as ForwardedRef<TreeMethods>}
           tree={treeData}
           rootId={0}
           render={(node, { depth, isOpen, onToggle }) => (
@@ -41,22 +48,21 @@ const NavItems = () => {
                     to={node.data as unknown as string}
                     state={node.text}
                     key={node.id}
-                    onClick={onToggle}
                   >
                     {currentOffice?.name === node.text ? (
                       <div className={classes.Active}>{node.text}</div>
                     ) : (
                       node.text
                     )}
-                    {node.droppable && (
-                      <span>
-                        {isOpen ? <ChevronDownIcon /> : <ChevronRightIcon />}
-                      </span>
-                    )}
                   </Link>
                 </div>
               ) : (
                 node.text
+              )}
+              {node.droppable && (
+                <span onClick={onToggle}>
+                  {isOpen ? <ChevronDownIcon /> : <ChevronRightIcon />}
+                </span>
               )}
             </div>
           )}

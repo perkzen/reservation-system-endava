@@ -15,7 +15,7 @@ const Breadcrumbs: FC = () => {
   const pages: Breadcrumb[] = paths.map((item, index) => {
     if (index === paths.length - 1 && state)
       return { name: state as string, link: '', active: true };
-    return { name: item, link: '', active: true };
+    return { name: item, link: '', active: false };
   });
 
   return (
