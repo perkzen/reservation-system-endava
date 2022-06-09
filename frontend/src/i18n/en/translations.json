@@ -87,5 +87,6 @@
   "name": "Name",
   "disabled": "Disabled",
   "no_workspace_selected": "No workspace selected.",
-  "redirect_on_login": "Automatic redirect"
+  "redirect_on_login": "Automatic redirect",
+  "noFileSelected": "No file selected",
 }
