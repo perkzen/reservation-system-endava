@@ -26,7 +26,7 @@ const FloorPlanPage: FC = () => {
               coords="72,26,235,233"
               shape="rect"
               onClick={() =>
-                navigate('/Maribor/628b83b9eec9c04913d34836', {
+                navigate('/Maribor/62a1e8882f888e7e72e9777b', {
                   state: 'Office 1',
                 })
               }
