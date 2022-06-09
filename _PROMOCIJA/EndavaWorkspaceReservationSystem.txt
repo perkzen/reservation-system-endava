@@ -1,0 +1,23 @@
+Endava Workspace Reservation System
+
+Spletna aplikacija za rezervacijo delovnih mest.
+
+Leto izdelave: 2022
+
+Domen Perko
+Gregor Sulcer
+Jernej Ofič
+
+Domača stran: https://workspace-reservation-endava.herokuapp.com/
+
+...
+Koda: https://github.com/perkzen/reservation-system-endava
+
+Kategorizacija: spletna aplikacija
+
+Oznake: ReactJS, Redux, Typescript, MongoDB, NodeJS, NestJS, AgilenRazvoj, GitHub, Tailwindcss, Docker, Firebase.
+
+Opis projekta v nekaj odstavkih / vrsticah (cca 150 besed)
+Spletna aplikacija omogoča dinamično organizacijo delovnega okolja, kjer uporabniki nimajo lastne mize, ampak si le te sproti izbirajo. Delovni prostor tj. mizo, lahko rezerviramo v določenem časovnem intervalu v dnevu. Število rezervacij je omejeno, limito določi administrator. Aplikacija uporabniku omogoča preprost pregled vseh aktivnih in preteklih rezervacij. Preprost vmestnik za izbiro delovnega mesta je jasno deklerativen in enostaven za uporabo. Uporabnik lahko rezervira več delovnih mest hrkati v primeru prihoda gosta, dela v ekipi ali sestanka. Iskanje pisaren je poenostavljeno s interaktivnim tlorisom.
+Administratorju aplikacije je v nadzorni plošči omogočen preprost pregled vseh pisarn v sistemu, dododajanje, (začasno) odstaranjevanje in spreminjanje prostorov. Za avtentikacijo skrbi Google Firebase. Uporabniški vmestnik temelji na tehnologiji React z Redux-em. Podatkovno celovitost zagotavlja NestJs.
+
