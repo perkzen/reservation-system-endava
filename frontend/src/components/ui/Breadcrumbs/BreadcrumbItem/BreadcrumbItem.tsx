@@ -18,7 +18,7 @@ const BreadcrumbItem: FC<Breadcrumb> = ({ name, link, active }) => {
       {active ? (
         <span className={classes.Link}>{name}</span>
       ) : (
-        <Link to={link} className={classes.Link}>
+        <Link to={`/${name}`} className={classes.Link}>
           {name}
         </Link>
       )}
