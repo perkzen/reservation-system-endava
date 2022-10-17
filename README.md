@@ -70,6 +70,7 @@ npm start
 cd backend
 npm run start
 ```
+Note: if you are using Windows you shouldn't define »NODE_ENV« in package.json, so instead of having "start:dev": "NODE_ENV=development nest start --watch " you should only have "start:dev": " nest start --watch " both on frontend and backend package.json files.!
 
 ## Project details
 NodeJS version: 17.7.2 <br/>
