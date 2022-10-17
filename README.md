@@ -44,7 +44,7 @@ After that create a `.env` file in the backend folder, it should look something 
  PORT=8000
 ```
 
-You will also need to create a file `firebase-service-account.json`  and fill in this information.
+In backend you will also need to create a file `firebase-service-account.json` and fill in this information.
 ```json
 {
   "type": "service_account",
@@ -60,6 +60,7 @@ You will also need to create a file `firebase-service-account.json`  and fill in
 }
 
 ```
+Note: if backend won't start and the console shows: "0 errors and crashed with the Error: Cannot find module './*'", delete .dist and .node_module folders. Then run npm i and npm rebuild.
 
 To start the application you need to run the frontend and backend server with the following commands.
 ```
