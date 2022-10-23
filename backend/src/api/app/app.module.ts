@@ -11,7 +11,7 @@ import { SettingsModule } from '../settings/settings.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: `${process.cwd()}/.env.${process.env.NODE_ENV}`,
+      envFilePath: `${process.cwd()}/.${process.env.NODE_ENV}.env`,
       isGlobal: true,
     }),
     MongooseModule.forRootAsync({
