@@ -44,7 +44,7 @@ After that create a `.env` file in the backend folder, it should look something 
  PORT=8000
 ```
 
-You will also need to create a file `firebase-service-account.json`  and fill in this information.
+In backend you will also need to create a file `firebase-service-account.json` and fill in this information.
 ```json
 {
   "type": "service_account",
@@ -60,6 +60,7 @@ You will also need to create a file `firebase-service-account.json`  and fill in
 }
 
 ```
+Note: if backend won't start and the console shows: "0 errors and crashed with the Error: Cannot find module './*'", delete .dist and .node_module folders. Then run npm i and npm rebuild.
 
 To start the application you need to run the frontend and backend server with the following commands.
 ```
@@ -69,6 +70,7 @@ npm start
 cd backend
 npm run start
 ```
+Note: if you are using Windows you shouldn't define »NODE_ENV« in package.json, so instead of having "start:dev": "NODE_ENV=development nest start --watch " you should only have "start:dev": " nest start --watch " both on frontend and backend package.json files.!
 
 ## Project details
 NodeJS version: 17.7.2 <br/>
