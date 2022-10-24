@@ -18,6 +18,7 @@ import {
   saveOffice,
 } from '../../../store/actions/officeActions';
 import { Link, useParams } from 'react-router-dom';
+import { clearOffice } from '../../../store/features/officeSlice';
 
 const CreateOfficePage: FC = () => {
   const dispatch = useAppDispatch();
@@ -42,6 +43,12 @@ const CreateOfficePage: FC = () => {
   useEffect(() => {
     setOffice(currentOffice);
   }, [currentOffice]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(clearOffice());
+    };
+  }, []);
 
   const handleSave = () => {
     if (!office) return;
